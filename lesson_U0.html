@@ -1,0 +1,677 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>U0 · О компании: кто мы и что продаём — ATAMŪRA Академия</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant:ital,wght@0,500;0,600;0,700;1,500;1,600&family=Jost:wght@300;400;500;600;700&family=Noto+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#F7F5EE; --card:#FBFBFB; --ink:#1E1E1E; --ink-soft:#4A4A4A; --ink-mute:#6E6E6E;
+  --line:#E0DDD3; --line-soft:#ECEAE2; --grey:#BCBCBC;
+  --brand:#284157; --brand-deep:#1A2B3A; --brand-soft:#E5EAF0; --brand-on:#FBFBFB;
+  --accent:#007484; --accent-deep:#005763; --accent-soft:#E0EEF0; --accent-on:#FBFBFB;
+  --tier:#CFB372; --tier-deep:#A88E48; --tier-soft:#EFE6CD; --tier-on:#1E1E1E;
+  --ok:#2C6E43; --ok-soft:#E2EFE5; --warn:#B5641A; --warn-deep:#8A4D14; --warn-soft:#F7E8D4; --bad:#B4232A; --bad-soft:#F7DEDF;
+  --serif:'Cormorant',Georgia,serif; --sans:'Jost','Noto Sans','Futura PT',system-ui,sans-serif;
+  --s-1:4px; --s-2:8px; --s-3:12px; --s-4:16px; --s-5:24px; --s-6:32px; --s-7:48px; --s-8:64px; --s-9:80px;
+  --r-sm:12px; --r-md:16px; --r-lg:24px; --r-xl:32px; --r-pill:999px;
+  --content:960px;
+  --shadow-card:0 1px 2px rgba(0,0,0,.04);
+  --shadow-pop:0 16px 40px rgba(0,0,0,.12),0 4px 12px rgba(0,0,0,.04);
+}
+*,*::before,*::after{box-sizing:border-box;}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%;}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:1.65;-webkit-font-smoothing:antialiased;}
+.wrap{max-width:var(--content);margin:0 auto;padding-inline:clamp(20px,5vw,40px);}
+h1,h2,h3,h4{font-family:var(--serif);font-weight:600;margin:0;line-height:1.1;color:var(--ink);}
+p{margin:0 0 var(--s-4);}
+strong{color:var(--ink);font-weight:600;}
+.tnum{font-variant-numeric:tabular-nums;}
+a{color:var(--brand);text-decoration:none;}
+a:hover{color:var(--brand-deep);text-decoration:underline;}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:4px;}
+@media (prefers-reduced-motion: reduce){.pulse,.pulse *{animation:none !important;}*{scroll-behavior:auto !important;}}
+
+/* ============ ШАПКА (хром) ============ */
+.topbar{height:48px;background:var(--brand);display:flex;align-items:center;}
+.topbar .wrap{display:flex;align-items:center;gap:14px;width:100%;}
+.topbar .wm{font-family:var(--serif);font-weight:700;color:#fff;font-size:17px;letter-spacing:.06em;}
+.topbar .crumb{font-size:12px;font-weight:500;letter-spacing:.04em;color:#AEC0D2;margin-left:auto;}
+
+/* ============ HERO УРОКА ============ */
+.lhero{background:radial-gradient(120% 90% at 100% 0%, var(--brand-soft), transparent 60%), var(--bg);padding:clamp(34px,5vw,56px) 0 clamp(20px,3vw,28px);border-bottom:1px solid var(--line-soft);}
+.eyebrow{font-family:var(--sans);font-size:11px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--brand);display:block;margin-bottom:var(--s-3);}
+.lhero h1{font-size:clamp(30px,5vw,50px);letter-spacing:-.02em;}
+.lhero .track{font-family:var(--serif);font-style:italic;font-size:clamp(17px,2vw,21px);color:var(--accent-deep);margin-top:var(--s-3);}
+.lmeta{margin-top:var(--s-5);display:flex;flex-wrap:wrap;gap:8px;}
+.chip{display:inline-flex;gap:7px;align-items:center;font-size:12px;font-weight:600;padding:6px 13px;border-radius:var(--r-pill);background:var(--card);border:1px solid var(--line);color:var(--ink-soft);}
+.chip.nv{background:var(--brand);color:var(--brand-on);border-color:var(--brand);}
+.chip.tq{background:var(--accent-soft);color:var(--accent-deep);border-color:var(--accent-soft);}
+
+/* ============ СЕКЦИИ ============ */
+.lsec{padding-block:clamp(34px,4.5vw,56px);border-top:1px solid var(--line-soft);}
+.lsec:first-of-type{border-top:0;}
+.snum{font-family:var(--sans);font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-mute);display:flex;align-items:center;gap:10px;margin-bottom:var(--s-3);}
+.snum .step{display:inline-flex;align-items:center;justify-content:center;min-width:22px;height:22px;padding:0 6px;border-radius:var(--r-pill);background:var(--brand);color:#fff;font-family:var(--serif);font-size:13px;font-weight:700;}
+.lsec h2{font-size:clamp(24px,3.4vw,36px);letter-spacing:-.01em;}
+.lsec .lead{font-size:17px;color:var(--ink-soft);max-width:64ch;margin-top:var(--s-3);}
+.lsec p{max-width:68ch;}
+
+/* ============ 1 · АВАТАР-ВИДЕО ============ */
+.video-wrap{margin-top:var(--s-5);border:1px solid var(--line);border-radius:var(--r-lg);overflow:hidden;background:var(--brand-deep);box-shadow:var(--shadow-card);}
+.video-wrap video{display:block;width:100%;height:auto;aspect-ratio:16/9;background:var(--brand-deep);}
+.poster{aspect-ratio:16/9;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;color:#fff;
+  background:radial-gradient(120% 120% at 50% 0%, #2F4A63, var(--brand-deep));position:relative;}
+.poster .av{width:88px;height:88px;border-radius:50%;background:var(--accent);display:flex;align-items:center;justify-content:center;margin-bottom:18px;box-shadow:0 0 0 8px rgba(0,116,132,.18);}
+.poster .av svg{width:42px;height:42px;color:#fff;}
+.poster .pt{font-family:var(--serif);font-size:22px;font-weight:600;}
+.poster .ps{font-size:13px;color:#AEC0D2;margin-top:6px;max-width:46ch;padding:0 20px;}
+.poster .tag{position:absolute;top:14px;left:14px;font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--brand-deep);background:var(--tier);padding:4px 11px;border-radius:var(--r-pill);}
+.video-cap{display:flex;flex-wrap:wrap;gap:8px 16px;align-items:center;margin-top:var(--s-3);font-size:13px;color:var(--ink-mute);}
+.video-cap b{color:var(--ink-soft);font-weight:600;}
+.video-note{margin-top:var(--s-4);font-size:13.5px;color:var(--ink-soft);background:var(--accent-soft);border-radius:var(--r-md);padding:12px 16px;max-width:none;}
+.video-note b{color:var(--accent-deep);}
+
+/* ============ КАРТОЧКИ / БЛОКИ ============ */
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--r-lg);padding:clamp(20px,3vw,30px);}
+.keyidea{background:var(--card);border:1px solid var(--line);border-left:6px solid var(--tier);border-radius:var(--r-md);padding:clamp(20px,3vw,28px);margin-top:var(--s-5);}
+.keyidea .kl{font-family:var(--sans);font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--tier-deep);margin-bottom:10px;display:flex;align-items:center;gap:8px;}
+.keyidea .kt{font-family:var(--serif);font-size:clamp(20px,2.6vw,27px);font-weight:600;line-height:1.28;color:var(--brand-deep);margin:0;}
+.keyidea .kt b{color:var(--brand-deep);}
+.posbox{background:var(--brand);color:#fff;border-radius:var(--r-lg);padding:clamp(24px,3.5vw,40px);margin-top:var(--s-5);}
+.posbox .pe{font-size:11px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--tier);}
+.posbox .pstmt{font-family:var(--serif);font-size:clamp(19px,2.4vw,26px);font-weight:500;line-height:1.36;margin:var(--s-3) 0 0;color:#fff;}
+.posbox .pstmt b{color:#fff;font-weight:700;}
+.posbox .pstmt .hl{color:var(--tier);font-style:italic;}
+
+/* список с галочками */
+.checklist{display:grid;gap:10px;margin:var(--s-4) 0 0;padding:0;list-style:none;}
+.checklist li{display:grid;grid-template-columns:auto 1fr;gap:12px;align-items:start;background:var(--card);border:1px solid var(--line);border-radius:var(--r-md);padding:13px 16px;font-size:15px;}
+.checklist li .ic{width:22px;height:22px;border-radius:50%;background:var(--ok-soft);color:var(--ok);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:13px;flex-shrink:0;margin-top:1px;}
+.checklist li b{color:var(--ink);}
+
+/* готовые фразы / причины — пронумерованные карточки */
+.phrases{display:grid;gap:12px;margin-top:var(--s-5);}
+.phrase{display:grid;grid-template-columns:auto 1fr;gap:16px;align-items:start;background:var(--card);border:1px solid var(--line);border-radius:var(--r-md);padding:16px 18px;}
+.phrase .pn{font-family:var(--serif);font-size:28px;font-weight:700;color:var(--accent);line-height:1;}
+.phrase .role-lbl{font-family:var(--sans);font-size:11px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;color:var(--ink-mute);margin-bottom:5px;}
+.phrase .q{font-size:15.5px;color:var(--ink);line-height:1.5;}
+.phrase .q::before{content:'«';color:var(--accent);}
+.phrase .q::after{content:'»';color:var(--accent);}
+.phrase .body{font-size:15.5px;color:var(--ink);line-height:1.5;}
+
+/* callout / резюме */
+.callout{background:var(--brand-soft);border-left:5px solid var(--brand);border-radius:var(--r-md);padding:var(--s-5) var(--s-6);margin-top:var(--s-5);}
+.callout b{color:var(--brand-deep);}
+.callout p{margin:0;font-size:15px;color:var(--ink-soft);max-width:none;}
+.recap{display:grid;gap:10px;margin-top:var(--s-4);}
+.recap .ri{display:grid;grid-template-columns:auto 1fr;gap:12px;align-items:start;}
+.recap .ri .rn{font-family:var(--serif);font-size:22px;font-weight:700;color:var(--brand);line-height:1.1;}
+.recap .ri p{margin:0;font-size:15px;color:var(--ink);}
+
+/* ============ TRUST-СЧЁТЧИКИ ============ */
+.trust{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:var(--s-5);}
+@media(max-width:640px){.trust{grid-template-columns:repeat(2,1fr);}}
+.trust .cell{background:var(--card);border:1px solid var(--line);border-radius:var(--r-md);padding:18px 14px;text-align:center;}
+.trust .cell b{display:block;font-family:var(--serif);font-size:clamp(26px,4vw,36px);font-weight:700;color:var(--brand);line-height:1;}
+.trust .cell span{display:block;font-size:12.5px;color:var(--ink-soft);margin-top:7px;line-height:1.3;}
+
+/* ============ ГАЛЕРЕЯ ЖК ============ */
+.zhk-gallery{display:grid;grid-template-columns:repeat(auto-fill,minmax(258px,1fr));gap:14px;margin-top:var(--s-5);}
+.zhk-card{position:relative;border-radius:var(--r-lg);overflow:hidden;border:1px solid var(--line);background:var(--brand-deep);aspect-ratio:4/3;box-shadow:var(--shadow-card);}
+.zhk-card img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .6s ease;}
+.zhk-card:hover img{transform:scale(1.05);}
+.zhk-card .cap{position:absolute;left:0;right:0;bottom:0;padding:34px 16px 14px;background:linear-gradient(to top,rgba(16,26,36,.9),rgba(16,26,36,.45) 55%,transparent);color:#fff;}
+.zhk-card .cap .nm{font-family:var(--serif);font-weight:700;font-size:21px;letter-spacing:.02em;}
+.zhk-card .cap .meta{font-size:12px;color:#D7E0E8;margin-top:2px;}
+.zhk-card .badge{position:absolute;top:12px;left:12px;font-size:10px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:4px 10px;border-radius:var(--r-pill);background:rgba(255,255,255,.92);color:var(--brand-deep);}
+.zhk-card .badge.done{background:var(--ok);color:#fff;}
+.zhk-card .badge.build{background:var(--accent);color:#fff;}
+.gallery-note{margin-top:var(--s-4);font-size:13.5px;color:var(--ink-mute);max-width:68ch;}
+
+/* ============ ДВА СТРАХА ============ */
+.fears{display:grid;grid-template-columns:1fr 1fr;gap:var(--s-4);margin-top:var(--s-5);}
+@media(max-width:720px){.fears{grid-template-columns:1fr;}}
+.fear{background:var(--card);border:1px solid var(--line);border-left:6px solid var(--warn);border-radius:var(--r-md);padding:20px 22px;}
+.fear .ord{font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--warn-deep);}
+.fear h4{font-family:var(--serif);font-size:23px;margin:6px 0 8px;color:var(--ink);}
+.fear p{font-size:14.5px;color:var(--ink-soft);margin:0;max-width:none;}
+
+/* ============ 3 · ТЕСТ / QUIZ ============ */
+.quiz{margin-top:var(--s-5);background:var(--card);border:1px solid var(--line);border-radius:var(--r-lg);padding:clamp(22px,3vw,34px);box-shadow:var(--shadow-card);}
+.quiz .qhead{display:flex;flex-wrap:wrap;align-items:baseline;gap:10px 16px;margin-bottom:var(--s-3);}
+.quiz .qhead .gate{font-size:12px;font-weight:700;letter-spacing:.04em;color:var(--brand);background:var(--brand-soft);border-radius:var(--r-pill);padding:5px 13px;}
+.quiz .qintro{font-size:15px;color:var(--ink-soft);margin-bottom:var(--s-5);}
+.q{border-top:1px solid var(--line-soft);padding:var(--s-5) 0;}
+.q:first-of-type{border-top:0;padding-top:0;}
+.q .qn{font-family:var(--sans);font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--accent-deep);margin-bottom:6px;}
+.q .qtext{font-family:var(--serif);font-size:21px;font-weight:600;line-height:1.25;margin-bottom:var(--s-4);color:var(--ink);}
+.opt{display:flex;align-items:flex-start;gap:12px;border:1px solid var(--line);border-radius:var(--r-md);padding:13px 16px;margin-bottom:10px;cursor:pointer;background:var(--bg);transition:120ms;}
+.opt:hover{border-color:var(--brand);background:var(--brand-soft);}
+.opt input{margin-top:3px;width:18px;height:18px;accent-color:var(--brand);flex-shrink:0;cursor:pointer;}
+.opt .otext{font-size:15px;color:var(--ink);line-height:1.45;}
+.opt .ltr{font-weight:700;color:var(--ink-mute);margin-right:4px;}
+.q.checked .opt{cursor:default;}
+.q.checked .opt input{pointer-events:none;}
+.opt.correct{border-color:var(--ok);background:var(--ok-soft);}
+.opt.correct .ltr{color:var(--ok);}
+.opt.wrong{border-color:var(--bad);background:var(--bad-soft);}
+.opt.wrong .ltr{color:var(--bad);}
+.opt .mark{margin-left:auto;font-weight:700;font-size:14px;display:none;align-self:center;}
+.opt.correct .mark{display:inline;color:var(--ok);}
+.opt.wrong .mark{display:inline;color:var(--bad);}
+.why{display:none;margin-top:8px;font-size:13.5px;color:var(--ink-soft);background:var(--bg);border:1px solid var(--line-soft);border-radius:var(--r-md);padding:11px 14px;line-height:1.5;}
+.q.checked .why{display:block;}
+.why b{color:var(--ink);}
+.quiz-actions{margin-top:var(--s-5);display:flex;flex-wrap:wrap;gap:14px;align-items:center;}
+.btn{font-family:var(--sans);font-weight:600;font-size:15px;letter-spacing:.01em;border:0;border-radius:var(--r-pill);padding:13px 26px;cursor:pointer;transition:120ms;}
+.btn-primary{background:var(--brand);color:var(--brand-on);}
+.btn-primary:hover{background:var(--brand-deep);}
+.btn-ghost{background:transparent;color:var(--brand);border:1.5px solid var(--line);}
+.btn-ghost:hover{border-color:var(--brand);}
+.btn:disabled{opacity:.5;cursor:not-allowed;}
+.result{display:none;margin-top:var(--s-5);border-radius:var(--r-md);padding:var(--s-5) var(--s-6);border:1px solid var(--line);}
+.result.show{display:block;}
+.result .score{font-family:var(--serif);font-size:clamp(28px,4vw,40px);font-weight:700;line-height:1;}
+.result .score .u{font-size:.5em;color:var(--ink-soft);font-weight:600;}
+.result .msg{font-size:15px;margin-top:8px;}
+.result.pass{background:var(--ok-soft);border-color:#C5DECB;}
+.result.pass .score{color:var(--ok);}
+.result.fail{background:var(--warn-soft);border-color:#EAD3AE;}
+.result.fail .score{color:var(--warn-deep);}
+.result .next{display:inline-block;margin-top:14px;font-size:14px;font-weight:600;}
+
+/* ============ ПОДВАЛ / НАВИГАЦИЯ ============ */
+.lnav{display:flex;flex-wrap:wrap;gap:14px;justify-content:space-between;align-items:center;margin-top:var(--s-7);padding-top:var(--s-5);border-top:1px solid var(--line);}
+.lnav a{display:inline-flex;align-items:center;gap:8px;font-size:14px;font-weight:600;color:var(--brand);}
+.lnav .next-lesson{background:var(--brand);color:#fff;padding:12px 22px;border-radius:var(--r-pill);}
+.lnav .next-lesson:hover{background:var(--brand-deep);text-decoration:none;color:#fff;}
+footer{padding:var(--s-7) 0;border-top:1px solid var(--line);background:var(--brand);color:var(--brand-soft);margin-top:var(--s-8);}
+footer .wm{font-family:var(--serif);font-weight:700;font-size:26px;color:#fff;letter-spacing:.04em;}
+footer p{font-size:13px;color:var(--brand-soft);margin:8px 0 0;max-width:60ch;}
+</style>
+</head>
+<body>
+
+<!-- ============ ХРОМ ============ -->
+<div class="topbar">
+  <div class="wrap">
+    <a class="wm" href="academy.html" style="color:#fff;text-decoration:none">← ATAMŪRA</a><span id="lpts" style="margin-left:14px;color:#fff;font-size:12px;font-weight:700;background:rgba(207,179,114,.22);border:1px solid rgba(207,179,114,.5);border-radius:999px;padding:3px 12px">🪙 0</span>
+    <span class="crumb">Академия продаж · День 1 · Универсальное ядро</span>
+  </div>
+</div>
+
+<!-- ============ HERO УРОКА ============ -->
+<header class="lhero">
+  <div class="wrap">
+    <span class="eyebrow">День 1 · Универсальное ядро · Урок U0</span>
+    <h1>О компании: кто мы и что продаём</h1>
+    <p class="track">«Продай Атамуру сначала себе — на встрече клиент покупает у тебя»</p>
+    <div class="lmeta">
+      <span class="chip nv">Трек: Универсальное ядро</span>
+      <span class="chip">⏱ Видео ~1.5 мин + текст ~7 мин</span>
+      <span class="chip">📝 Тест: 6 вопросов</span>
+      <span class="chip tq">Порог 80%</span>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <!-- ============ 1 · АВАТАР-ВИДЕО ============ -->
+  <section class="lsec" id="video" aria-labelledby="h-video">
+    <div class="snum"><span class="step">1</span> Короткое видео — настрой</div>
+    <h2 id="h-video">Сначала послушай — потом читай</h2>
+    <p class="lead">Полторы минуты с наставником: на кого ты работаешь, что продаёшь и одна мысль, которую надо унести с собой. Весь разбор — текстом ниже, чтобы можно было вернуться к любой фразе.</p>
+
+    <figure class="video-wrap" style="margin:0;margin-top:var(--s-5)">
+      <!--
+        HeyGen-аватар: короткий интро-ролик ~1.5 мин (НЕ весь урок). Голос Mariia.
+        Файл рендерится в avatar-ready/video/U0_intro.mp4 (батч gen_intros_heygen.sh).
+        Постер-кадр можно вырезать из mp4: ffmpeg -i video/U0_intro.mp4 -ss 2 -vframes 1 img/U0_poster.jpg
+      -->
+      <video controls preload="metadata" poster="img/U0_poster.jpg" aria-label="Видео-вступление к уроку U0">
+        <source src="video/U0_intro.mp4" type="video/mp4">
+        <track kind="captions" srclang="ru" label="Русский">
+      </video>
+      <div class="poster" style="display:none" role="img" aria-label="placeholder">
+        <span class="tag">HeyGen · ~1,5 мин</span>
+        <div class="av" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+        </div>
+        <div class="pt">Вступление наставника</div>
+        <div class="ps">«Мы продаём не метры, а наследие. И первая продажа — продать компанию самому себе.»</div>
+      </div>
+    </figure>
+
+    <div class="video-cap">
+      <span><b>Озвучка:</b> аватар академии (HeyGen) · голос Mariia</span>
+      <span><b>Длительность:</b> ~1 мин 30 сек</span>
+      <span><b>Роль ролика:</b> задать настрой — не пересказать урок</span>
+    </div>
+
+    <div class="video-note">
+      <b>Почему видео короткое.</b> Голос и лицо снимают тревогу и «прогревают» перед материалом — это работа на эмоцию. Все факты, фразы и причины верить живут в тексте ниже: к ним удобно возвращаться и проговаривать вслух. Видео — это вход, текст — это сам урок.
+    </div>
+  </section>
+
+  <!-- ============ 2 · ГЛАВНОЕ ЗА 20 СЕКУНД ============ -->
+  <section class="lsec" id="key" aria-labelledby="h-key">
+    <div class="snum"><span class="step">2</span> Главное за 20 секунд</div>
+    <h2 id="h-key">Ключевая мысль урока</h2>
+    <p class="lead">Если из всего урока запомнить только одно — пусть это будут две строки ниже. Остальное их раскрывает.</p>
+
+    <div class="keyidea">
+      <div class="kl"><span aria-hidden="true">★</span> Запомнить накрепко</div>
+      <p class="kt">Атамура продаёт не бетон, а <b>наследие, которое видно на стройке</b>. У клиента два страха — «не потяну» и «не достроят», — и мы снимаем их <b>доказательствами, а не словами</b>.</p>
+    </div>
+
+    <div class="posbox">
+      <span class="pe">Цель урока</span>
+      <p class="pstmt">Клиент всегда чувствует, <span class="hl">веришь ли ты сам</span> в то, что продаёшь. Поэтому самая первая продажа в новой компании — <b>продать компанию самому себе</b>. С этого начинается всё остальное.</p>
+    </div>
+  </section>
+
+  <!-- ============ 3 · НАСЛЕДИЕ, КОТОРОЕ ВИДНО (ГАЛЕРЕЯ ЖК) ============ -->
+  <section class="lsec" id="zhk" aria-labelledby="h-zhk">
+    <div class="snum"><span class="step">3</span> Наследие, которое видно</div>
+    <h2 id="h-zhk">Наши дома — реальные фото, не рендеры</h2>
+    <p class="lead">Рынок продаёт картинки. Мы показываем построенное: фасады, дворы, отделку. Вот часть наших объектов — снято на реальных площадках, а не нарисовано.</p>
+
+    <div class="zhk-gallery">
+      <div class="zhk-card">
+        <img src="img/zhk/arlan-1.jpg" alt="ЖК ARLAN — фасад сданного дома" loading="lazy">
+        <span class="badge done">Сдан</span>
+        <div class="cap"><div class="nm">ARLAN</div><div class="meta">Комфорт · с. Бесагаш, пригород Алматы</div></div>
+      </div>
+      <div class="zhk-card">
+        <img src="img/zhk/atmosfera-1.jpg" alt="ЖК АТМОСФЕРА — дом вечером" loading="lazy">
+        <span class="badge build">Строится</span>
+        <div class="cap"><div class="nm">АТМОСФЕРА</div><div class="meta">Комфорт · Турксибский р-н, Алматы</div></div>
+      </div>
+      <div class="zhk-card">
+        <img src="img/zhk/monarch.jpg" alt="ЖК MONARCH — клубные таунхаусы, входная группа" loading="lazy">
+        <span class="badge done">Сдан</span>
+        <div class="cap"><div class="nm">MONARCH</div><div class="meta">Бизнес · клубные таунхаусы, Медеуский р-н</div></div>
+      </div>
+      <div class="zhk-card">
+        <img src="img/zhk/aura.jpg" alt="ЖК AURA — готовая отделка входной группы" loading="lazy">
+        <span class="badge build">Строится</span>
+        <div class="cap"><div class="nm">AURA</div><div class="meta">Комфорт+ · мкр. Алатау · готовая отделка</div></div>
+      </div>
+      <div class="zhk-card">
+        <img src="img/zhk/atmosfera-2.jpg" alt="ЖК АТМОСФЕРА — двор и детские площадки" loading="lazy">
+        <div class="cap"><div class="nm">АТМОСФЕРА</div><div class="meta">Двор и Forest Park 6,7 га на территории</div></div>
+      </div>
+      <div class="zhk-card">
+        <img src="img/zhk/arlan-2.jpg" alt="ЖК ARLAN — закрытый двор с workout-зоной" loading="lazy">
+        <div class="cap"><div class="nm">ARLAN</div><div class="meta">Закрытый двор · workout-зона</div></div>
+      </div>
+    </div>
+    <p class="gallery-note">Это часть портфеля. Всего у Атамуры <b>8 жилых комплексов</b> в Алматы и пригороде — от доступного сегмента до бизнес-класса. Именно это ты и показываешь клиенту вместо слов «надёжный застройщик».</p>
+
+    <div class="trust">
+      <div class="cell"><b>10</b><span>лет на рынке Алматы</span></div>
+      <div class="cell"><b>8</b><span>жилых комплексов</span></div>
+      <div class="cell"><b>200&nbsp;000+</b><span>м² построенного жилья</span></div>
+      <div class="cell"><b>2000+</b><span>семей живут в наших домах</span></div>
+    </div>
+  </section>
+
+  <!-- ============ 4 · РАЗБОР: КТО МЫ ============ -->
+  <section class="lsec" id="theory" aria-labelledby="h-theory">
+    <div class="snum"><span class="step">4</span> Разбор темы</div>
+    <h2 id="h-theory">Кто мы и чем отличаемся от рынка</h2>
+    <p>Атамура строит жильё с 2016 года. Но цифры — это ещё не главное. Главное — что стоит за именем. «Атамура» — от казахского <strong>«ата мұра», наследие предков</strong>. Имя выбрано не случайно: оно буквально означает то, что мы продаём. Не квадратные метры. Наследие — дом, который остаётся семье на годы, на поколения. А значит, мы делаем ставку на долгие, качественные отношения: от первого звонка и уровня строительства до управляющей компании, которая потом обслуживает дом.</p>
+
+    <p>Теперь смотри, чем мы отличаемся от рынка, — это твой главный козырь. Большинство застройщиков продают мечту на картинке: красивый рендер и крупными буквами «надёжный застройщик». Слова. Мы идём наоборот. Наш принцип простой: <strong>не обещать, а доказывать</strong>. Поэтому всё, что мы говорим клиенту, мы умеем показать — документом, цифрой, готовым домом.</p>
+
+    <div class="keyidea" style="border-left-color:var(--accent);">
+      <div class="kl" style="color:var(--accent-deep)"><span aria-hidden="true">★</span> Запомни это противопоставление</div>
+      <p class="kt">Рынок <b>обещает</b>. Атамура <b>доказывает</b>.</p>
+    </div>
+  </section>
+
+  <!-- ============ 5 · ДВА СТРАХА КЛИЕНТА ============ -->
+  <section class="lsec" id="fears" aria-labelledby="h-fears">
+    <div class="snum"><span class="step">5</span> Наш клиент</div>
+    <h2 id="h-fears">Два страха нашего клиента</h2>
+    <p class="lead">Чаще всего к нам приходит молодая семья, которая покупает своё первое жильё. У такого человека два главных страха — и они идут именно в этом порядке.</p>
+
+    <div class="fears">
+      <div class="fear">
+        <div class="ord">Страх №1 · самый сильный</div>
+        <h4>«Не потяну»</h4>
+        <p>Справлюсь ли я с первым взносом и ежемесячным платежом? А вдруг потеряю работу? Это финансовый страх, и он сильнее всех.</p>
+      </div>
+      <div class="fear">
+        <div class="ord">Страх №2</div>
+        <h4>«А достроят ли»</h4>
+        <p>Не пропадут ли мои деньги, если дом не сдадут вовремя? Страх за вложенное и за сроки.</p>
+      </div>
+    </div>
+    <p style="margin-top:var(--s-5)">Запомни эти два страха накрепко. Вся наша работа — и бренда, и твоя на телефоне и на встрече — про то, чтобы <strong>спокойно снимать именно их</strong>, а не нахваливать бетон.</p>
+  </section>
+
+  <!-- ============ 6 · ГЛАВНОЕ ОБЕЩАНИЕ ============ -->
+  <section class="lsec" id="promise" aria-labelledby="h-promise">
+    <div class="snum"><span class="step">6</span> Главное обещание</div>
+    <h2 id="h-promise">Радикальная прозрачность</h2>
+    <p>Чем мы снимаем эти страхи? Нашим главным обещанием. Звучит оно так: <strong>о любых изменениях по дому клиент узнаёт от нас первым</strong>. Никакого замалчивания. Если что-то меняется по стройке или по срокам — мы говорим об этом сами, по удобному клиенту каналу: WhatsApp, звонок, почта.</p>
+
+    <div class="callout">
+      <p><b>И стройку у нас видно.</b> Реальный процент готовности, план и факт — открыто. Вот это и есть наша миссия в действии: мы превращаем покупку в наследие и доказываем это не словами, а тем, что человек видит своими глазами.</p>
+    </div>
+  </section>
+
+  <!-- ============ 7 · ЧЕТЫРЕ ЦЕННОСТИ ============ -->
+  <section class="lsec" id="values" aria-labelledby="h-values">
+    <div class="snum"><span class="step">7</span> Ценности</div>
+    <h2 id="h-values">Четыре опоры — и под каждой доказательство</h2>
+    <ul class="checklist">
+      <li><span class="ic" aria-hidden="true">1</span><span><b>Спокойная уверенность.</b> Мы не суетимся и не давим, знаем дело и доводим до конца. Запомни особенно: давить у нас нельзя.</span></li>
+      <li><span class="ic" aria-hidden="true">2</span><span><b>Наследие как длительность.</b> Первый свой угол — это основа для рода, дом на века, а не просто дорогой бетон.</span></li>
+      <li><span class="ic" aria-hidden="true">3</span><span><b>Тёплая человечность.</b> Мы думаем о семье клиента — двор без машин, школа рядом, безопасность.</span></li>
+      <li><span class="ic" aria-hidden="true">4</span><span><b>Современность без понтов.</b> Технологии работают на клиента, и он видит свою стройку онлайн.</span></li>
+    </ul>
+  </section>
+
+  <!-- ============ 8 · ПЯТЬ ПРИЧИН ВЕРИТЬ ============ -->
+  <section class="lsec" id="reasons" aria-labelledby="h-reasons">
+    <div class="snum"><span class="step">8</span> Инструмент</div>
+    <h2 id="h-reasons">Пять причин верить — вместо «мы лучшие»</h2>
+    <p class="lead">Никогда не говори клиенту «мы лучшие» или «мы самые надёжные» — так говорят все застройщики, и для клиента это пустой звук. Вместо этого у тебя есть пять причин, и каждую можно доказать.</p>
+
+    <div class="phrases">
+      <div class="phrase">
+        <div class="pn tnum">1</div>
+        <div>
+          <div class="role-lbl">Под страх «не потяну»</div>
+          <div class="body">Честный платёж сразу: клиент видит реальные цифры — и первый взнос, и ежемесячный платёж по своей ситуации — ещё до сделки, без сюрпризов.</div>
+        </div>
+      </div>
+      <div class="phrase">
+        <div class="pn tnum">2</div>
+        <div>
+          <div class="role-lbl">Под страх «не достроят»</div>
+          <div class="body">Деньги дольщиков защищены законом: застройщик привлекает их либо после возведения каркаса по гарантиям и разрешению, либо на любом этапе под гарантию Казахстанской жилищной компании (КЖК). <b>Точную юридическую формулировку всегда бери у руководителя</b> — это чувствительная часть.</div>
+        </div>
+      </div>
+      <div class="phrase">
+        <div class="pn tnum">3</div>
+        <div>
+          <div class="role-lbl">Доказательство</div>
+          <div class="body">Стройку видно: открытый процент готовности дома, план против факта.</div>
+        </div>
+      </div>
+      <div class="phrase">
+        <div class="pn tnum">4</div>
+        <div>
+          <div class="role-lbl">Опыт</div>
+          <div class="body">10 лет на рынке и больше 2000 семей уже живут в наших домах. Это и опыт, и живое доказательство.</div>
+        </div>
+      </div>
+      <div class="phrase">
+        <div class="pn tnum">5</div>
+        <div>
+          <div class="role-lbl">Качество</div>
+          <div class="body">Качество видно на приёмке: контроль на каждом этапе; уровень дома доказывается не словом, а тем, что видно руками при передаче ключей.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 9 · ГОТОВЫЕ ФРАЗЫ ============ -->
+  <section class="lsec" id="phrases" aria-labelledby="h-phrases">
+    <div class="snum"><span class="step">9</span> Готовые фразы</div>
+    <h2 id="h-phrases">Говори дословно — всё на «вы»</h2>
+    <p class="lead">Заучи и проговори вслух, чтобы звучали как твои собственные. Все фразы клиенту — на «вы».</p>
+
+    <div class="phrases">
+      <div class="phrase">
+        <div class="pn tnum">1</div>
+        <div>
+          <div class="role-lbl">Про прозрачность</div>
+          <div class="q">Если по дому что-то меняется — по срокам, по стройке — вы узнаёте об этом от нас первым. Мы ничего не замалчиваем.</div>
+        </div>
+      </div>
+      <div class="phrase">
+        <div class="pn tnum">2</div>
+        <div>
+          <div class="role-lbl">Про защиту денег (под «не достроят»)</div>
+          <div class="q">Ваши деньги защищены: застройщик привлекает их после возведения каркаса — либо под гарантию Казахстанской жилищной компании, КЖК, на более ранних этапах. Точные детали и документы вам покажут на встрече.</div>
+        </div>
+      </div>
+      <div class="phrase">
+        <div class="pn tnum">3</div>
+        <div>
+          <div class="role-lbl">Про честный платёж (под «не потяну»)</div>
+          <div class="q">Вы увидите реальные цифры заранее — и первый взнос, и платёж по месяцам под вашу ситуацию, без сюрпризов.</div>
+        </div>
+      </div>
+      <div class="phrase">
+        <div class="pn tnum">4</div>
+        <div>
+          <div class="role-lbl">Про опыт</div>
+          <div class="q">Мы строим с 2016 года, в наших домах уже живут больше двух тысяч семей.</div>
+        </div>
+      </div>
+      <div class="phrase">
+        <div class="pn tnum">5</div>
+        <div>
+          <div class="role-lbl">Про имя</div>
+          <div class="q">Атамура — это ‘ата мұра’, наследие предков. Мы и правда строим дом, который остаётся семье на годы.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="callout" style="margin-top:var(--s-5)">
+      <p><b>Тон Атамуры — спокойная уверенность без давления.</b> Мы не впариваем, не накручиваем искусственную срочность, не обещаем того, чего не можем показать. Если запомнить из урока только одно — запомни это: <b>у нас доказывают, а не давят.</b></p>
+    </div>
+  </section>
+
+  <!-- ============ 10 · ИТОГ ============ -->
+  <section class="lsec" id="recap" aria-labelledby="h-recap">
+    <div class="snum"><span class="step">10</span> Итог</div>
+    <h2 id="h-recap">Три вещи, которые сегодня главные</h2>
+    <div class="callout" style="background:var(--card);border-left-color:var(--accent)">
+      <div class="recap">
+        <div class="ri"><span class="rn tnum">1</span><p><b>Атамура продаёт наследие, которое видно на стройке</b> — не бетон и не рендеры.</p></div>
+        <div class="ri"><span class="rn tnum">2</span><p><b>У клиента два страха</b> — «не потяну» и «не достроят». Снимаем их доказательствами, а не словами. Главное обещание — прозрачность.</p></div>
+        <div class="ri"><span class="rn tnum">3</span><p><b>Первая продажа — продать компанию самому себе.</b> Тогда ты звучишь спокойно и уверенно, и это передаётся клиенту.</p></div>
+      </div>
+    </div>
+    <p style="margin-top:var(--s-5);color:var(--ink-soft)">В следующем уроке <strong>«Профессия продавца и воронка»</strong> — как устроена работа менеджера и где прячется твой результат.</p>
+  </section>
+
+  <!-- ============ 11 · ТЕСТ ============ -->
+  <section class="lsec" id="test" aria-labelledby="h-test">
+    <div class="snum"><span class="step">11</span> Проверка</div>
+    <h2 id="h-test">Тест по уроку</h2>
+    <p class="lead">Шесть вопросов. Чтобы пройти урок, нужно ответить верно минимум на 80% — это 5 из 6. Можно пересдать.</p>
+
+    <form class="quiz" id="quiz">
+      <div class="qhead">
+        <span class="gate">Порог прохождения: 80% · 5 из 6</span>
+        <span style="font-size:13px;color:var(--ink-mute)">Выбери один вариант в каждом вопросе.</span>
+      </div>
+
+      <div class="q" data-answer="b">
+        <div class="qn">Вопрос 1 из 6</div>
+        <div class="qtext">Что, по сути, продаёт Атамура?</div>
+        <label class="opt"><input type="radio" name="q1" value="a"><span class="otext"><span class="ltr">А.</span>Квадратные метры по самой низкой цене</span><span class="mark"></span></label>
+        <label class="opt"><input type="radio" name="q1" value="b"><span class="otext"><span class="ltr">Б.</span>Наследие — дом на годы, и доказывает это на стройке</span><span class="mark"></span></label>
+        <label class="opt"><input type="radio" name="q1" value="c"><span class="otext"><span class="ltr">В.</span>Красивые рендеры будущих домов</span><span class="mark"></span></label>
+        <label class="opt"><input type="radio" name="q1" value="d"><span class="otext"><span class="ltr">Г.</span>Гарантию, что цена всегда будет самой низкой на рынке</span><span class="mark"></span></label>
+        <div class="why"><b>Почему:</b> имя «ата мұра» = наследие предков; принцип компании — «не обещать, а доказывать»: наследие, которое видно на стройке.</div>
+      </div>
+
+      <div class="q" data-answer="b">
+        <div class="qn">Вопрос 2 из 6</div>
+        <div class="qtext">Какие два главных страха у нашего клиента и в каком порядке?</div>
+        <label class="opt"><input type="radio" name="q2" value="a"><span class="otext"><span class="ltr">А.</span>«Не достроят», затем «не потяну» — те же страхи, но в обратном порядке</span><span class="mark"></span></label>
+        <label class="opt"><input type="radio" name="q2" value="b"><span class="otext"><span class="ltr">Б.</span>«Не потяну» (взнос и платёж), затем «не достроят»</span><span class="mark"></span></label>
+        <label class="opt"><input type="radio" name="q2" value="c"><span class="otext"><span class="ltr">В.</span>«Понравится ли район», затем «найдутся ли хорошие соседи»</span><span class="mark"></span></label>
+        <label class="opt"><input type="radio" name="q2" value="d"><span class="otext"><span class="ltr">Г.</span>«Маленькая кухня» и «далеко от работы»</span><span class="mark"></span></label>
+        <div class="why"><b>Почему:</b> доминирует финансовый страх «не потяну» (первый взнос и платёж), следом — «достроят ли». На снятии этих двух страхов построена вся работа.</div>
+      </div>
+
+      <div class="q" data-answer="c">
+        <div class="qn">Вопрос 3 из 6</div>
+        <div class="qtext">Как звучит главное обещание Атамуры клиенту?</div>
+        <label class="opt"><input type="radio" name="q3" value="a"><span class="otext"><span class="ltr">А.</span>«Мы лучшие на рынке»</span><span class="mark"></span></label>
+        <label class="opt"><input type="radio" name="q3" value="b"><span class="otext"><span class="ltr">Б.</span>«Сдаём всегда точно в срок»</span><span class="mark"></span></label>
+        <label class="opt"><input type="radio" name="q3" value="c"><span class="otext"><span class="ltr">В.</span>Радикальная прозрачность: о любых изменениях клиент узнаёт от нас первым, без замалчивания</span><span class="mark"></span></label>
+        <label class="opt"><input type="radio" name="q3" value="d"><span class="otext"><span class="ltr">Г.</span>«Самые низкие цены в городе»</span><span class="mark"></span></label>
+        <div class="why"><b>Почему:</b> обещание бренда — прозрачность: о любых изменениях по дому клиент узнаёт первым, и стройку видно (план/факт открыто).</div>
+      </div>
+
+      <div class="q" data-answer="b">
+        <div class="qn">Вопрос 4 из 6</div>
+        <div class="qtext">Что говорить клиенту вместо «мы лучшие / мы надёжные»?</div>
+        <label class="opt"><input type="radio" name="q4" value="a"><span class="otext"><span class="ltr">А.</span>Повторять «надёжный застройщик», только увереннее</span><span class="mark"></span></label>
+        <label class="opt"><input type="radio" name="q4" value="b"><span class="otext"><span class="ltr">Б.</span>Конкретные причины верить: честный платёж, защита денег, видимая стройка, 10 лет и 2000+ семей</span><span class="mark"></span></label>
+        <label class="opt"><input type="radio" name="q4" value="c"><span class="otext"><span class="ltr">В.</span>Что у конкурентов всё хуже</span><span class="mark"></span></label>
+        <label class="opt"><input type="radio" name="q4" value="d"><span class="otext"><span class="ltr">Г.</span>Ничего не говорить, сразу называть цену</span><span class="mark"></span></label>
+        <div class="why"><b>Почему:</b> «надёжный» говорят все застройщики — это пустые слова. Мы доказываем причинами верить, привязанными к страхам клиента.</div>
+      </div>
+
+      <div class="q" data-answer="b">
+        <div class="qn">Вопрос 5 из 6</div>
+        <div class="qtext">Какой тон принят в Атамуре?</div>
+        <label class="opt"><input type="radio" name="q5" value="a"><span class="otext"><span class="ltr">А.</span>Активный напор и искусственная срочность</span><span class="mark"></span></label>
+        <label class="opt"><input type="radio" name="q5" value="b"><span class="otext"><span class="ltr">Б.</span>Спокойная уверенность без давления — доказываем, а не давим</span><span class="mark"></span></label>
+        <label class="opt"><input type="radio" name="q5" value="c"><span class="otext"><span class="ltr">В.</span>Дружеский, сразу на «ты» с клиентом</span><span class="mark"></span></label>
+        <label class="opt"><input type="radio" name="q5" value="d"><span class="otext"><span class="ltr">Г.</span>Сухой и формальный</span><span class="mark"></span></label>
+        <div class="why"><b>Почему:</b> ценность «спокойная уверенность»: не суетимся и не давим, знаем дело и доводим до конца. Искусственную срочность не используем.</div>
+      </div>
+
+      <div class="q" data-answer="b">
+        <div class="qn">Вопрос 6 из 6</div>
+        <div class="qtext">Почему важно «продать компанию самому себе» ещё до работы с клиентом?</div>
+        <label class="opt"><input type="radio" name="q6" value="a"><span class="otext"><span class="ltr">А.</span>Этого требует регламент</span><span class="mark"></span></label>
+        <label class="opt"><input type="radio" name="q6" value="b"><span class="otext"><span class="ltr">Б.</span>Клиент чувствует, веришь ли ты сам; твоя уверенность передаётся ему</span><span class="mark"></span></label>
+        <label class="opt"><input type="radio" name="q6" value="c"><span class="otext"><span class="ltr">В.</span>Чтобы быстрее перейти к цене</span><span class="mark"></span></label>
+        <label class="opt"><input type="radio" name="q6" value="d"><span class="otext"><span class="ltr">Г.</span>Это не важно для результата</span><span class="mark"></span></label>
+        <div class="why"><b>Почему:</b> первая продажа — самому себе. Когда ты знаешь факты и смысл компании, ты звучишь убедительно, и это считывается клиентом.</div>
+      </div>
+
+      <div class="quiz-actions">
+        <button type="button" class="btn btn-primary" id="check">Проверить</button>
+        <button type="button" class="btn btn-ghost" id="retry" style="display:none">Пройти заново</button>
+      </div>
+
+      <div class="result" id="result" role="status" aria-live="polite">
+        <div class="score"><span id="score-num">0</span><span class="u"> / 6</span></div>
+        <div class="msg" id="result-msg"></div>
+        <a class="next" id="next-link" href="lesson_U1.html" style="display:none">Перейти к уроку «Профессия продавца и воронка» →</a>
+      </div>
+    </form>
+  </section>
+
+  <!-- ============ НАВИГАЦИЯ ============ -->
+  <nav class="lnav" aria-label="Навигация по урокам">
+    <a href="#" aria-disabled="true" style="color:var(--ink-mute);pointer-events:none">← Это первый урок</a>
+    <a class="next-lesson" href="lesson_U1.html">Урок U1 · Профессия продавца и воронка →</a>
+  </nav>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="wm">ATAMŪRA</div>
+    <p>Академия продаж · «Мы создаём наследие». Сначала короткое видео — потом разбор текстом, чтобы можно было вернуться к любой фразе.</p>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var PASS = 80;
+  var quiz = document.getElementById('quiz');
+  var questions = Array.prototype.slice.call(quiz.querySelectorAll('.q'));
+  (function(){var L=['А','Б','В','Г','Д','Е'];questions.forEach(function(q){var why=q.querySelector('.why');var o=Array.prototype.slice.call(q.querySelectorAll('.opt'));for(var i=o.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var t=o[i];o[i]=o[j];o[j]=t;}o.forEach(function(e,k){q.insertBefore(e,why);var l=e.querySelector('.ltr');if(l)l.textContent=L[k]+'.';});});})();
+  var total = questions.length;
+  var checkBtn = document.getElementById('check');
+  var retryBtn = document.getElementById('retry');
+  var result = document.getElementById('result');
+  var scoreNum = document.getElementById('score-num');
+  var resultMsg = document.getElementById('result-msg');
+  var nextLink = document.getElementById('next-link');
+
+  function check(){
+    var correct = 0, unanswered = 0;
+    questions.forEach(function(q){
+      var ans = q.getAttribute('data-answer');
+      var picked = q.querySelector('input:checked');
+      q.classList.add('checked');
+      var correctOpt = q.querySelector('input[value="'+ans+'"]').closest('.opt');
+      correctOpt.classList.add('correct');
+      correctOpt.querySelector('.mark').textContent = 'верно';
+      if(!picked){ unanswered++; return; }
+      if(picked.value === ans){ correct++; }
+      else { var w = picked.closest('.opt'); w.classList.add('wrong'); w.querySelector('.mark').textContent = 'ваш ответ'; }
+    });
+    var pct = Math.round((correct/total)*100);
+    scoreNum.textContent = correct;
+    result.classList.add('show');
+    checkBtn.style.display = 'none';
+    retryBtn.style.display = 'inline-block';
+    if(pct >= PASS){
+      result.classList.remove('fail'); result.classList.add('pass');
+      resultMsg.innerHTML = 'Отлично — <b>'+pct+'%</b>. Порог 80% пройден, урок засчитан.';
+      nextLink.style.display = 'inline-block';
+    } else {
+      result.classList.remove('pass'); result.classList.add('fail');
+      var need = Math.ceil(total*PASS/100);
+      var miss = unanswered ? ' ('+unanswered+' без ответа)' : '';
+      resultMsg.innerHTML = '<b>'+pct+'%</b> — порог 80% пока не пройден. Нужно минимум '+need+' из '+total+miss+'. Посмотри подсветку и разбор «Почему», вернись к тексту и пройди заново.';
+      nextLink.style.display = 'none';
+    }
+    result.scrollIntoView({behavior:'smooth', block:'nearest'});
+  }
+  function reset(){
+    questions.forEach(function(q){
+      q.classList.remove('checked');
+      q.querySelectorAll('.opt').forEach(function(o){ o.classList.remove('correct','wrong'); var m=o.querySelector('.mark'); if(m) m.textContent=''; });
+      q.querySelectorAll('input').forEach(function(i){ i.checked = false; });
+    });
+    result.classList.remove('show','pass','fail');
+    nextLink.style.display = 'none';
+    checkBtn.style.display = 'inline-block';
+    retryBtn.style.display = 'none';
+    quiz.scrollIntoView({behavior:'smooth', block:'start'});
+  }
+  checkBtn.addEventListener('click', check);
+  retryBtn.addEventListener('click', reset);
+})();
+</script>
+
+<script src="academy.js"></script>
+<script>
+(function(){
+  var LESSON='U0';
+  function chrome(){ if(!window.Academy) return; var s=Academy.snapshot(); var el=document.getElementById('lpts'); if(el) el.textContent='🪙 '+s.coins+' · '+s.rank.current.name; }
+  var cb=document.getElementById('check'); if(cb) cb.addEventListener('click',function(){ if(window.Academy) Academy.markAttempt(LESSON); });
+  var res=document.getElementById('result'); var done=false;
+  if(res && window.MutationObserver){
+    new MutationObserver(function(){
+      if(done) return;
+      if(res.classList.contains('pass')){
+        done=true;
+        var sn=document.getElementById('score-num'); var sc=sn?(parseInt(sn.textContent,10)||0):0;
+        var tot=document.querySelectorAll('#quiz .q').length||6;
+        if(window.Academy){ var r=Academy.completeLesson(LESSON,{score:sc,total:tot});
+          if(r&&r.coinsAwarded){ try{ sessionStorage.setItem('academy_award','Урок засчитан: +'+r.coinsAwarded+' коинов'+(r.leveledUp?' · новый грейд!':'')); }catch(e){} }
+          chrome();
+        }
+      }
+    }).observe(res,{attributes:true,attributeFilter:['class']});
+  }
+  chrome();
+})();
+</script>
+</body>
+</html>

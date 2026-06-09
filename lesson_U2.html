@@ -1,0 +1,693 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>U2 · Клиент и его задача — ATAMŪRA Академия</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant:ital,wght@0,500;0,600;0,700;1,500;1,600&family=Jost:wght@300;400;500;600;700&family=Noto+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#F7F5EE; --card:#FBFBFB; --ink:#1E1E1E; --ink-soft:#4A4A4A; --ink-mute:#6E6E6E;
+  --line:#E0DDD3; --line-soft:#ECEAE2; --grey:#BCBCBC;
+  --brand:#284157; --brand-deep:#1A2B3A; --brand-soft:#E5EAF0; --brand-on:#FBFBFB;
+  --accent:#007484; --accent-deep:#005763; --accent-soft:#E0EEF0; --accent-on:#FBFBFB;
+  --tier:#CFB372; --tier-deep:#A88E48; --tier-soft:#EFE6CD; --tier-on:#1E1E1E;
+  --ok:#2C6E43; --ok-soft:#E2EFE5; --warn:#B5641A; --warn-deep:#8A4D14; --warn-soft:#F7E8D4; --bad:#B4232A; --bad-soft:#F7DEDF;
+  --serif:'Cormorant',Georgia,serif; --sans:'Jost','Noto Sans','Futura PT',system-ui,sans-serif;
+  --s-1:4px; --s-2:8px; --s-3:12px; --s-4:16px; --s-5:24px; --s-6:32px; --s-7:48px; --s-8:64px; --s-9:80px;
+  --r-sm:12px; --r-md:16px; --r-lg:24px; --r-xl:32px; --r-pill:999px;
+  --content:960px;
+  --shadow-card:0 1px 2px rgba(0,0,0,.04);
+  --shadow-pop:0 16px 40px rgba(0,0,0,.12),0 4px 12px rgba(0,0,0,.04);
+}
+*,*::before,*::after{box-sizing:border-box;}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%;}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:1.65;-webkit-font-smoothing:antialiased;}
+.wrap{max-width:var(--content);margin:0 auto;padding-inline:clamp(20px,5vw,40px);}
+h1,h2,h3,h4{font-family:var(--serif);font-weight:600;margin:0;line-height:1.1;color:var(--ink);}
+p{margin:0 0 var(--s-4);}
+strong{color:var(--ink);font-weight:600;}
+.tnum{font-variant-numeric:tabular-nums;}
+a{color:var(--brand);text-decoration:none;}
+a:hover{color:var(--brand-deep);text-decoration:underline;}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:4px;}
+@media (prefers-reduced-motion: reduce){.pulse,.pulse *{animation:none !important;}*{scroll-behavior:auto !important;}}
+
+/* ============ ШАПКА (хром) ============ */
+.topbar{height:48px;background:var(--brand);display:flex;align-items:center;}
+.topbar .wrap{display:flex;align-items:center;gap:14px;width:100%;}
+.topbar .wm{font-family:var(--serif);font-weight:700;color:#fff;font-size:17px;letter-spacing:.06em;}
+.topbar .crumb{font-size:12px;font-weight:500;letter-spacing:.04em;color:#AEC0D2;margin-left:auto;}
+
+/* ============ HERO УРОКА ============ */
+.lhero{background:radial-gradient(120% 90% at 100% 0%, var(--brand-soft), transparent 60%), var(--bg);padding:clamp(34px,5vw,56px) 0 clamp(20px,3vw,28px);border-bottom:1px solid var(--line-soft);}
+.eyebrow{font-family:var(--sans);font-size:11px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--brand);display:block;margin-bottom:var(--s-3);}
+.lhero h1{font-size:clamp(30px,5vw,50px);letter-spacing:-.02em;}
+.lhero .track{font-family:var(--serif);font-style:italic;font-size:clamp(17px,2vw,21px);color:var(--accent-deep);margin-top:var(--s-3);}
+.lmeta{margin-top:var(--s-5);display:flex;flex-wrap:wrap;gap:8px;}
+.chip{display:inline-flex;gap:7px;align-items:center;font-size:12px;font-weight:600;padding:6px 13px;border-radius:var(--r-pill);background:var(--card);border:1px solid var(--line);color:var(--ink-soft);}
+.chip.nv{background:var(--brand);color:var(--brand-on);border-color:var(--brand);}
+.chip.tq{background:var(--accent-soft);color:var(--accent-deep);border-color:var(--accent-soft);}
+
+/* ============ СЕКЦИИ ============ */
+.lsec{padding-block:clamp(34px,4.5vw,56px);border-top:1px solid var(--line-soft);}
+.lsec:first-of-type{border-top:0;}
+.snum{font-family:var(--sans);font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-mute);display:flex;align-items:center;gap:10px;margin-bottom:var(--s-3);}
+.snum .step{display:inline-flex;align-items:center;justify-content:center;min-width:22px;height:22px;padding:0 6px;border-radius:var(--r-pill);background:var(--brand);color:#fff;font-family:var(--serif);font-size:13px;font-weight:700;}
+.lsec h2{font-size:clamp(24px,3.4vw,36px);letter-spacing:-.01em;}
+.lsec .lead{font-size:17px;color:var(--ink-soft);max-width:64ch;margin-top:var(--s-3);}
+.lsec p{max-width:68ch;}
+
+/* ============ 1 · АВАТАР-ВИДЕО ============ */
+.video-wrap{margin-top:var(--s-5);border:1px solid var(--line);border-radius:var(--r-lg);overflow:hidden;background:var(--brand-deep);box-shadow:var(--shadow-card);}
+.video-wrap video{display:block;width:100%;height:auto;aspect-ratio:16/9;background:var(--brand-deep);}
+.poster{aspect-ratio:16/9;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;color:#fff;
+  background:radial-gradient(120% 120% at 50% 0%, #2F4A63, var(--brand-deep));position:relative;}
+.poster .av{width:88px;height:88px;border-radius:50%;background:var(--accent);display:flex;align-items:center;justify-content:center;margin-bottom:18px;box-shadow:0 0 0 8px rgba(0,116,132,.18);}
+.poster .av svg{width:42px;height:42px;color:#fff;}
+.poster .pt{font-family:var(--serif);font-size:22px;font-weight:600;}
+.poster .ps{font-size:13px;color:#AEC0D2;margin-top:6px;max-width:46ch;padding:0 20px;}
+.poster .tag{position:absolute;top:14px;left:14px;font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--brand-deep);background:var(--tier);padding:4px 11px;border-radius:var(--r-pill);}
+.video-cap{display:flex;flex-wrap:wrap;gap:8px 16px;align-items:center;margin-top:var(--s-3);font-size:13px;color:var(--ink-mute);}
+.video-cap b{color:var(--ink-soft);font-weight:600;}
+.video-note{margin-top:var(--s-4);font-size:13.5px;color:var(--ink-soft);background:var(--accent-soft);border-radius:var(--r-md);padding:12px 16px;max-width:none;}
+.video-note b{color:var(--accent-deep);}
+
+/* ============ КАРТОЧКИ / БЛОКИ ============ */
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--r-lg);padding:clamp(20px,3vw,30px);}
+.keyidea{background:var(--card);border:1px solid var(--line);border-left:6px solid var(--tier);border-radius:var(--r-md);padding:clamp(20px,3vw,28px);margin-top:var(--s-5);}
+.keyidea .kl{font-family:var(--sans);font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--tier-deep);margin-bottom:10px;display:flex;align-items:center;gap:8px;}
+.keyidea .kt{font-family:var(--serif);font-size:clamp(20px,2.6vw,27px);font-weight:600;line-height:1.28;color:var(--brand-deep);margin:0;}
+.keyidea .kt b{color:var(--brand-deep);}
+.posbox{background:var(--brand);color:#fff;border-radius:var(--r-lg);padding:clamp(24px,3.5vw,40px);margin-top:var(--s-5);}
+.posbox .pe{font-size:11px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--tier);}
+.posbox .pstmt{font-family:var(--serif);font-size:clamp(19px,2.4vw,26px);font-weight:500;line-height:1.36;margin:var(--s-3) 0 0;color:#fff;}
+.posbox .pstmt b{color:#fff;font-weight:700;}
+.posbox .pstmt .hl{color:var(--tier);font-style:italic;}
+
+/* список с галочками */
+.checklist{display:grid;gap:10px;margin:var(--s-4) 0 0;padding:0;list-style:none;}
+.checklist li{display:grid;grid-template-columns:auto 1fr;gap:12px;align-items:start;background:var(--card);border:1px solid var(--line);border-radius:var(--r-md);padding:13px 16px;font-size:15px;}
+.checklist li .ic{width:22px;height:22px;border-radius:50%;background:var(--ok-soft);color:var(--ok);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:13px;flex-shrink:0;margin-top:1px;}
+.checklist li b{color:var(--ink);}
+
+/* готовые фразы / причины — пронумерованные карточки */
+.phrases{display:grid;gap:12px;margin-top:var(--s-5);}
+.phrase{display:grid;grid-template-columns:auto 1fr;gap:16px;align-items:start;background:var(--card);border:1px solid var(--line);border-radius:var(--r-md);padding:16px 18px;}
+.phrase .pn{font-family:var(--serif);font-size:28px;font-weight:700;color:var(--accent);line-height:1;}
+.phrase .role-lbl{font-family:var(--sans);font-size:11px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;color:var(--ink-mute);margin-bottom:5px;}
+.phrase .q{font-size:15.5px;color:var(--ink);line-height:1.5;}
+.phrase .q::before{content:'«';color:var(--accent);}
+.phrase .q::after{content:'»';color:var(--accent);}
+.phrase .body{font-size:15.5px;color:var(--ink);line-height:1.5;}
+
+/* callout / резюме */
+.callout{background:var(--brand-soft);border-left:5px solid var(--brand);border-radius:var(--r-md);padding:var(--s-5) var(--s-6);margin-top:var(--s-5);}
+.callout b{color:var(--brand-deep);}
+.callout p{margin:0;font-size:15px;color:var(--ink-soft);max-width:none;}
+.recap{display:grid;gap:10px;margin-top:var(--s-4);}
+.recap .ri{display:grid;grid-template-columns:auto 1fr;gap:12px;align-items:start;}
+.recap .ri .rn{font-family:var(--serif);font-size:22px;font-weight:700;color:var(--brand);line-height:1.1;}
+.recap .ri p{margin:0;font-size:15px;color:var(--ink);}
+
+/* ============ TRUST-СЧЁТЧИКИ ============ */
+.trust{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:var(--s-5);}
+@media(max-width:640px){.trust{grid-template-columns:repeat(2,1fr);}}
+.trust .cell{background:var(--card);border:1px solid var(--line);border-radius:var(--r-md);padding:18px 14px;text-align:center;}
+.trust .cell b{display:block;font-family:var(--serif);font-size:clamp(26px,4vw,36px);font-weight:700;color:var(--brand);line-height:1;}
+.trust .cell span{display:block;font-size:12.5px;color:var(--ink-soft);margin-top:7px;line-height:1.3;}
+
+/* ============ ГАЛЕРЕЯ ЖК ============ */
+.zhk-gallery{display:grid;grid-template-columns:repeat(auto-fill,minmax(258px,1fr));gap:14px;margin-top:var(--s-5);}
+.zhk-card{position:relative;border-radius:var(--r-lg);overflow:hidden;border:1px solid var(--line);background:var(--brand-deep);aspect-ratio:4/3;box-shadow:var(--shadow-card);}
+.zhk-card img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .6s ease;}
+.zhk-card:hover img{transform:scale(1.05);}
+.zhk-card .cap{position:absolute;left:0;right:0;bottom:0;padding:34px 16px 14px;background:linear-gradient(to top,rgba(16,26,36,.9),rgba(16,26,36,.45) 55%,transparent);color:#fff;}
+.zhk-card .cap .nm{font-family:var(--serif);font-weight:700;font-size:21px;letter-spacing:.02em;}
+.zhk-card .cap .meta{font-size:12px;color:#D7E0E8;margin-top:2px;}
+.zhk-card .badge{position:absolute;top:12px;left:12px;font-size:10px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:4px 10px;border-radius:var(--r-pill);background:rgba(255,255,255,.92);color:var(--brand-deep);}
+.zhk-card .badge.done{background:var(--ok);color:#fff;}
+.zhk-card .badge.build{background:var(--accent);color:#fff;}
+.gallery-note{margin-top:var(--s-4);font-size:13.5px;color:var(--ink-mute);max-width:68ch;}
+
+/* ============ ДВА СТРАХА ============ */
+.fears{display:grid;grid-template-columns:1fr 1fr;gap:var(--s-4);margin-top:var(--s-5);}
+@media(max-width:720px){.fears{grid-template-columns:1fr;}}
+.fear{background:var(--card);border:1px solid var(--line);border-left:6px solid var(--warn);border-radius:var(--r-md);padding:20px 22px;}
+.fear .ord{font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--warn-deep);}
+.fear h4{font-family:var(--serif);font-size:23px;margin:6px 0 8px;color:var(--ink);}
+.fear p{font-size:14.5px;color:var(--ink-soft);margin:0;max-width:none;}
+
+/* ============ 3 · ТЕСТ / QUIZ ============ */
+.quiz{margin-top:var(--s-5);background:var(--card);border:1px solid var(--line);border-radius:var(--r-lg);padding:clamp(22px,3vw,34px);box-shadow:var(--shadow-card);}
+.quiz .qhead{display:flex;flex-wrap:wrap;align-items:baseline;gap:10px 16px;margin-bottom:var(--s-3);}
+.quiz .qhead .gate{font-size:12px;font-weight:700;letter-spacing:.04em;color:var(--brand);background:var(--brand-soft);border-radius:var(--r-pill);padding:5px 13px;}
+.quiz .qintro{font-size:15px;color:var(--ink-soft);margin-bottom:var(--s-5);}
+.q{border-top:1px solid var(--line-soft);padding:var(--s-5) 0;}
+.q:first-of-type{border-top:0;padding-top:0;}
+.q .qn{font-family:var(--sans);font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--accent-deep);margin-bottom:6px;}
+.q .qtext{font-family:var(--serif);font-size:21px;font-weight:600;line-height:1.25;margin-bottom:var(--s-4);color:var(--ink);}
+.opt{display:flex;align-items:flex-start;gap:12px;border:1px solid var(--line);border-radius:var(--r-md);padding:13px 16px;margin-bottom:10px;cursor:pointer;background:var(--bg);transition:120ms;}
+.opt:hover{border-color:var(--brand);background:var(--brand-soft);}
+.opt input{margin-top:3px;width:18px;height:18px;accent-color:var(--brand);flex-shrink:0;cursor:pointer;}
+.opt .otext{font-size:15px;color:var(--ink);line-height:1.45;}
+.opt .ltr{font-weight:700;color:var(--ink-mute);margin-right:4px;}
+.q.checked .opt{cursor:default;}
+.q.checked .opt input{pointer-events:none;}
+.opt.correct{border-color:var(--ok);background:var(--ok-soft);}
+.opt.correct .ltr{color:var(--ok);}
+.opt.wrong{border-color:var(--bad);background:var(--bad-soft);}
+.opt.wrong .ltr{color:var(--bad);}
+.opt .mark{margin-left:auto;font-weight:700;font-size:14px;display:none;align-self:center;}
+.opt.correct .mark{display:inline;color:var(--ok);}
+.opt.wrong .mark{display:inline;color:var(--bad);}
+.why{display:none;margin-top:8px;font-size:13.5px;color:var(--ink-soft);background:var(--bg);border:1px solid var(--line-soft);border-radius:var(--r-md);padding:11px 14px;line-height:1.5;}
+.q.checked .why{display:block;}
+.why b{color:var(--ink);}
+.quiz-actions{margin-top:var(--s-5);display:flex;flex-wrap:wrap;gap:14px;align-items:center;}
+.btn{font-family:var(--sans);font-weight:600;font-size:15px;letter-spacing:.01em;border:0;border-radius:var(--r-pill);padding:13px 26px;cursor:pointer;transition:120ms;}
+.btn-primary{background:var(--brand);color:var(--brand-on);}
+.btn-primary:hover{background:var(--brand-deep);}
+.btn-ghost{background:transparent;color:var(--brand);border:1.5px solid var(--line);}
+.btn-ghost:hover{border-color:var(--brand);}
+.btn:disabled{opacity:.5;cursor:not-allowed;}
+.result{display:none;margin-top:var(--s-5);border-radius:var(--r-md);padding:var(--s-5) var(--s-6);border:1px solid var(--line);}
+.result.show{display:block;}
+.result .score{font-family:var(--serif);font-size:clamp(28px,4vw,40px);font-weight:700;line-height:1;}
+.result .score .u{font-size:.5em;color:var(--ink-soft);font-weight:600;}
+.result .msg{font-size:15px;margin-top:8px;}
+.result.pass{background:var(--ok-soft);border-color:#C5DECB;}
+.result.pass .score{color:var(--ok);}
+.result.fail{background:var(--warn-soft);border-color:#EAD3AE;}
+.result.fail .score{color:var(--warn-deep);}
+.result .next{display:inline-block;margin-top:14px;font-size:14px;font-weight:600;}
+
+/* ============ ПОДВАЛ / НАВИГАЦИЯ ============ */
+.lnav{display:flex;flex-wrap:wrap;gap:14px;justify-content:space-between;align-items:center;margin-top:var(--s-7);padding-top:var(--s-5);border-top:1px solid var(--line);}
+.lnav a{display:inline-flex;align-items:center;gap:8px;font-size:14px;font-weight:600;color:var(--brand);}
+.lnav .next-lesson{background:var(--brand);color:#fff;padding:12px 22px;border-radius:var(--r-pill);}
+.lnav .next-lesson:hover{background:var(--brand-deep);text-decoration:none;color:#fff;}
+footer{padding:var(--s-7) 0;border-top:1px solid var(--line);background:var(--brand);color:var(--brand-soft);margin-top:var(--s-8);}
+footer .wm{font-family:var(--serif);font-weight:700;font-size:26px;color:#fff;letter-spacing:.04em;}
+footer p{font-size:13px;color:var(--brand-soft);margin:8px 0 0;max-width:60ch;}
+
+/* ============ КАЗАХСКАЯ ПРАКТИКА (двуязычный слой) ============ */
+.kzblock{margin-top:var(--s-5);border:1px solid var(--line);border-radius:var(--r-lg);overflow:hidden;background:var(--card);}
+.kzblock summary{cursor:pointer;list-style:none;padding:16px 20px;background:var(--brand-soft);font-weight:600;color:var(--brand-deep);display:flex;align-items:center;gap:10px;font-size:14px;}
+.kzblock summary::-webkit-details-marker{display:none;}
+.kzblock .kztag{font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--accent-deep);background:var(--accent-soft);padding:3px 9px;border-radius:var(--r-pill);}
+.kzblock .kzbody{padding:18px 20px;display:grid;gap:12px;}
+.kzblock .note{font-size:12.5px;color:var(--ink-mute);margin:0 0 4px;}
+
+/* ============ ДИАЛОГ ============ */
+.dialog{margin-top:var(--s-5);background:var(--card);border:1px solid var(--line);border-radius:var(--r-lg);padding:clamp(20px,3vw,28px);box-shadow:var(--shadow-card);}
+.dialog .dh{font-family:var(--sans);font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-mute);margin-bottom:var(--s-4);}
+.turns{display:grid;gap:12px;}
+.turn{display:grid;grid-template-columns:auto 1fr;gap:12px;align-items:start;}
+.turn .who{font-size:11px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;padding:4px 10px;border-radius:var(--r-pill);white-space:nowrap;align-self:start;margin-top:2px;}
+.turn.mgr .who{background:var(--brand-soft);color:var(--brand-deep);}
+.turn.cli .who{background:var(--tier-soft);color:var(--tier-deep);}
+.turn .said{font-size:15px;color:var(--ink);line-height:1.5;margin:0;max-width:none;}
+.turn.mgr .said{color:var(--ink);}
+.turn.cli .said{color:var(--ink-soft);}
+.takeaway{margin-top:var(--s-5);background:var(--accent-soft);border-left:5px solid var(--accent);border-radius:var(--r-md);padding:var(--s-5) var(--s-6);}
+.takeaway b{color:var(--accent-deep);}
+.takeaway p{margin:0;font-size:15px;color:var(--ink-soft);max-width:none;}
+</style>
+</head>
+<body>
+
+<!-- ============ ХРОМ ============ -->
+<div class="topbar">
+  <div class="wrap">
+    <a class="wm" href="academy.html" style="color:#fff;text-decoration:none">← ATAMŪRA</a><span id="lpts" style="margin-left:14px;color:#fff;font-size:12px;font-weight:700;background:rgba(207,179,114,.22);border:1px solid rgba(207,179,114,.5);border-radius:999px;padding:3px 12px">🪙 0</span>
+    <span class="crumb">Академия продаж · День 1 · Универсальное ядро</span>
+  </div>
+</div>
+
+<!-- ============ HERO УРОКА ============ -->
+<header class="lhero">
+  <div class="wrap">
+    <span class="eyebrow">День 1 · Универсальное ядро · Урок U2</span>
+    <h1>Клиент и его задача</h1>
+    <p class="track">«Клиент покупает не метры, а решение своей задачи»</p>
+    <div class="lmeta">
+      <span class="chip nv">Трек: Универсальное ядро</span>
+      <span class="chip">⏱ Видео ~1.5 мин + текст ~18 мин</span>
+      <span class="chip">📝 Тест: 6 вопросов</span>
+      <span class="chip tq">Порог 80%</span>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <!-- ============ 1 · АВАТАР-ВИДЕО ============ -->
+  <section class="lsec" id="video" aria-labelledby="h-video">
+    <div class="snum"><span class="step">1</span> Короткое видео — настрой</div>
+    <h2 id="h-video">Сначала послушай — потом читай</h2>
+    <p class="lead">Полторы минуты с наставником: одна мысль, которая меняет всю работу на телефоне и на встрече. Весь разбор — текстом ниже, чтобы можно было вернуться к любой фразе и проговорить вслух.</p>
+
+    <figure class="video-wrap" style="margin:0;margin-top:var(--s-5)">
+      <!--
+        HeyGen-аватар: короткий интро-ролик ~1.5 мин (НЕ весь урок). Голос Mariia.
+        Файл рендерится в avatar-ready/video/U2_intro.mp4 (батч gen_intros_heygen.sh).
+        Постер-кадр можно вырезать из mp4: ffmpeg -i video/U2_intro.mp4 -ss 2 -vframes 1 img/U2_poster.jpg
+      -->
+      <video controls preload="metadata" poster="img/U2_poster.jpg" aria-label="Видео-вступление к уроку U2">
+        <source src="video/U2_intro.mp4" type="video/mp4">
+        <track kind="captions" srclang="ru" label="Русский">
+      </video>
+      <div class="poster" style="display:none" role="img" aria-label="placeholder">
+        <span class="tag">HeyGen · ~1,5 мин</span>
+        <div class="av" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+        </div>
+        <div class="pt">Вступление наставника</div>
+        <div class="ps">«Клиент покупает не метры — он покупает решение своей задачи.»</div>
+      </div>
+    </figure>
+
+    <div class="video-cap">
+      <span><b>Озвучка:</b> аватар академии (HeyGen) · голос Mariia</span>
+      <span><b>Длительность:</b> ~1 мин 30 сек</span>
+      <span><b>Роль ролика:</b> задать настрой — не пересказать урок</span>
+    </div>
+
+    <div class="video-note">
+      <b>Почему видео короткое.</b> Голос и лицо снимают тревогу и «прогревают» перед материалом — это работа на эмоцию. Все факты, фразы и приёмы живут в тексте ниже: к ним удобно возвращаться и проговаривать вслух. Видео — это вход, текст — это сам урок.
+    </div>
+  </section>
+
+  <!-- ============ 2 · ГЛАВНОЕ ЗА 20 СЕКУНД ============ -->
+  <section class="lsec" id="key" aria-labelledby="h-key">
+    <div class="snum"><span class="step">2</span> Главное за 20 секунд</div>
+    <h2 id="h-key">Ключевая мысль урока</h2>
+    <p class="lead">Если из всего урока запомнить только одно — пусть это будут две строки ниже. Остальное их раскрывает.</p>
+
+    <div class="keyidea">
+      <div class="kl"><span aria-hidden="true">★</span> Запомнить накрепко</div>
+      <p class="kt">Клиент покупает не квадратные метры. Он покупает <b>решение своей задачи</b>. Метры, этаж, отделка — лишь инструменты.</p>
+    </div>
+
+    <div class="posbox">
+      <span class="pe">Правило-компас</span>
+      <p class="pstmt"><b>Один клиент — одна главная задача — два-три подходящих варианта — один следующий шаг.</b></p>
+    </div>
+  </section>
+
+  <!-- ============ 3 · РАЗБОР: ПОТРЕБНОСТЬ И БОЛЬ ============ -->
+  <section class="lsec" id="theory" aria-labelledby="h-theory">
+    <div class="snum"><span class="step">3</span> Разбор темы</div>
+    <h2 id="h-theory">Потребность — это вершина айсберга. Под ней боль</h2>
+    <p>Почти в каждом звонке ты услышишь одну и ту же фразу: «Мне нужна квартира». Новичок выдыхает с облегчением — ага, человеку нужна квартира, сейчас всё расскажу. А опытный продавец, наоборот, настораживается. Потому что «нужна квартира» — это ещё не задача. Это <strong>вершина айсберга</strong>, потребность, которую человек произносит вслух. Настоящая работа начинается под водой.</p>
+
+    <p>Под водой — <strong>боль</strong>: конкретная ситуация из жизни, которая прямо сейчас человека жжёт. Слова у всех одинаковые, а задачи — совершенно разные. Вот четыре человека, и все четверо говорят «нужна квартира»:</p>
+
+    <ul class="checklist">
+      <li><span class="ic" aria-hidden="true">1</span><span><b>Устал ездить.</b> Добирается на работу по два часа в один конец и хочет жить ближе.</span></li>
+      <li><span class="ic" aria-hidden="true">2</span><span><b>Родился ребёнок.</b> В семье прибавление, и старая однушка вдруг стала тесной.</span></li>
+      <li><span class="ic" aria-hidden="true">3</span><span><b>Успеть до школы.</b> Хочет купить, пока ребёнок не пошёл в школу, чтобы попасть в нужный район.</span></li>
+      <li><span class="ic" aria-hidden="true">4</span><span><b>Вложить деньги.</b> Жить там не собирается — ищет, куда вложить, чтобы деньги не лежали мёртвым грузом.</span></li>
+    </ul>
+
+    <p style="margin-top:var(--s-5)">Если рассказывать всем четверым одно и то же — промахнёшься мимо троих. Презентация без знания боли всегда бьёт мимо: ты стараешься, говоришь много, а контакта нет — это как вставлять вилку мимо розетки. Поэтому правило номер один: <strong>сначала пойми задачу, и только потом начинай предлагать.</strong></p>
+
+    <h3 style="font-size:clamp(20px,2.6vw,26px);margin-top:var(--s-6)">Четыре плоскости боли</h3>
+    <p class="lead">Почти любая боль клиента ложится в одну из четырёх плоскостей. Слушая ответы, мысленно раскладывай их по этим полкам — и сразу поймёшь, что человеку на самом деле важно. Со временем будешь угадывать боль почти с первых слов.</p>
+    <ul class="checklist">
+      <li><span class="ic" aria-hidden="true">✓</span><span><b>Комфорт.</b> «Устал ездить», «тесно», «хочу свой двор и тишину».</span></li>
+      <li><span class="ic" aria-hidden="true">✓</span><span><b>Безопасность.</b> «Хочу, чтобы ребёнок гулял во дворе без машин», «надёжный застройщик, который точно достроит».</span></li>
+      <li><span class="ic" aria-hidden="true">✓</span><span><b>Экономия.</b> «Хочу зафиксировать цену сейчас», «чтобы платёж был посильным», «вложить, пока выгодно».</span></li>
+      <li><span class="ic" aria-hidden="true">✓</span><span><b>Имидж.</b> «Хочу простор, красивый дом, хороший район».</span></li>
+    </ul>
+
+    <div class="callout" style="border-left-color:var(--warn);background:var(--warn-soft)">
+      <p><b>Не считай деньги за клиента.</b> Самая частая ошибка новичка — мысленно решить за человека «ну, это ему дорого» и сразу тащить самое дешёвое, лишь бы не спугнуть. Так ты сам, ещё до клиента, ставишь потолок на сумму сделки. А тот же самый клиент у другого менеджера спокойно берёт вариант в разы дороже — просто потому, что тот не побоялся показать достойное и объяснить ценность. Твоя работа — не угадать, сколько у человека денег, а сформировать ценность под его задачу. «Дорого» чаще рождается не в кошельке клиента, а в голове неуверенного продавца. Сначала ценность — а про деньги поговорим спокойно и потом.</p>
+    </div>
+
+    <h3 style="font-size:clamp(20px,2.6vw,26px);margin-top:var(--s-6)">Почему нельзя вываливать все комплексы сразу</h3>
+    <p class="lead">Если в ответ на «нужна квартира» начать рассказывать про все наши комплексы подряд — очереди, метражи, дворы, акции, — клиент устаёт и тихо говорит «спасибо, я подумаю». А «подумаю» — это почти всегда вежливое «нет». Причин три:</p>
+    <ul class="checklist">
+      <li><span class="ic" aria-hidden="true">1</span><span><b>Клиент тонет в информации.</b> Когда вариантов слишком много, человек не выбирает — человек закрывается. Слишком большой выбор пугает, и проще сказать «я подумаю» и положить трубку.</span></li>
+      <li><span class="ic" aria-hidden="true">2</span><span><b>Ты звучишь как справочная служба, а не как продавец.</b> Справочная выдала информацию и отпустила человека. Продавец ведёт клиента к следующему шагу.</span></li>
+      <li><span class="ic" aria-hidden="true">3</span><span><b>Ты теряешь управление разговором.</b> Не сузил выбор — клиент уходит думать сразу обо всём, а думать обо всём сразу невозможно.</span></li>
+    </ul>
+    <p style="margin-top:var(--s-5)">Сужая до двух-трёх вариантов, ты не давишь — ты <strong>помогаешь</strong>, снимаешь с человека тяжесть выбора. Это как с кроссовками: вывалят двадцать пар — глаза разбегаются, уходишь ни с чем; спросят «для чего и как часто ходите» и принесут две подходящие — спокойно выбираешь и ещё спасибо говоришь. С квартирой ровно так же: меньше правильных вариантов — легче решение.</p>
+  </section>
+
+  <!-- ============ 4 · ГОТОВЫЕ ФРАЗЫ — ОТКРЫТЫЕ ВОПРОСЫ ============ -->
+  <section class="lsec" id="phrases" aria-labelledby="h-phrases">
+    <div class="snum"><span class="step">4</span> Готовые фразы</div>
+    <h2 id="h-phrases">Открытые вопросы — чтобы вытащить задачу</h2>
+    <p class="lead">Открытый вопрос — это вопрос, на который нельзя ответить просто «да» или «нет». Он раскрывает человека. Заучи эти фразы и проговори вслух пару раз прямо сейчас. Все фразы клиенту — на «вы», тёплым тоном, а не допросом.</p>
+
+    <div class="phrases">
+      <div class="phrase">
+        <div class="pn tnum">1</div>
+        <div>
+          <div class="role-lbl">Выйти на задачу</div>
+          <div class="q">Я понял, что нужна квартира. А скажите, для чего, какую главную задачу хотите этим решить — берёте для себя, для семьи или как вложение?</div>
+        </div>
+      </div>
+      <div class="phrase">
+        <div class="pn tnum">2</div>
+        <div>
+          <div class="role-lbl">Понять критерии выбора</div>
+          <div class="q">А что для вас важнее всего при выборе квартиры?</div>
+        </div>
+      </div>
+      <div class="phrase">
+        <div class="pn tnum">3</div>
+        <div>
+          <div class="role-lbl">Вопрос-углубление «а ещё что»</div>
+          <div class="q">А ещё что важно? Может, есть что-то, что обязательно должно быть?</div>
+        </div>
+      </div>
+      <div class="phrase">
+        <div class="pn tnum">4</div>
+        <div>
+          <div class="role-lbl">Дойти до настоящей боли</div>
+          <div class="q">А что вас сейчас больше всего не устраивает в нынешней ситуации с жильём?</div>
+        </div>
+      </div>
+      <div class="phrase">
+        <div class="pn tnum">5</div>
+        <div>
+          <div class="role-lbl">Услышать идеальную картинку</div>
+          <div class="q">А как вы в идеале видите эту квартиру и переезд? Что для вас было бы прямо идеальным вариантом?</div>
+        </div>
+      </div>
+      <div class="phrase">
+        <div class="pn tnum">6</div>
+        <div>
+          <div class="role-lbl">Зеркало — подытожить перед презентацией</div>
+          <div class="q">Давайте я подытожу, а вы поправьте, если что упустил. Вам нужна квартира для семьи, важно, чтобы рядом были школа и двор, решение принимаете вместе с супругой, и въехать хотите до осени. Всё верно?</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="callout" style="margin-top:var(--s-5)">
+      <p><b>Зеркалирование резко поднимает доверие.</b> Когда человек слышит свою задачу и говорит «да, именно так» — он понимает, что ты его действительно услышал. Это как официант, который перед уходом зачитывает твой заказ вслух: не зачитал — внутри тревога, проговорил — ты спокоен и часто сам что-то добавляешь. Два коротких вопроса <b>«а ещё что?»</b> и <b>«это всё?»</b> вытаскивают вторую и третью боль — а они часто и есть настоящие.</p>
+    </div>
+  </section>
+
+  <!-- ============ 5 · АКТИВНОЕ СЛУШАНИЕ ============ -->
+  <section class="lsec" id="listen" aria-labelledby="h-listen">
+    <div class="snum"><span class="step">5</span> Навык</div>
+    <h2 id="h-listen">Активное слушание</h2>
+    <p class="lead">Язык у человека один, а ушей два — и работать они должны примерно в той же пропорции: слушай вдвое больше, чем говоришь. Активное слушание — это не молчать с отсутствующим видом. Это несколько конкретных вещей.</p>
+    <ul class="checklist">
+      <li><span class="ic" aria-hidden="true">✓</span><span><b>Слушай вдвое больше, чем говоришь.</b> Два уха, один язык — пусть клиент договаривает.</span></li>
+      <li><span class="ic" aria-hidden="true">✓</span><span><b>Не перебивай и не договаривай за клиента</b> — даже когда кажется, что ты уже всё понял.</span></li>
+      <li><span class="ic" aria-hidden="true">✓</span><span><b>Коротко реагируй вслух:</b> «угу», «понимаю», «а расскажите подробнее».</span></li>
+      <li><span class="ic" aria-hidden="true">✓</span><span><b>Возвращай человеку его же слова:</b> «то есть для вас главное, чтобы детям было где гулять, верно?»</span></li>
+      <li><span class="ic" aria-hidden="true">✓</span><span><b>Не стучи по клавиатуре</b> так, что это слышно в трубке — человек мгновенно чувствует, что им занимаются вполуха. Держи перед собой лист и записывай задачу клиента.</span></li>
+    </ul>
+    <p style="margin-top:var(--s-5)">Забудь миф о «прирождённых слушателях»: слушать внимательно тяжело всем, это сознательное усилие в каждом разговоре. Но именно оно вытаскивает настоящую задачу — добрую половину сделок закрывают не те, кто красиво говорил, а те, кто вовремя замолчал и дал клиенту договорить.</p>
+  </section>
+
+  <!-- ============ 6 · ЖИВОЙ ПРИМЕР (ДИАЛОГ) ============ -->
+  <section class="lsec" id="dialog" aria-labelledby="h-dialog">
+    <div class="snum"><span class="step">6</span> Живой пример</div>
+    <h2 id="h-dialog">Как это звучит вживую</h2>
+    <p class="lead">Менеджер Алия из отдела продаж Атамуры и клиент Ержан. Слушай, как она не вываливает варианты, а сначала находит задачу.</p>
+
+    <div class="dialog">
+      <div class="dh">Звонок · отдел продаж Атамуры</div>
+      <div class="turns">
+        <div class="turn mgr"><span class="who">Алия</span><p class="said">Меня зовут Алия, компания Атамура, отдел продаж. Вы оставляли заявку по нашим жилым комплексам, верно?</p></div>
+        <div class="turn cli"><span class="who">Ержан</span><p class="said">Да, верно. Слушайте, а расскажите, что у вас вообще есть, какие варианты?</p></div>
+        <div class="turn mgr"><span class="who">Алия</span><p class="said">С удовольствием подберу. А как могу к вам обращаться?</p></div>
+        <div class="turn cli"><span class="who">Ержан</span><p class="said">Ержан.</p></div>
+        <div class="turn mgr"><span class="who">Алия</span><p class="said">Очень приятно, Ержан. Чтобы не грузить вас всем подряд и не тратить ваше время, давайте я задам пару коротких вопросов и покажу два-три варианта именно под вас. Хорошо?</p></div>
+        <div class="turn cli"><span class="who">Ержан</span><p class="said">Хорошо, давайте.</p></div>
+        <div class="turn mgr"><span class="who">Алия</span><p class="said">Скажите, квартиру подбираете для себя, для семьи или как вложение?</p></div>
+        <div class="turn cli"><span class="who">Ержан</span><p class="said">Для семьи. У нас второй ребёнок недавно родился, в нашей двушке уже тесно.</p></div>
+        <div class="turn mgr"><span class="who">Алия</span><p class="said">Понимаю вас. А что для вас важнее всего при выборе? Что обязательно должно быть?</p></div>
+        <div class="turn cli"><span class="who">Ержан</span><p class="said">Чтобы двор нормальный был, безопасный. И школа рядом, старший через год в первый класс пойдёт.</p></div>
+        <div class="turn mgr"><span class="who">Алия</span><p class="said">А ещё что-то важно?</p></div>
+        <div class="turn cli"><span class="who">Ержан</span><p class="said">Ну, хотелось бы въехать не через три года, а пораньше. И чтобы по оплате посильно было, мы думаем про ипотеку.</p></div>
+        <div class="turn mgr"><span class="who">Алия</span><p class="said">Спасибо, Ержан, это очень помогает. Давайте подытожу: нужна квартира для семьи, чтобы хватило места на детей, важен безопасный двор и школа рядом, заехать хотите поскорее, а оплату рассматриваете через ипотеку. Всё верно?</p></div>
+        <div class="turn cli"><span class="who">Ержан</span><p class="said">Да, прямо в точку.</p></div>
+        <div class="turn mgr"><span class="who">Алия</span><p class="said">Отлично. Тогда я не буду перечислять всё подряд — у меня под вашу задачу есть два сильных варианта. Один с закрытым двором и школой прямо в шаговой доступности, второй — с более близким сроком сдачи. Их лучше посмотреть вживую, чтобы вы почувствовали двор и планировку. Это тридцать-сорок минут, без обязательств. Когда вам удобнее подъехать — завтра в первой половине дня или в четверг ближе к вечеру?</p></div>
+        <div class="turn cli"><span class="who">Ержан</span><p class="said">Давайте в четверг вечером.</p></div>
+        <div class="turn mgr"><span class="who">Алия</span><p class="said">Договорились, Ержан, четверг. Я подготовлю оба варианта и расчёт по месяцам. Запишу вас и накануне обязательно подтвержу.</p></div>
+      </div>
+
+      <div class="takeaway">
+        <p><b>Что произошло.</b> Алия не вывалила все комплексы. Она нашла <b>одну задачу</b> — жильё для растущей семьи, — сузила всё до <b>двух вариантов</b> и закрыла на <b>один следующий шаг</b> (показ с датой и временем). Клиент не устал и не закрылся — наоборот, почувствовал, что им занимаются лично, под его ситуацию. Вот так звучит продажа решения, а не метров.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 7 · ТРЕНИРОВКА (ДРИЛЛ) ============ -->
+  <section class="lsec" id="drill" aria-labelledby="h-drill">
+    <div class="snum"><span class="step">7</span> Тренировка</div>
+    <h2 id="h-drill">Дрилл на пять минут</h2>
+    <p class="lead">Возьми лист бумаги. Это упражнение перестроит голову с «что бы такого рассказать» на «что человеку на самом деле нужно».</p>
+    <ul class="checklist">
+      <li><span class="ic" aria-hidden="true">1</span><span><b>Три типа клиента.</b> Молодая пара берёт первую квартиру; семья с двумя детьми; человек, который хочет вложить деньги.</span></li>
+      <li><span class="ic" aria-hidden="true">2</span><span><b>Одна задача + два критерия.</b> Для каждого напиши одну главную задачу одним предложением, а под ней — два самых важных для него критерия.</span></li>
+      <li><span class="ic" aria-hidden="true">3</span><span><b>Проговори вслух.</b> Скажи вопрос «а что для вас важнее всего при выборе» и свой ответ-подытог в формате «давайте я подытожу». Сделай это для всех троих.</span></li>
+    </ul>
+    <p style="margin-top:var(--s-5)">Займёт пять минут, а в реальном звонке сэкономит сделку. И заведи привычку: в каждом звонке держи ручку и лист, записывай боли клиента под заголовком «боль». Не надейся на память — фиксируй.</p>
+  </section>
+
+  <!-- ============ 8 · ИТОГ ============ -->
+  <section class="lsec" id="recap" aria-labelledby="h-recap">
+    <div class="snum"><span class="step">8</span> Итог</div>
+    <h2 id="h-recap">Три вещи, которые сегодня главные</h2>
+    <div class="callout" style="background:var(--card);border-left-color:var(--accent)">
+      <div class="recap">
+        <div class="ri"><span class="rn tnum">1</span><p><b>Клиент покупает решение своей задачи</b>, а не метры. За потребностью «нужна квартира» всегда прячется боль — комфорт, безопасность, экономия или имидж.</p></div>
+        <div class="ri"><span class="rn tnum">2</span><p><b>Сначала задача, потом варианты.</b> Достаёшь задачу открытыми вопросами, углубляешься через «а ещё что», возвращаешь зеркалом и получаешь «да» — и только потом подбираешь два-три варианта под неё.</p></div>
+        <div class="ri"><span class="rn tnum">3</span><p><b>Каждое свойство привязывай к боли</b> и доводи до конкретики: «закрытый двор без машин — ребёнок гуляет, а вы спокойны». В конце разговора — один понятный следующий шаг, чаще всего показ.</p></div>
+      </div>
+    </div>
+    <p style="margin-top:var(--s-5);color:var(--ink-soft)">Но даже самые точные вопросы прозвучат мимо, если клиент возразит: «дорого», «я подумаю», «у других дешевле». В следующем уроке <strong>«Возражения: природа и алгоритм»</strong> — как работать с ними спокойно и уверенно.</p>
+  </section>
+
+  <!-- ============ 9 · КАЗАХСКАЯ ПРАКТИКА ============ -->
+  <section class="lsec" id="kz" aria-labelledby="h-kz">
+    <div class="snum"><span class="step">+</span> Двуязычная практика</div>
+    <h2 id="h-kz">Қазақша диалог — тот же звонок по-казахски</h2>
+    <p class="lead">Тот же диалог Алии и Ержана, полностью на казахском, — для тренировки на платформе. Разверни блок и проговори вслух.</p>
+
+    <details class="kzblock">
+      <summary><span class="kztag">KZ</span> Қазақша диалог (практика · мәтін)</summary>
+      <div class="kzbody">
+        <p class="note">Двуязычный слой: казахская версия диалога для тренировки на платформе. В озвучку не идёт; финальная вычитка носителем — отдельно.</p>
+        <div class="turns">
+          <div class="turn mgr"><span class="who">Алия</span><p class="said">Менің атым Алия, Атамура компаниясының сату бөлімінен хабарласып тұрмын. Сіз біздің тұрғын кешендер бойынша өтінім қалдырғансыз, дұрыс па?</p></div>
+          <div class="turn cli"><span class="who">Ержан</span><p class="said">Иә, дұрыс. Айтыңызшы, сіздерде жалпы не бар, қандай нұсқалар бар?</p></div>
+          <div class="turn mgr"><span class="who">Алия</span><p class="said">Қуана көмектесемін. Атыңыз кім?</p></div>
+          <div class="turn cli"><span class="who">Ержан</span><p class="said">Ержан.</p></div>
+          <div class="turn mgr"><span class="who">Алия</span><p class="said">Өте жақсы, Ержан. Сізге барлық нұсқаны тізіп, уақытыңызды алмау үшін, бірнеше қысқа сұрақ қойып, дәл өзіңізге лайық екі-үш нұсқа көрсетейін. Жарай ма?</p></div>
+          <div class="turn cli"><span class="who">Ержан</span><p class="said">Жарайды, болады.</p></div>
+          <div class="turn mgr"><span class="who">Алия</span><p class="said">Айтыңызшы, пәтерді өзіңіз үшін аласыз ба, отбасыңыз үшін бе, әлде инвестиция ретінде ме?</p></div>
+          <div class="turn cli"><span class="who">Ержан</span><p class="said">Отбасыға. Жақында екінші балам дүниеге келді, екі бөлмеге сыймай жатырмыз.</p></div>
+          <div class="turn mgr"><span class="who">Алия</span><p class="said">Сізді түсінемін. Таңдағанда Сіз үшін ең маңыздысы не? Міндетті түрде не болуы керек?</p></div>
+          <div class="turn cli"><span class="who">Ержан</span><p class="said">Ауласы қауіпсіз болса. Және мектеп жақын болсын, үлкені бір жылдан кейін бірінші сыныпқа барады.</p></div>
+          <div class="turn mgr"><span class="who">Алия</span><p class="said">Тағы бір маңызды нәрсе бар ма?</p></div>
+          <div class="turn cli"><span class="who">Ержан</span><p class="said">Үш жылдан кейін емес, ертерек кірсек дейміз. Және төлемі көтерімді болса, ипотеканы ойлап жүрміз.</p></div>
+          <div class="turn mgr"><span class="who">Алия</span><p class="said">Рахмет, Ержан, бұл өте көмектеседі. Қорытындылап берейін: отбасыңызға арналған, балаларға орын жеткілікті пәтер керек, қауіпсіз аула мен жақын мектеп маңызды, тезірек кіргіңіз келеді, ал төлемді ипотека арқылы қарастырып жатырсыз. Бәрі дұрыс па?</p></div>
+          <div class="turn cli"><span class="who">Ержан</span><p class="said">Иә, дәл таптыңыз.</p></div>
+          <div class="turn mgr"><span class="who">Алия</span><p class="said">Тамаша. Онда бәрін тізіп жатпаймын — сұранысыңызға сай екі жақсы нұсқам бар. Біреуі — жабық ауласы бар, мектебі жаяу жетер жерде, екіншісі — тапсырылу мерзімі жақынырақ. Олардың ауласын және пәтердің жоспарын өз көзіңізбен бағалау үшін барып көрген дұрыс. Бұл отыз-қырық минут, ешқандай міндеттемесіз. Сізге қашан ыңғайлы — ертең түске дейін бе, әлде бейсенбі күні кешке таман ба?</p></div>
+          <div class="turn cli"><span class="who">Ержан</span><p class="said">Бейсенбі кешке болсын.</p></div>
+          <div class="turn mgr"><span class="who">Алия</span><p class="said">Келістік, Ержан, бейсенбі. Екі нұсқаны да, ай сайынғы төлем есебін де дайындап қоямын. Кездесуді жазып қойып, бір күн бұрын міндетті түрде растап аламын.</p></div>
+        </div>
+      </div>
+    </details>
+  </section>
+
+  <!-- ============ 10 · ТЕСТ ============ -->
+  <section class="lsec" id="test" aria-labelledby="h-test">
+    <div class="snum"><span class="step">9</span> Проверка</div>
+    <h2 id="h-test">Тест по уроку</h2>
+    <p class="lead">Шесть вопросов. Чтобы пройти урок, нужно ответить верно минимум на 80% — это 5 из 6. Можно пересдать.</p>
+
+    <form class="quiz" id="quiz">
+      <div class="qhead">
+        <span class="gate">Порог прохождения: 80% · 5 из 6</span>
+        <span style="font-size:13px;color:var(--ink-mute)">Выбери один вариант в каждом вопросе.</span>
+      </div>
+
+      <div class="q" data-answer="b">
+        <div class="qn">Вопрос 1 из 6</div>
+        <div class="qtext">Что на самом деле покупает клиент, когда обращается за квартирой?</div>
+        <label class="opt"><input type="radio" name="q1" value="a"><span class="otext"><span class="ltr">А.</span>Квадратные метры и красивую планировку</span><span class="mark"></span></label>
+        <label class="opt"><input type="radio" name="q1" value="b"><span class="otext"><span class="ltr">Б.</span>Решение своей жизненной задачи</span><span class="mark"></span></label>
+        <label class="opt"><input type="radio" name="q1" value="c"><span class="otext"><span class="ltr">В.</span>Самую низкую цену на рынке</span><span class="mark"></span></label>
+        <label class="opt"><input type="radio" name="q1" value="d"><span class="otext"><span class="ltr">Г.</span>Престижный адрес</span><span class="mark"></span></label>
+        <div class="why"><b>Почему:</b> Главная мысль урока: метры, этаж и отделка — лишь инструменты. Клиент покупает решение своей задачи, и продавать нужно именно его.</div>
+      </div>
+
+      <div class="q" data-answer="b">
+        <div class="qn">Вопрос 2 из 6</div>
+        <div class="qtext">Как звучит базовое правило сильного менеджера в каждом звонке?</div>
+        <label class="opt"><input type="radio" name="q2" value="a"><span class="otext"><span class="ltr">А.</span>Все комплексы подряд — все плюсы — скидка — звонок завтра</span><span class="mark"></span></label>
+        <label class="opt"><input type="radio" name="q2" value="b"><span class="otext"><span class="ltr">Б.</span>Один клиент — одна главная задача — два-три варианта — один следующий шаг</span><span class="mark"></span></label>
+        <label class="opt"><input type="radio" name="q2" value="c"><span class="otext"><span class="ltr">В.</span>Один звонок — одна презентация — одна цена — один договор</span><span class="mark"></span></label>
+        <label class="opt"><input type="radio" name="q2" value="d"><span class="otext"><span class="ltr">Г.</span>Много вариантов — пусть клиент сам выберет</span><span class="mark"></span></label>
+        <div class="why"><b>Почему:</b> Это сквозная цепочка-компас урока: сузить до конкретного человека, его задачи, двух-трёх подходящих вариантов и одного чёткого следующего шага (чаще всего показа).</div>
+      </div>
+
+      <div class="q" data-answer="b">
+        <div class="qn">Вопрос 3 из 6</div>
+        <div class="qtext">Почему нельзя презентовать клиенту сразу все жилые комплексы?</div>
+        <label class="opt"><input type="radio" name="q3" value="a"><span class="otext"><span class="ltr">А.</span>Это занимает слишком много рабочего времени менеджера</span><span class="mark"></span></label>
+        <label class="opt"><input type="radio" name="q3" value="b"><span class="otext"><span class="ltr">Б.</span>Клиент тонет в информации, ты звучишь как справочная и теряешь управление разговором</span><span class="mark"></span></label>
+        <label class="opt"><input type="radio" name="q3" value="c"><span class="otext"><span class="ltr">В.</span>Клиент быстрее определится, если сразу видит весь ассортимент</span><span class="mark"></span></label>
+        <label class="opt"><input type="radio" name="q3" value="d"><span class="otext"><span class="ltr">Г.</span>Все варианты трудно удержать в голове самому менеджеру</span><span class="mark"></span></label>
+        <div class="why"><b>Почему:</b> В уроке названы ровно три причины: от избытка вариантов клиент закрывается, продавец превращается в справочную службу и теряет контроль над разговором.</div>
+      </div>
+
+      <div class="q" data-answer="b">
+        <div class="qn">Вопрос 4 из 6</div>
+        <div class="qtext">Чем боль клиента отличается от его потребности?</div>
+        <label class="opt"><input type="radio" name="q4" value="a"><span class="otext"><span class="ltr">А.</span>Это одно и то же, просто разные слова</span><span class="mark"></span></label>
+        <label class="opt"><input type="radio" name="q4" value="b"><span class="otext"><span class="ltr">Б.</span>Потребность — это произнесённая вслух фраза («нужна квартира»), а боль — конкретная жизненная ситуация под ней</span><span class="mark"></span></label>
+        <label class="opt"><input type="radio" name="q4" value="c"><span class="otext"><span class="ltr">В.</span>Боль — это всегда про деньги, а потребность — про комфорт</span><span class="mark"></span></label>
+        <label class="opt"><input type="radio" name="q4" value="d"><span class="otext"><span class="ltr">Г.</span>Потребность бывает только у семей, а боль — у инвесторов</span><span class="mark"></span></label>
+        <div class="why"><b>Почему:</b> Потребность — вершина айсберга, то, что клиент говорит вслух. Боль — то, что под водой: реальная ситуация (тесно с детьми, устал ездить, боится не успеть), которая и движет человеком.</div>
+      </div>
+
+      <div class="q" data-answer="b">
+        <div class="qn">Вопрос 5 из 6</div>
+        <div class="qtext">В какие четыре плоскости укладывается почти любая боль клиента?</div>
+        <label class="opt"><input type="radio" name="q5" value="a"><span class="otext"><span class="ltr">А.</span>Цена, площадь, район, срок</span><span class="mark"></span></label>
+        <label class="opt"><input type="radio" name="q5" value="b"><span class="otext"><span class="ltr">Б.</span>Комфорт, безопасность, экономия, имидж</span><span class="mark"></span></label>
+        <label class="opt"><input type="radio" name="q5" value="c"><span class="otext"><span class="ltr">В.</span>Семья, работа, инвестиции, переезд</span><span class="mark"></span></label>
+        <label class="opt"><input type="radio" name="q5" value="d"><span class="otext"><span class="ltr">Г.</span>Ипотека, рассрочка, наличные, обмен</span><span class="mark"></span></label>
+        <div class="why"><b>Почему:</b> Карта из урока: комфорт, безопасность, экономия и имидж. Раскладывая ответы клиента по этим четырём полкам, ты быстро понимаешь, что для него на самом деле важно.</div>
+      </div>
+
+      <div class="q" data-answer="b">
+        <div class="qn">Вопрос 6 из 6</div>
+        <div class="qtext">Зачем перед презентацией пересказывать клиенту его же задачу его словами (зеркалирование)?</div>
+        <label class="opt"><input type="radio" name="q6" value="a"><span class="otext"><span class="ltr">А.</span>Чтобы заполнить паузу в разговоре</span><span class="mark"></span></label>
+        <label class="opt"><input type="radio" name="q6" value="b"><span class="otext"><span class="ltr">Б.</span>Чтобы клиент услышал, что его поняли, сказал «да, именно так» и доверие выросло</span><span class="mark"></span></label>
+        <label class="opt"><input type="radio" name="q6" value="c"><span class="otext"><span class="ltr">В.</span>Чтобы показать клиенту, что ты знаешь все комплексы</span><span class="mark"></span></label>
+        <label class="opt"><input type="radio" name="q6" value="d"><span class="otext"><span class="ltr">Г.</span>Чтобы клиент быстрее назвал свой бюджет</span><span class="mark"></span></label>
+        <div class="why"><b>Почему:</b> Зеркало — шестая ключевая фраза. Когда клиент слышит свою задачу и отвечает «да, именно так», он чувствует, что его услышали, доверие максимально, и он готов слушать презентацию.</div>
+      </div>
+
+      <div class="quiz-actions">
+        <button type="button" class="btn btn-primary" id="check">Проверить</button>
+        <button type="button" class="btn btn-ghost" id="retry" style="display:none">Пройти заново</button>
+      </div>
+
+      <div class="result" id="result" role="status" aria-live="polite">
+        <div class="score"><span id="score-num">0</span><span class="u"> / 6</span></div>
+        <div class="msg" id="result-msg"></div>
+        <a class="next" id="next-link" href="lesson_U3.html" style="display:none">Перейти к уроку «Возражения: природа и алгоритм» →</a>
+      </div>
+    </form>
+  </section>
+
+  <!-- ============ НАВИГАЦИЯ ============ -->
+  <nav class="lnav" aria-label="Навигация по урокам">
+    <a href="lesson_U1.html">← Урок U1 · Профессия продавца и воронка</a>
+    <a class="next-lesson" href="lesson_U3.html">Урок U3 · Возражения →</a>
+  </nav>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="wm">ATAMŪRA</div>
+    <p>Академия продаж · «Мы создаём наследие». Сначала короткое видео — потом разбор текстом, чтобы можно было вернуться к любой фразе.</p>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var PASS = 80;
+  var quiz = document.getElementById('quiz');
+  var questions = Array.prototype.slice.call(quiz.querySelectorAll('.q'));
+  (function(){var L=['А','Б','В','Г','Д','Е'];questions.forEach(function(q){var why=q.querySelector('.why');var o=Array.prototype.slice.call(q.querySelectorAll('.opt'));for(var i=o.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var t=o[i];o[i]=o[j];o[j]=t;}o.forEach(function(e,k){q.insertBefore(e,why);var l=e.querySelector('.ltr');if(l)l.textContent=L[k]+'.';});});})();
+  var total = questions.length;
+  var checkBtn = document.getElementById('check');
+  var retryBtn = document.getElementById('retry');
+  var result = document.getElementById('result');
+  var scoreNum = document.getElementById('score-num');
+  var resultMsg = document.getElementById('result-msg');
+  var nextLink = document.getElementById('next-link');
+
+  function check(){
+    var correct = 0, unanswered = 0;
+    questions.forEach(function(q){
+      var ans = q.getAttribute('data-answer');
+      var picked = q.querySelector('input:checked');
+      q.classList.add('checked');
+      var correctOpt = q.querySelector('input[value="'+ans+'"]').closest('.opt');
+      correctOpt.classList.add('correct');
+      correctOpt.querySelector('.mark').textContent = 'верно';
+      if(!picked){ unanswered++; return; }
+      if(picked.value === ans){ correct++; }
+      else { var w = picked.closest('.opt'); w.classList.add('wrong'); w.querySelector('.mark').textContent = 'ваш ответ'; }
+    });
+    var pct = Math.round((correct/total)*100);
+    scoreNum.textContent = correct;
+    result.classList.add('show');
+    checkBtn.style.display = 'none';
+    retryBtn.style.display = 'inline-block';
+    if(pct >= PASS){
+      result.classList.remove('fail'); result.classList.add('pass');
+      resultMsg.innerHTML = 'Отлично — <b>'+pct+'%</b>. Порог 80% пройден, урок засчитан.';
+      nextLink.style.display = 'inline-block';
+    } else {
+      result.classList.remove('pass'); result.classList.add('fail');
+      var need = Math.ceil(total*PASS/100);
+      var miss = unanswered ? ' ('+unanswered+' без ответа)' : '';
+      resultMsg.innerHTML = '<b>'+pct+'%</b> — порог 80% пока не пройден. Нужно минимум '+need+' из '+total+miss+'. Посмотри подсветку и разбор «Почему», вернись к тексту и пройди заново.';
+      nextLink.style.display = 'none';
+    }
+    result.scrollIntoView({behavior:'smooth', block:'nearest'});
+  }
+  function reset(){
+    questions.forEach(function(q){
+      q.classList.remove('checked');
+      q.querySelectorAll('.opt').forEach(function(o){ o.classList.remove('correct','wrong'); var m=o.querySelector('.mark'); if(m) m.textContent=''; });
+      q.querySelectorAll('input').forEach(function(i){ i.checked = false; });
+    });
+    result.classList.remove('show','pass','fail');
+    nextLink.style.display = 'none';
+    checkBtn.style.display = 'inline-block';
+    retryBtn.style.display = 'none';
+    quiz.scrollIntoView({behavior:'smooth', block:'start'});
+  }
+  checkBtn.addEventListener('click', check);
+  retryBtn.addEventListener('click', reset);
+})();
+</script>
+
+<script src="academy.js"></script>
+<script>
+(function(){
+  var LESSON='U2';
+  function chrome(){ if(!window.Academy) return; var s=Academy.snapshot(); var el=document.getElementById('lpts'); if(el) el.textContent='🪙 '+s.coins+' · '+s.rank.current.name; }
+  var cb=document.getElementById('check'); if(cb) cb.addEventListener('click',function(){ if(window.Academy) Academy.markAttempt(LESSON); });
+  var res=document.getElementById('result'); var done=false;
+  if(res && window.MutationObserver){
+    new MutationObserver(function(){
+      if(done) return;
+      if(res.classList.contains('pass')){
+        done=true;
+        var sn=document.getElementById('score-num'); var sc=sn?(parseInt(sn.textContent,10)||0):0;
+        var tot=document.querySelectorAll('#quiz .q').length||6;
+        if(window.Academy){ var r=Academy.completeLesson(LESSON,{score:sc,total:tot});
+          if(r&&r.coinsAwarded){ try{ sessionStorage.setItem('academy_award','Урок засчитан: +'+r.coinsAwarded+' коинов'+(r.leveledUp?' · новый грейд!':'')); }catch(e){} }
+          chrome();
+        }
+      }
+    }).observe(res,{attributes:true,attributeFilter:['class']});
+  }
+  chrome();
+})();
+</script>
+</body>
+</html>

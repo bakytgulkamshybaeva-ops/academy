@@ -1,0 +1,755 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>U3 · Возражения: природа и алгоритм — ATAMŪRA Академия</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant:ital,wght@0,500;0,600;0,700;1,500;1,600&family=Jost:wght@300;400;500;600;700&family=Noto+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#F7F5EE; --card:#FBFBFB; --ink:#1E1E1E; --ink-soft:#4A4A4A; --ink-mute:#6E6E6E;
+  --line:#E0DDD3; --line-soft:#ECEAE2; --grey:#BCBCBC;
+  --brand:#284157; --brand-deep:#1A2B3A; --brand-soft:#E5EAF0; --brand-on:#FBFBFB;
+  --accent:#007484; --accent-deep:#005763; --accent-soft:#E0EEF0; --accent-on:#FBFBFB;
+  --tier:#CFB372; --tier-deep:#A88E48; --tier-soft:#EFE6CD; --tier-on:#1E1E1E;
+  --ok:#2C6E43; --ok-soft:#E2EFE5; --warn:#B5641A; --warn-deep:#8A4D14; --warn-soft:#F7E8D4; --bad:#B4232A; --bad-soft:#F7DEDF;
+  --serif:'Cormorant',Georgia,serif; --sans:'Jost','Noto Sans','Futura PT',system-ui,sans-serif;
+  --s-1:4px; --s-2:8px; --s-3:12px; --s-4:16px; --s-5:24px; --s-6:32px; --s-7:48px; --s-8:64px; --s-9:80px;
+  --r-sm:12px; --r-md:16px; --r-lg:24px; --r-xl:32px; --r-pill:999px;
+  --content:960px;
+  --shadow-card:0 1px 2px rgba(0,0,0,.04);
+  --shadow-pop:0 16px 40px rgba(0,0,0,.12),0 4px 12px rgba(0,0,0,.04);
+}
+*,*::before,*::after{box-sizing:border-box;}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%;}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:1.65;-webkit-font-smoothing:antialiased;}
+.wrap{max-width:var(--content);margin:0 auto;padding-inline:clamp(20px,5vw,40px);}
+h1,h2,h3,h4{font-family:var(--serif);font-weight:600;margin:0;line-height:1.1;color:var(--ink);}
+p{margin:0 0 var(--s-4);}
+strong{color:var(--ink);font-weight:600;}
+.tnum{font-variant-numeric:tabular-nums;}
+a{color:var(--brand);text-decoration:none;}
+a:hover{color:var(--brand-deep);text-decoration:underline;}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:4px;}
+@media (prefers-reduced-motion: reduce){.pulse,.pulse *{animation:none !important;}*{scroll-behavior:auto !important;}}
+
+/* ============ ШАПКА (хром) ============ */
+.topbar{height:48px;background:var(--brand);display:flex;align-items:center;}
+.topbar .wrap{display:flex;align-items:center;gap:14px;width:100%;}
+.topbar .wm{font-family:var(--serif);font-weight:700;color:#fff;font-size:17px;letter-spacing:.06em;}
+.topbar .crumb{font-size:12px;font-weight:500;letter-spacing:.04em;color:#AEC0D2;margin-left:auto;}
+
+/* ============ HERO УРОКА ============ */
+.lhero{background:radial-gradient(120% 90% at 100% 0%, var(--brand-soft), transparent 60%), var(--bg);padding:clamp(34px,5vw,56px) 0 clamp(20px,3vw,28px);border-bottom:1px solid var(--line-soft);}
+.eyebrow{font-family:var(--sans);font-size:11px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--brand);display:block;margin-bottom:var(--s-3);}
+.lhero h1{font-size:clamp(30px,5vw,50px);letter-spacing:-.02em;}
+.lhero .track{font-family:var(--serif);font-style:italic;font-size:clamp(17px,2vw,21px);color:var(--accent-deep);margin-top:var(--s-3);}
+.lmeta{margin-top:var(--s-5);display:flex;flex-wrap:wrap;gap:8px;}
+.chip{display:inline-flex;gap:7px;align-items:center;font-size:12px;font-weight:600;padding:6px 13px;border-radius:var(--r-pill);background:var(--card);border:1px solid var(--line);color:var(--ink-soft);}
+.chip.nv{background:var(--brand);color:var(--brand-on);border-color:var(--brand);}
+.chip.tq{background:var(--accent-soft);color:var(--accent-deep);border-color:var(--accent-soft);}
+
+/* ============ СЕКЦИИ ============ */
+.lsec{padding-block:clamp(34px,4.5vw,56px);border-top:1px solid var(--line-soft);}
+.lsec:first-of-type{border-top:0;}
+.snum{font-family:var(--sans);font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-mute);display:flex;align-items:center;gap:10px;margin-bottom:var(--s-3);}
+.snum .step{display:inline-flex;align-items:center;justify-content:center;min-width:22px;height:22px;padding:0 6px;border-radius:var(--r-pill);background:var(--brand);color:#fff;font-family:var(--serif);font-size:13px;font-weight:700;}
+.lsec h2{font-size:clamp(24px,3.4vw,36px);letter-spacing:-.01em;}
+.lsec .lead{font-size:17px;color:var(--ink-soft);max-width:64ch;margin-top:var(--s-3);}
+.lsec p{max-width:68ch;}
+
+/* ============ 1 · АВАТАР-ВИДЕО ============ */
+.video-wrap{margin-top:var(--s-5);border:1px solid var(--line);border-radius:var(--r-lg);overflow:hidden;background:var(--brand-deep);box-shadow:var(--shadow-card);}
+.video-wrap video{display:block;width:100%;height:auto;aspect-ratio:16/9;background:var(--brand-deep);}
+.poster{aspect-ratio:16/9;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;color:#fff;
+  background:radial-gradient(120% 120% at 50% 0%, #2F4A63, var(--brand-deep));position:relative;}
+.poster .av{width:88px;height:88px;border-radius:50%;background:var(--accent);display:flex;align-items:center;justify-content:center;margin-bottom:18px;box-shadow:0 0 0 8px rgba(0,116,132,.18);}
+.poster .av svg{width:42px;height:42px;color:#fff;}
+.poster .pt{font-family:var(--serif);font-size:22px;font-weight:600;}
+.poster .ps{font-size:13px;color:#AEC0D2;margin-top:6px;max-width:46ch;padding:0 20px;}
+.poster .tag{position:absolute;top:14px;left:14px;font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--brand-deep);background:var(--tier);padding:4px 11px;border-radius:var(--r-pill);}
+.video-cap{display:flex;flex-wrap:wrap;gap:8px 16px;align-items:center;margin-top:var(--s-3);font-size:13px;color:var(--ink-mute);}
+.video-cap b{color:var(--ink-soft);font-weight:600;}
+.video-note{margin-top:var(--s-4);font-size:13.5px;color:var(--ink-soft);background:var(--accent-soft);border-radius:var(--r-md);padding:12px 16px;max-width:none;}
+.video-note b{color:var(--accent-deep);}
+
+/* ============ КАРТОЧКИ / БЛОКИ ============ */
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--r-lg);padding:clamp(20px,3vw,30px);}
+.keyidea{background:var(--card);border:1px solid var(--line);border-left:6px solid var(--tier);border-radius:var(--r-md);padding:clamp(20px,3vw,28px);margin-top:var(--s-5);}
+.keyidea .kl{font-family:var(--sans);font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--tier-deep);margin-bottom:10px;display:flex;align-items:center;gap:8px;}
+.keyidea .kt{font-family:var(--serif);font-size:clamp(20px,2.6vw,27px);font-weight:600;line-height:1.28;color:var(--brand-deep);margin:0;}
+.keyidea .kt b{color:var(--brand-deep);}
+.posbox{background:var(--brand);color:#fff;border-radius:var(--r-lg);padding:clamp(24px,3.5vw,40px);margin-top:var(--s-5);}
+.posbox .pe{font-size:11px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--tier);}
+.posbox .pstmt{font-family:var(--serif);font-size:clamp(19px,2.4vw,26px);font-weight:500;line-height:1.36;margin:var(--s-3) 0 0;color:#fff;}
+.posbox .pstmt b{color:#fff;font-weight:700;}
+.posbox .pstmt .hl{color:var(--tier);font-style:italic;}
+
+/* список с галочками */
+.checklist{display:grid;gap:10px;margin:var(--s-4) 0 0;padding:0;list-style:none;}
+.checklist li{display:grid;grid-template-columns:auto 1fr;gap:12px;align-items:start;background:var(--card);border:1px solid var(--line);border-radius:var(--r-md);padding:13px 16px;font-size:15px;}
+.checklist li .ic{width:22px;height:22px;border-radius:50%;background:var(--ok-soft);color:var(--ok);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:13px;flex-shrink:0;margin-top:1px;}
+.checklist li b{color:var(--ink);}
+
+/* готовые фразы / причины — пронумерованные карточки */
+.phrases{display:grid;gap:12px;margin-top:var(--s-5);}
+.phrase{display:grid;grid-template-columns:auto 1fr;gap:16px;align-items:start;background:var(--card);border:1px solid var(--line);border-radius:var(--r-md);padding:16px 18px;}
+.phrase .pn{font-family:var(--serif);font-size:28px;font-weight:700;color:var(--accent);line-height:1;}
+.phrase .role-lbl{font-family:var(--sans);font-size:11px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;color:var(--ink-mute);margin-bottom:5px;}
+.phrase .q{font-size:15.5px;color:var(--ink);line-height:1.5;}
+.phrase .q::before{content:'«';color:var(--accent);}
+.phrase .q::after{content:'»';color:var(--accent);}
+.phrase .body{font-size:15.5px;color:var(--ink);line-height:1.5;}
+
+/* callout / резюме */
+.callout{background:var(--brand-soft);border-left:5px solid var(--brand);border-radius:var(--r-md);padding:var(--s-5) var(--s-6);margin-top:var(--s-5);}
+.callout b{color:var(--brand-deep);}
+.callout p{margin:0;font-size:15px;color:var(--ink-soft);max-width:none;}
+.recap{display:grid;gap:10px;margin-top:var(--s-4);}
+.recap .ri{display:grid;grid-template-columns:auto 1fr;gap:12px;align-items:start;}
+.recap .ri .rn{font-family:var(--serif);font-size:22px;font-weight:700;color:var(--brand);line-height:1.1;}
+.recap .ri p{margin:0;font-size:15px;color:var(--ink);}
+
+/* ============ TRUST-СЧЁТЧИКИ ============ */
+.trust{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:var(--s-5);}
+@media(max-width:640px){.trust{grid-template-columns:repeat(2,1fr);}}
+.trust .cell{background:var(--card);border:1px solid var(--line);border-radius:var(--r-md);padding:18px 14px;text-align:center;}
+.trust .cell b{display:block;font-family:var(--serif);font-size:clamp(26px,4vw,36px);font-weight:700;color:var(--brand);line-height:1;}
+.trust .cell span{display:block;font-size:12.5px;color:var(--ink-soft);margin-top:7px;line-height:1.3;}
+
+/* ============ ГАЛЕРЕЯ ЖК ============ */
+.zhk-gallery{display:grid;grid-template-columns:repeat(auto-fill,minmax(258px,1fr));gap:14px;margin-top:var(--s-5);}
+.zhk-card{position:relative;border-radius:var(--r-lg);overflow:hidden;border:1px solid var(--line);background:var(--brand-deep);aspect-ratio:4/3;box-shadow:var(--shadow-card);}
+.zhk-card img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .6s ease;}
+.zhk-card:hover img{transform:scale(1.05);}
+.zhk-card .cap{position:absolute;left:0;right:0;bottom:0;padding:34px 16px 14px;background:linear-gradient(to top,rgba(16,26,36,.9),rgba(16,26,36,.45) 55%,transparent);color:#fff;}
+.zhk-card .cap .nm{font-family:var(--serif);font-weight:700;font-size:21px;letter-spacing:.02em;}
+.zhk-card .cap .meta{font-size:12px;color:#D7E0E8;margin-top:2px;}
+.zhk-card .badge{position:absolute;top:12px;left:12px;font-size:10px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:4px 10px;border-radius:var(--r-pill);background:rgba(255,255,255,.92);color:var(--brand-deep);}
+.zhk-card .badge.done{background:var(--ok);color:#fff;}
+.zhk-card .badge.build{background:var(--accent);color:#fff;}
+.gallery-note{margin-top:var(--s-4);font-size:13.5px;color:var(--ink-mute);max-width:68ch;}
+
+/* ============ ДВА СТРАХА ============ */
+.fears{display:grid;grid-template-columns:1fr 1fr;gap:var(--s-4);margin-top:var(--s-5);}
+@media(max-width:720px){.fears{grid-template-columns:1fr;}}
+.fear{background:var(--card);border:1px solid var(--line);border-left:6px solid var(--warn);border-radius:var(--r-md);padding:20px 22px;}
+.fear .ord{font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--warn-deep);}
+.fear h4{font-family:var(--serif);font-size:23px;margin:6px 0 8px;color:var(--ink);}
+.fear p{font-size:14.5px;color:var(--ink-soft);margin:0;max-width:none;}
+
+/* ============ 3 · ТЕСТ / QUIZ ============ */
+.quiz{margin-top:var(--s-5);background:var(--card);border:1px solid var(--line);border-radius:var(--r-lg);padding:clamp(22px,3vw,34px);box-shadow:var(--shadow-card);}
+.quiz .qhead{display:flex;flex-wrap:wrap;align-items:baseline;gap:10px 16px;margin-bottom:var(--s-3);}
+.quiz .qhead .gate{font-size:12px;font-weight:700;letter-spacing:.04em;color:var(--brand);background:var(--brand-soft);border-radius:var(--r-pill);padding:5px 13px;}
+.quiz .qintro{font-size:15px;color:var(--ink-soft);margin-bottom:var(--s-5);}
+.q{border-top:1px solid var(--line-soft);padding:var(--s-5) 0;}
+.q:first-of-type{border-top:0;padding-top:0;}
+.q .qn{font-family:var(--sans);font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--accent-deep);margin-bottom:6px;}
+.q .qtext{font-family:var(--serif);font-size:21px;font-weight:600;line-height:1.25;margin-bottom:var(--s-4);color:var(--ink);}
+.opt{display:flex;align-items:flex-start;gap:12px;border:1px solid var(--line);border-radius:var(--r-md);padding:13px 16px;margin-bottom:10px;cursor:pointer;background:var(--bg);transition:120ms;}
+.opt:hover{border-color:var(--brand);background:var(--brand-soft);}
+.opt input{margin-top:3px;width:18px;height:18px;accent-color:var(--brand);flex-shrink:0;cursor:pointer;}
+.opt .otext{font-size:15px;color:var(--ink);line-height:1.45;}
+.opt .ltr{font-weight:700;color:var(--ink-mute);margin-right:4px;}
+.q.checked .opt{cursor:default;}
+.q.checked .opt input{pointer-events:none;}
+.opt.correct{border-color:var(--ok);background:var(--ok-soft);}
+.opt.correct .ltr{color:var(--ok);}
+.opt.wrong{border-color:var(--bad);background:var(--bad-soft);}
+.opt.wrong .ltr{color:var(--bad);}
+.opt .mark{margin-left:auto;font-weight:700;font-size:14px;display:none;align-self:center;}
+.opt.correct .mark{display:inline;color:var(--ok);}
+.opt.wrong .mark{display:inline;color:var(--bad);}
+.why{display:none;margin-top:8px;font-size:13.5px;color:var(--ink-soft);background:var(--bg);border:1px solid var(--line-soft);border-radius:var(--r-md);padding:11px 14px;line-height:1.5;}
+.q.checked .why{display:block;}
+.why b{color:var(--ink);}
+.quiz-actions{margin-top:var(--s-5);display:flex;flex-wrap:wrap;gap:14px;align-items:center;}
+.btn{font-family:var(--sans);font-weight:600;font-size:15px;letter-spacing:.01em;border:0;border-radius:var(--r-pill);padding:13px 26px;cursor:pointer;transition:120ms;}
+.btn-primary{background:var(--brand);color:var(--brand-on);}
+.btn-primary:hover{background:var(--brand-deep);}
+.btn-ghost{background:transparent;color:var(--brand);border:1.5px solid var(--line);}
+.btn-ghost:hover{border-color:var(--brand);}
+.btn:disabled{opacity:.5;cursor:not-allowed;}
+.result{display:none;margin-top:var(--s-5);border-radius:var(--r-md);padding:var(--s-5) var(--s-6);border:1px solid var(--line);}
+.result.show{display:block;}
+.result .score{font-family:var(--serif);font-size:clamp(28px,4vw,40px);font-weight:700;line-height:1;}
+.result .score .u{font-size:.5em;color:var(--ink-soft);font-weight:600;}
+.result .msg{font-size:15px;margin-top:8px;}
+.result.pass{background:var(--ok-soft);border-color:#C5DECB;}
+.result.pass .score{color:var(--ok);}
+.result.fail{background:var(--warn-soft);border-color:#EAD3AE;}
+.result.fail .score{color:var(--warn-deep);}
+.result .next{display:inline-block;margin-top:14px;font-size:14px;font-weight:600;}
+
+/* ============ ПОДВАЛ / НАВИГАЦИЯ ============ */
+.lnav{display:flex;flex-wrap:wrap;gap:14px;justify-content:space-between;align-items:center;margin-top:var(--s-7);padding-top:var(--s-5);border-top:1px solid var(--line);}
+.lnav a{display:inline-flex;align-items:center;gap:8px;font-size:14px;font-weight:600;color:var(--brand);}
+.lnav .next-lesson{background:var(--brand);color:#fff;padding:12px 22px;border-radius:var(--r-pill);}
+.lnav .next-lesson:hover{background:var(--brand-deep);text-decoration:none;color:#fff;}
+footer{padding:var(--s-7) 0;border-top:1px solid var(--line);background:var(--brand);color:var(--brand-soft);margin-top:var(--s-8);}
+footer .wm{font-family:var(--serif);font-weight:700;font-size:26px;color:#fff;letter-spacing:.04em;}
+footer p{font-size:13px;color:var(--brand-soft);margin:8px 0 0;max-width:60ch;}
+
+/* ============ КАЗАХСКИЙ СЛОЙ (свёрнут) ============ */
+.kzblock{margin-top:var(--s-5);border:1px solid var(--line);border-radius:var(--r-lg);overflow:hidden;background:var(--card);}
+.kzblock summary{cursor:pointer;list-style:none;padding:16px 20px;background:var(--brand-soft);font-weight:600;color:var(--brand-deep);display:flex;align-items:center;gap:10px;font-size:14px;}
+.kzblock summary::-webkit-details-marker{display:none;}
+.kzblock .kztag{font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--accent-deep);background:var(--accent-soft);padding:3px 9px;border-radius:var(--r-pill);}
+.kzblock .kzbody{padding:18px 20px;display:grid;gap:12px;}
+.kzblock .note{font-size:12.5px;color:var(--ink-mute);margin:0 0 4px;}
+
+/* ============ ЖИВОЙ ДИАЛОГ ============ */
+.dialog{margin-top:var(--s-5);border:1px solid var(--line);border-radius:var(--r-lg);overflow:hidden;background:var(--card);box-shadow:var(--shadow-card);}
+.dialog .dh{padding:14px 20px;background:var(--brand-soft);font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--brand-deep);display:flex;align-items:center;gap:10px;}
+.dialog .turns{padding:18px 20px;display:grid;gap:12px;}
+.turn{display:grid;grid-template-columns:auto 1fr;gap:12px;align-items:start;}
+.turn .who{font-size:11px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;padding:4px 10px;border-radius:var(--r-pill);white-space:nowrap;align-self:start;margin-top:2px;}
+.turn.mgr .who{background:var(--accent-soft);color:var(--accent-deep);}
+.turn.cli .who{background:var(--tier-soft);color:var(--tier-deep);}
+.turn .txt{font-size:15px;line-height:1.5;color:var(--ink);}
+.turn.mgr .txt{color:var(--ink);}
+.turn.cli .txt{color:var(--ink-soft);}
+.takeaway{margin-top:var(--s-4);font-size:14px;color:var(--ink-soft);background:var(--accent-soft);border-radius:var(--r-md);padding:14px 18px;max-width:none;}
+.takeaway b{color:var(--accent-deep);}
+
+/* ============ ДВЕ ОШИБКИ (dd) ============ */
+.dd{display:grid;grid-template-columns:1fr 1fr;gap:var(--s-4);margin-top:var(--s-5);}
+@media(max-width:720px){.dd{grid-template-columns:1fr;}}
+.col{border-radius:var(--r-md);padding:20px 22px;border:1px solid var(--line);}
+.col .clbl{font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;margin-bottom:8px;display:flex;align-items:center;gap:8px;}
+.col h4{font-family:var(--serif);font-size:22px;margin:0 0 8px;color:var(--ink);}
+.col p{font-size:14.5px;margin:0;max-width:none;}
+.col.no-col{background:var(--bad-soft);border-color:#E9C6C8;}
+.col.no-col .clbl{color:var(--bad);}
+.col.ok-col{background:var(--ok-soft);border-color:#C5DECB;}
+.col.ok-col .clbl{color:var(--ok);}
+</style>
+</head>
+<body>
+
+<!-- ============ ХРОМ ============ -->
+<div class="topbar">
+  <div class="wrap">
+    <a class="wm" href="academy.html" style="color:#fff;text-decoration:none">← ATAMŪRA</a><span id="lpts" style="margin-left:14px;color:#fff;font-size:12px;font-weight:700;background:rgba(207,179,114,.22);border:1px solid rgba(207,179,114,.5);border-radius:999px;padding:3px 12px">🪙 0</span>
+    <span class="crumb">Академия продаж · День 1 · Универсальное ядро</span>
+  </div>
+</div>
+
+<!-- ============ HERO УРОКА ============ -->
+<header class="lhero">
+  <div class="wrap">
+    <span class="eyebrow">День 1 · Универсальное ядро · Урок U3</span>
+    <h1>Возражения: природа и алгоритм</h1>
+    <p class="track">«Возражение — это не отказ. Это дверь, которую тебе приоткрыли»</p>
+    <div class="lmeta">
+      <span class="chip nv">Трек: Универсальное ядро</span>
+      <span class="chip">⏱ Видео ~1.5 мин + текст ~16 мин</span>
+      <span class="chip">📝 Тест: 6 вопросов</span>
+      <span class="chip tq">Порог 80%</span>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <!-- ============ 1 · АВАТАР-ВИДЕО ============ -->
+  <section class="lsec" id="video" aria-labelledby="h-video">
+    <div class="snum"><span class="step">1</span> Короткое видео — настрой</div>
+    <h2 id="h-video">Сначала послушай — потом читай</h2>
+    <p class="lead">Полторы минуты с наставником: почему возражение — это не «тебя отшили», а сигнал интереса. Весь алгоритм и фразы — текстом ниже, чтобы можно было вернуться к любой строке и проговорить вслух.</p>
+
+    <figure class="video-wrap" style="margin:0;margin-top:var(--s-5)">
+      <!--
+        HeyGen-аватар: короткий интро-ролик ~1.5 мин (НЕ весь урок). Голос Mariia.
+        Файл рендерится в avatar-ready/video/U3_intro.mp4.
+        Постер-кадр можно вырезать из mp4: ffmpeg -i video/U3_intro.mp4 -ss 2 -vframes 1 img/U3_poster.jpg
+      -->
+      <video controls preload="metadata" poster="img/U3_poster.jpg" aria-label="Видео-вступление к уроку U3">
+        <source src="video/U3_intro.mp4" type="video/mp4">
+        <track kind="captions" srclang="ru" label="Русский">
+      </video>
+      <div class="poster" style="display:none" role="img" aria-label="placeholder">
+        <span class="tag">HeyGen · ~1,5 мин</span>
+        <div class="av" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+        </div>
+        <div class="pt">Вступление наставника</div>
+        <div class="ps">«Возражение — это не отказ. Это интерес.»</div>
+      </div>
+    </figure>
+
+    <div class="video-cap">
+      <span><b>Озвучка:</b> аватар академии (HeyGen) · голос Mariia</span>
+      <span><b>Длительность:</b> ~1 мин 30 сек</span>
+      <span><b>Роль ролика:</b> задать настрой — не пересказать урок</span>
+    </div>
+
+    <div class="video-note">
+      <b>Почему видео короткое.</b> Голос и лицо снимают тревогу перед сложной темой — возражения пугают новичка сильнее всего. Сам алгоритм из пяти шагов, готовые фразы и разбор живут в тексте ниже: к ним удобно возвращаться и проговаривать вслух. Видео — это вход, текст — это сам урок.
+    </div>
+  </section>
+
+  <!-- ============ 2 · ГЛАВНОЕ ЗА 20 СЕКУНД ============ -->
+  <section class="lsec" id="key" aria-labelledby="h-key">
+    <div class="snum"><span class="step">2</span> Главное за 20 секунд</div>
+    <h2 id="h-key">Ключевая мысль урока</h2>
+    <p class="lead">Если из всего урока запомнить только одно — пусть это будут две строки ниже. Остальное их раскрывает.</p>
+
+    <div class="keyidea">
+      <div class="kl"><span aria-hidden="true">★</span> Запомнить накрепко</div>
+      <p class="kt"><b>Возражение — это не отказ. Возражение — это интерес.</b> Кто не хочет покупать — молчит и кладёт трубку. Кто возражает — ещё в разговоре.</p>
+    </div>
+
+    <div class="posbox">
+      <span class="pe">Установка</span>
+      <p class="pstmt"><b>Где спор — там нет продажи.</b> Твоя задача — быть <span class="hl">продающим, а не правым</span>. Не спорим, не давим, не выдумываем цифры.</p>
+    </div>
+  </section>
+
+  <!-- ============ 3 · СКРЫТЫЙ ВОПРОС ЗА ВОЗРАЖЕНИЕМ ============ -->
+  <section class="lsec" id="hidden" aria-labelledby="h-hidden">
+    <div class="snum"><span class="step">3</span> Разбор</div>
+    <h2 id="h-hidden">Скрытый вопрос за возражением</h2>
+    <p>Возражение почти никогда не значит ровно то, что сказано. За каждым спрятан настоящий запрос — вопрос между строк. Твоя работа — услышать не слова, а этот скрытый вопрос. Расшифруем самые частые: за каждой фразой клиента стоит одно и то же — «покажите, почему именно вы».</p>
+
+    <div class="phrases">
+      <div class="phrase">
+        <div class="pn">1</div>
+        <div>
+          <div class="role-lbl">Клиент говорит</div>
+          <div class="q">Дорого</div>
+          <div class="body" style="margin-top:8px"><b>Скрытый смысл:</b> «Обоснуйте мне платёж. Покажите, почему именно столько, — и я пойму». Это просьба объяснить ценность, а не «у меня нет денег».</div>
+        </div>
+      </div>
+      <div class="phrase">
+        <div class="pn">2</div>
+        <div>
+          <div class="role-lbl">Клиент говорит</div>
+          <div class="q">Я просто смотрю</div>
+          <div class="body" style="margin-top:8px"><b>Скрытый смысл:</b> «Докажите, почему я должен потратить время именно на вас, а не на другие компании». Он проверяет, профессионал ты или справочная служба.</div>
+        </div>
+      </div>
+      <div class="phrase">
+        <div class="pn">3</div>
+        <div>
+          <div class="role-lbl">Клиент говорит</div>
+          <div class="q">Нет времени приехать</div>
+          <div class="body" style="margin-top:8px"><b>Скрытый смысл:</b> «Объясните, зачем мне искать окно в графике и ехать на показ. Что я там получу?»</div>
+        </div>
+      </div>
+      <div class="phrase">
+        <div class="pn">4</div>
+        <div>
+          <div class="role-lbl">Клиент говорит</div>
+          <div class="q">А надёжный ли вы застройщик</div>
+          <div class="body" style="margin-top:8px"><b>Скрытый смысл:</b> «Покажите мне документы и сданные дома — и я успокоюсь». Это не нападение, а «помогите мне поверить».</div>
+        </div>
+      </div>
+      <div class="phrase">
+        <div class="pn">5</div>
+        <div>
+          <div class="role-lbl">Клиент говорит</div>
+          <div class="q">Локация не та / далеко от города</div>
+          <div class="body" style="margin-top:8px"><b>Скрытый смысл:</b> «Я уже построил жизнь в другом месте — работа, школа, родители — и боюсь это потерять». Не спорь про дорогу: услышь привязку и либо покажи, что новый район её закрывает, либо честно сравни варианты.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 4 · ДВЕ ОШИБКИ НОВИЧКА ============ -->
+  <section class="lsec" id="mistakes" aria-labelledby="h-mistakes">
+    <div class="snum"><span class="step">4</span> Две ошибки новичка</div>
+    <h2 id="h-mistakes">В них попадают одна за другой</h2>
+    <p class="lead">Обе ошибки одинаково гасят разговор. Золотая середина — не молчать, но и не называть голую цену, а отвечать на скрытый вопрос.</p>
+
+    <div class="dd">
+      <div class="col no-col">
+        <div class="clbl"><span aria-hidden="true">✕</span> Ошибка 1</div>
+        <h4>Замолчать или испугаться</h4>
+        <p>Клиент сказал «дорого», а менеджер растерялся: «Ну, я тогда вам в Ватсап скину, посмотрите сами». Ты бросил свою же квартиру на полпути. Клиент попросил объяснить — а ты отступил. Молчание и испуг он читает так: «значит, и правда не стоит того».</p>
+      </div>
+      <div class="col no-col">
+        <div class="clbl"><span aria-hidden="true">✕</span> Ошибка 2</div>
+        <h4>Сходу назвать голую цену</h4>
+        <p>Клиент спросил цену по телефону — менеджер на автомате её назвал. И тишина. Голая цена без ценности — это просто большое число: клиент ещё не увидел двор, планировку, расчёт по месяцам, надёжность, ему не с чем сравнить — и цифра пугает. Ты дал ответ, но не дал смысла.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 5 · АЛГОРИТМ 5 ШАГОВ ============ -->
+  <section class="lsec" id="algo" aria-labelledby="h-algo">
+    <div class="snum"><span class="step">5</span> Алгоритм</div>
+    <h2 id="h-algo">Пять шагов отработки возражения</h2>
+    <p class="lead">Принять → уточнить → локализовать → аргументировать → вернуть к следующему шагу. По порядку, спокойно, без спора.</p>
+
+    <ul class="checklist">
+      <li><span class="ic" aria-hidden="true">1</span><span><b>Принять.</b> Что бы клиент ни сказал — начинай с согласия. Не с тем, что «дорого», а с его правом так думать: «да, я вас понимаю», «да, это важный вопрос». Это снимает с тебя статус противника — вы переходите на одну сторону стола. Железно: <b>никаких «нет» и «но» в начале фразы</b>. «Но» перечёркивает всё сказанное до него и включает оборону. Вместо «но» — связка <b>«и именно поэтому»</b>: «Понимаю, и именно поэтому хочу показать вам этот двор вживую».</span></li>
+      <li><span class="ic" aria-hidden="true">2</span><span><b>Уточнить.</b> Не бросайся отрабатывать первое же слово — сначала пойми, что реально стоит за возражением. Задай уточняющий вопрос: «Дорого в целом по бюджету — или по сравнению с конкретным вариантом?» Это две разные ситуации, и отрабатываются они по-разному.</span></li>
+      <li><span class="ic" aria-hidden="true">3</span><span><b>Локализовать.</b> Проверь, единственное ли это возражение, иначе закроешь один угол, а горит весь дом. Спроси: «Это единственное, что смущает, или есть ещё?» И сделай связку-фиксацию: «Правильно понимаю — если по платежу и по сроку договоримся, то едем на показ?» Сказал «да» — встреча почти закрыта.</span></li>
+      <li><span class="ic" aria-hidden="true">4</span><span><b>Аргументировать.</b> Вопрос сузился — дай спокойную аргументацию по делу: покажи, что под его ситуацию решение есть. Не «у нас всё хорошо», а конкретно: есть разные схемы первого взноса и оплаты, есть индивидуальный расчёт в отделе продаж. <b>Точные цифры из головы не называешь</b> — говоришь, что варианты есть, а ставки и взнос подтвердит расчёт у руководителя на встрече.</span></li>
+      <li><span class="ic" aria-hidden="true">5</span><span><b>Вернуть к следующему шагу.</b> Любая отработка заканчивается не словами «ну вот, я объяснил», а конкретным предложением показа или расчёта: «Тогда давайте зафиксируем встречу — завтра в первой половине или в четверг вечером?»</span></li>
+    </ul>
+  </section>
+
+  <!-- ============ 6 · ВАЖНОЕ ПРАВИЛО ============ -->
+  <section class="lsec" id="rule" aria-labelledby="h-rule">
+    <div class="snum"><span class="step">6</span> Важное правило</div>
+    <h2 id="h-rule">Цифры — только к руководителю</h2>
+    <div class="callout" style="border-left-color:var(--bad);background:var(--bad-soft)">
+      <p><b>Никогда не называй точные ставки, проценты, размер скидки или условия рассрочки из головы — только к руководителю отдела продаж или на расчёт.</b> Ошибёшься на словах — потом разгребать тебе и клиенту. На звонке говори обобщённо: «рассрочка», «первый взнос», «расчёт по месяцам», «срок сдачи». А конкретику — на встрече, по подтверждённым данным.</p>
+    </div>
+    <p style="margin-top:var(--s-5)">И ещё две тонкости про «дорого». Первое «дорого» воспринимай мягко: около трети таких реплик — просто жалоба, человек выпустил пар. Согласись и спокойно снова предложи показ. Повторил второй раз — вот теперь это настоящее возражение, включай полную отработку. И помни: когда человек говорит «дорого», он чаще всего <strong>хочет купить</strong> — у него остался один вопрос, вопрос цены. Кому совсем не надо — цена не волнует, они кладут трубку.</p>
+  </section>
+
+  <!-- ============ 7 · ГОТОВЫЕ ФРАЗЫ ============ -->
+  <section class="lsec" id="phrases" aria-labelledby="h-phrases">
+    <div class="snum"><span class="step">7</span> Готовые фразы</div>
+    <h2 id="h-phrases">Отработки — говори дословно, всё на «вы»</h2>
+    <p class="lead">Бери и используй. Заучи и проговори вслух, чтобы звучали как твои собственные. С клиентом всегда на «вы».</p>
+
+    <div class="phrases">
+      <div class="phrase">
+        <div class="pn">1</div>
+        <div>
+          <div class="role-lbl">Начни с согласия (всегда)</div>
+          <div class="q">Да, я вас понимаю, цена в таком решении действительно важна.</div>
+        </div>
+      </div>
+      <div class="phrase">
+        <div class="pn">2</div>
+        <div>
+          <div class="role-lbl">Когда просят цену по телефону</div>
+          <div class="q">Я сейчас назову порядок цен, но кроме самой цены есть рассрочка, первый взнос, ипотека и условия по очередям — всё это сильно влияет на итог. Давайте я задам пару вопросов, чтобы посчитать именно под вас, иначе цифра ничего не скажет.</div>
+        </div>
+      </div>
+      <div class="phrase">
+        <div class="pn">3</div>
+        <div>
+          <div class="role-lbl">На «дорого» — уточнить и локализовать</div>
+          <div class="q">Понимаю, цена важна, особенно в таком решении. Скажите, дорого в целом по бюджету — или по сравнению с конкретным вариантом? Если по платежу выйдем в комфортную для вас сумму — в остальном вариант подходит?</div>
+        </div>
+      </div>
+      <div class="phrase">
+        <div class="pn">4</div>
+        <div>
+          <div class="role-lbl">Перевести фокус с цены на ценность</div>
+          <div class="q">Скажите, для вас важна только сама цена, или соотношение цены и того, что вы получаете — двор, планировка, срок сдачи, надёжность застройщика?</div>
+        </div>
+      </div>
+      <div class="phrase">
+        <div class="pn">5</div>
+        <div>
+          <div class="role-lbl">На первый взнос</div>
+          <div class="q">Да, первый взнос часто становится стоп-фактором. А какая сумма на старте была бы для вас комфортной? Если найдём схему с таким входом — двигаемся дальше?</div>
+        </div>
+      </div>
+      <div class="phrase">
+        <div class="pn">6</div>
+        <div>
+          <div class="role-lbl">На ипотеку и ставку</div>
+          <div class="q">Согласен, ставка влияет на платёж, и важно не обещать лишнего. Вы про обычную ставку банка или про льготные программы? Конкретные условия проверим на встрече по вашему случаю.</div>
+        </div>
+      </div>
+      <div class="phrase">
+        <div class="pn">7</div>
+        <div>
+          <div class="role-lbl">«Просто смотрю» — снять напряжение</div>
+          <div class="q">Понимаю. Давайте так — я дам всю информацию, которая вам нужна, а решение полностью останется за вами. Моя работа — показать и посчитать. Скажите, что именно вы ищете?</div>
+        </div>
+      </div>
+      <div class="phrase">
+        <div class="pn">8</div>
+        <div>
+          <div class="role-lbl">«Надо подумать» — помочь думать предметно</div>
+          <div class="q">Подумать — это нормально. И чтобы думать не об общем, а о конкретном, давайте посмотрим два-три варианта и расчёт. А если надо посоветоваться с семьёй — лучше подъехать вместе.</div>
+        </div>
+      </div>
+      <div class="phrase">
+        <div class="pn">9</div>
+        <div>
+          <div class="role-lbl">Возврат к показу (после любой отработки)</div>
+          <div class="q">Тогда давайте зафиксируем встречу — завтра в первой половине дня или в четверг ближе к вечеру?</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="callout" style="margin-top:var(--s-5)">
+      <p>Если чувствуешь, что человек сравнивает тебя с тем, где дешевле, можно спокойно спросить: <b>«Как думаете, наши клиенты не знают, что где-то квартира дешевле? Знают. Но выбирают наш комплекс. Как считаете, почему?»</b> Этот вопрос мягко возвращает разговор к ценности — двор, планировка, сроки, надёжность, — а не к голой цифре.</p>
+    </div>
+  </section>
+
+  <!-- ============ 8 · ЖИВОЙ ПРИМЕР ============ -->
+  <section class="lsec" id="dialog" aria-labelledby="h-dialog">
+    <div class="snum"><span class="step">8</span> Живой пример</div>
+    <h2 id="h-dialog">Все пять шагов в одном разговоре</h2>
+    <p class="lead">Клиент по имени Арман интересовался квартирой для семьи. Послушай, как алгоритм звучит целиком, по порядку.</p>
+
+    <div class="dialog">
+      <div class="dh"><span aria-hidden="true">🎧</span> Звонок · менеджер и клиент Арман</div>
+      <div class="turns">
+        <div class="turn mgr"><span class="who">Менеджер</span><span class="txt">Арман, по двору и планировке всё подходит под вашу задачу. Давайте зафиксируем показ — завтра или в субботу?</span></div>
+        <div class="turn cli"><span class="who">Клиент</span><span class="txt">Ну, честно, дороговато выходит.</span></div>
+        <div class="turn mgr"><span class="who">Менеджер</span><span class="txt">Да, понимаю, цена в таком решении — это серьёзно. Скажите, дорого в целом по бюджету — или по сравнению с каким-то конкретным вариантом, что вы смотрели?</span></div>
+        <div class="turn cli"><span class="who">Клиент</span><span class="txt">Ну, у других вроде дешевле видел. Да и первый взнос немаленький.</span></div>
+        <div class="turn mgr"><span class="who">Менеджер</span><span class="txt">Понял вас. Смотрите: если мы по платежу и по первому взносу выйдем в комфортную для вас сумму, в остальном квартира подходит — едем смотреть?</span></div>
+        <div class="turn cli"><span class="who">Клиент</span><span class="txt">Если по деньгам сложится — да, тогда интересно.</span></div>
+        <div class="turn mgr"><span class="who">Менеджер</span><span class="txt">Отлично. Тогда так. По первому взносу есть разные схемы — конкретные условия я уточню у руководителя, чтобы не сказать вам ничего лишнего. А на встрече разложу расчёт по месяцам именно под ваш бюджет, и вы увидите реальный платёж, а не общую цену. Согласитесь, одно дело — цифра на сайте, другое — конкретный платёж под вас?</span></div>
+        <div class="turn cli"><span class="who">Клиент</span><span class="txt">Это да, согласен.</span></div>
+        <div class="turn mgr"><span class="who">Менеджер</span><span class="txt">Тогда давайте зафиксируем: завтра в первой половине дня или в субботу ближе к обеду — как удобнее?</span></div>
+        <div class="turn cli"><span class="who">Клиент</span><span class="txt">Ну хорошо. А может, вы мне просто в Ватсап всё скинете, я сам посмотрю?</span></div>
+        <div class="turn mgr"><span class="who">Менеджер</span><span class="txt">Скинуть могу, конечно. И сразу честно скажу: по фото планировку и двор толком не оценить — это как квартиру по картинке выбирать. Давайте лучше полчаса на месте: я подготовлю варианты под вас, всё покажу, а после встречи отправлю и адрес, и подборку, и расчёт. Так что — завтра или в субботу?</span></div>
+        <div class="turn cli"><span class="who">Клиент</span><span class="txt">Ладно, давайте в субботу.</span></div>
+        <div class="turn mgr"><span class="who">Менеджер</span><span class="txt">Отлично, суббота. Запишу время и адрес офиса, наберу вас за пару часов и подтвержу. Договорились?</span></div>
+      </div>
+    </div>
+
+    <div class="takeaway">
+      <b>Что произошло по шагам:</b> менеджер <b>принял</b> возражение → <b>уточнил</b>, что именно смущает → <b>локализовал</b> (собрал и цену, и взнос, проверил готовность) → <b>аргументировал</b> без выдуманных цифр (показал, что схемы под клиента есть, всё увёл на расчёт у руководителя) → <b>вернул к показу</b>. Те самые пять шагов — спокойно, без спора.
+    </div>
+  </section>
+
+  <!-- ============ 9 · ТРЕНИРОВКА ============ -->
+  <section class="lsec" id="drill" aria-labelledby="h-drill">
+    <div class="snum"><span class="step">9</span> Тренировка</div>
+    <h2 id="h-drill">Дрилл — отработай руками</h2>
+    <p class="lead">Теория без практики не работает. Сделай это сегодня — и возражения перестанут заставать тебя врасплох.</p>
+
+    <ul class="checklist">
+      <li><span class="ic" aria-hidden="true">1</span><span><b>Выпиши три возражения</b>, которые ты уже слышал или боишься услышать — например, «дорого», «надо посоветоваться с женой», «далеко от центра». На каждое пропиши свои <b>пять шагов</b>: как примешь, что уточнишь, как локализуешь, чем аргументируешь и какой фразой вернёшь к показу. Всё, что адресовано клиенту, — на «вы».</span></li>
+      <li><span class="ic" aria-hidden="true">2</span><span><b>Заведи «тетрадь возражений».</b> Каждый раз, когда клиент сказал что-то, на что ты растерялся, записывай это и придумывай отработку. Через месяц у тебя будет личный сборник, и ни одно возражение тебя уже не застанет врасплох.</span></li>
+      <li><span class="ic" aria-hidden="true">3</span><span><b>Проговори вслух три раза.</b> Чтобы фразы отлетали от зубов, без «э-э-э». Один раз про себя — не считается: язык должен запомнить формулировки.</span></li>
+    </ul>
+  </section>
+
+  <!-- ============ 10 · ИТОГ ============ -->
+  <section class="lsec" id="recap" aria-labelledby="h-recap">
+    <div class="snum"><span class="step">10</span> Итог</div>
+    <h2 id="h-recap">Три вещи, которые сегодня главные</h2>
+    <div class="callout" style="background:var(--card);border-left-color:var(--accent)">
+      <div class="recap">
+        <div class="ri"><span class="rn tnum">1</span><p><b>Возражение — это дверь, а не стена.</b> Клиент, который возражает, ещё с тобой — он дал тебе шанс объяснить. Не принимай на свой счёт.</p></div>
+        <div class="ri"><span class="rn tnum">2</span><p><b>Пять шагов спокойно, без спора:</b> принять → уточнить → локализовать → аргументировать (без выдуманных цифр) → вернуть к показу. Где спор — там нет продажи.</p></div>
+        <div class="ri"><span class="rn tnum">3</span><p><b>После отработки — обязательно попытка закрыть.</b> Всегда прямо предложи показ или бронь. Больше всего сделок теряют не на сложных клиентах, а на том, что в конце не предложили ничего конкретного. Первая лёгкая отмазка — почти никогда не финал.</p></div>
+      </div>
+    </div>
+    <p style="margin-top:var(--s-5);color:var(--ink-soft)"><strong>Универсальное ядро пройдено.</strong> Дальше — трек по выбору: <strong>Телемаркетинг</strong> или <strong>Отдел продаж</strong>. А любая отработанная дверь ведёт к одному — к показу: с него начинается следующий блок.</p>
+  </section>
+
+  <!-- ============ 11 · ТЕСТ ============ -->
+  <section class="lsec" id="test" aria-labelledby="h-test">
+    <div class="snum"><span class="step">11</span> Проверка</div>
+    <h2 id="h-test">Тест по уроку</h2>
+    <p class="lead">Шесть вопросов. Чтобы пройти урок, нужно ответить верно минимум на 80% — это 5 из 6. Можно пересдать.</p>
+
+    <form class="quiz" id="quiz">
+      <div class="qhead">
+        <span class="gate">Порог прохождения: 80% · 5 из 6</span>
+        <span style="font-size:13px;color:var(--ink-mute)">Выбери один вариант в каждом вопросе.</span>
+      </div>
+
+      <div class="q" data-answer="b">
+        <div class="qn">Вопрос 1 из 6</div>
+        <div class="qtext">Что на самом деле означает возражение клиента по логике урока?</div>
+        <label class="opt"><input type="radio" name="q1" value="a"><span class="otext"><span class="ltr">А.</span>Окончательный отказ — нужно вежливо попрощаться</span><span class="mark"></span></label>
+        <label class="opt"><input type="radio" name="q1" value="b"><span class="otext"><span class="ltr">Б.</span>Сигнал интереса: клиент ещё в разговоре и ждёт ответа</span><span class="mark"></span></label>
+        <label class="opt"><input type="radio" name="q1" value="c"><span class="otext"><span class="ltr">В.</span>Просьбу о скидке, которую надо сразу дать</span><span class="mark"></span></label>
+        <label class="opt"><input type="radio" name="q1" value="d"><span class="otext"><span class="ltr">Г.</span>Что клиент хочет поговорить с руководителем</span><span class="mark"></span></label>
+        <div class="why"><b>Почему:</b> кто реально не хочет покупать — молчит и кладёт трубку. Возражение значит, что человек ещё с тобой и ему интересно: это дверь, а не стена.</div>
+      </div>
+
+      <div class="q" data-answer="b">
+        <div class="qn">Вопрос 2 из 6</div>
+        <div class="qtext">Какой правильный порядок шагов алгоритма отработки возражения?</div>
+        <label class="opt"><input type="radio" name="q2" value="a"><span class="otext"><span class="ltr">А.</span>Уточнить — принять — вернуть — локализовать — аргументировать</span><span class="mark"></span></label>
+        <label class="opt"><input type="radio" name="q2" value="b"><span class="otext"><span class="ltr">Б.</span>Принять — уточнить — локализовать — аргументировать — вернуть к следующему шагу</span><span class="mark"></span></label>
+        <label class="opt"><input type="radio" name="q2" value="c"><span class="otext"><span class="ltr">В.</span>Принять — локализовать — назвать точную цену — аргументировать — вернуть</span><span class="mark"></span></label>
+        <label class="opt"><input type="radio" name="q2" value="d"><span class="otext"><span class="ltr">Г.</span>Принять — уточнить — поспорить — дать скидку — попрощаться</span><span class="mark"></span></label>
+        <div class="why"><b>Почему:</b> в уроке пять шагов строго по порядку: принять (согласие), уточнить скрытый вопрос, локализовать (единственное ли возражение), аргументировать (показать, что под ситуацию есть решение — без выдуманных цифр) и в конце вернуть к показу или расчёту.</div>
+      </div>
+
+      <div class="q" data-answer="b">
+        <div class="qn">Вопрос 3 из 6</div>
+        <div class="qtext">Клиент по телефону спрашивает точную ставку по ипотеке. Как правильно поступить?</div>
+        <label class="opt"><input type="radio" name="q3" value="a"><span class="otext"><span class="ltr">А.</span>Назвать ставку, которую помнишь, чтобы не терять клиента</span><span class="mark"></span></label>
+        <label class="opt"><input type="radio" name="q3" value="b"><span class="otext"><span class="ltr">Б.</span>Сказать обобщённо и увести конкретные условия на расчёт и к руководителю</span><span class="mark"></span></label>
+        <label class="opt"><input type="radio" name="q3" value="c"><span class="otext"><span class="ltr">В.</span>Сразу пообещать самую низкую ставку на рынке</span><span class="mark"></span></label>
+        <label class="opt"><input type="radio" name="q3" value="d"><span class="otext"><span class="ltr">Г.</span>Промолчать и предложить написать в Ватсап</span><span class="mark"></span></label>
+        <div class="why"><b>Почему:</b> главное правило новичка — никогда не называть ставки, проценты, скидки и условия из головы. Говоришь обобщённо, а конкретику проверяешь на встрече и у руководителя отдела продаж.</div>
+      </div>
+
+      <div class="q" data-answer="b">
+        <div class="qn">Вопрос 4 из 6</div>
+        <div class="qtext">Почему в начале ответа на возражение нельзя использовать слово «но»?</div>
+        <label class="opt"><input type="radio" name="q4" value="a"><span class="otext"><span class="ltr">А.</span>Это слишком длинно и сбивает темп</span><span class="mark"></span></label>
+        <label class="opt"><input type="radio" name="q4" value="b"><span class="otext"><span class="ltr">Б.</span>«Но» перечёркивает сказанное до него и включает у клиента оборону</span><span class="mark"></span></label>
+        <label class="opt"><input type="radio" name="q4" value="c"><span class="otext"><span class="ltr">В.</span>«Но» звучит для клиента невежливо и грубовато</span><span class="mark"></span></label>
+        <label class="opt"><input type="radio" name="q4" value="d"><span class="otext"><span class="ltr">Г.</span>Так требует скрипт, причина не важна</span><span class="mark"></span></label>
+        <div class="why"><b>Почему:</b> слово «но» обнуляет согласие и превращает ответ в спор. Вместо него используют связку «и именно поэтому» — это присоединение, а не противостояние. А где спор — там нет продажи.</div>
+      </div>
+
+      <div class="q" data-answer="c">
+        <div class="qn">Вопрос 5 из 6</div>
+        <div class="qtext">Клиент возражает: «Нет первого взноса». Что правильно ответить?</div>
+        <label class="opt"><input type="radio" name="q5" value="a"><span class="otext"><span class="ltr">А.</span>Назвать конкретный процент взноса по памяти</span><span class="mark"></span></label>
+        <label class="opt"><input type="radio" name="q5" value="b"><span class="otext"><span class="ltr">Б.</span>Спорить, что взнос на самом деле небольшой</span><span class="mark"></span></label>
+        <label class="opt"><input type="radio" name="q5" value="c"><span class="otext"><span class="ltr">В.</span>Спросить, какая сумма на старте комфортна, и предложить следующий шаг</span><span class="mark"></span></label>
+        <label class="opt"><input type="radio" name="q5" value="d"><span class="otext"><span class="ltr">Г.</span>Сказать, что без взноса ничего не получится</span><span class="mark"></span></label>
+        <div class="why"><b>Почему:</b> по возражению о первом взносе не спорят и не выдумывают цифры: уточняют комфортную сумму на старте и ведут к следующему шагу — «если найдём схему с таким входом, двигаемся дальше?»</div>
+      </div>
+
+      <div class="q" data-answer="b">
+        <div class="qn">Вопрос 6 из 6</div>
+        <div class="qtext">Что означает шаг «локализовать» в алгоритме?</div>
+        <label class="opt"><input type="radio" name="q6" value="a"><span class="otext"><span class="ltr">А.</span>Назвать клиенту цену именно его квартиры</span><span class="mark"></span></label>
+        <label class="opt"><input type="radio" name="q6" value="b"><span class="otext"><span class="ltr">Б.</span>Проверить, единственное ли это возражение, и зафиксировать готовность к показу</span><span class="mark"></span></label>
+        <label class="opt"><input type="radio" name="q6" value="c"><span class="otext"><span class="ltr">В.</span>Перевести разговор на другой жилой комплекс</span><span class="mark"></span></label>
+        <label class="opt"><input type="radio" name="q6" value="d"><span class="otext"><span class="ltr">Г.</span>Уточнить район, где клиент хочет жить</span><span class="mark"></span></label>
+        <div class="why"><b>Почему:</b> локализовать — значит проверить «это единственное, что смущает, или есть ещё?» и сделать связку-фиксацию: если по платежу и сроку договоримся — едем на показ. Иначе закроешь один вопрос, а всплывёт другой.</div>
+      </div>
+
+      <div class="quiz-actions">
+        <button type="button" class="btn btn-primary" id="check">Проверить</button>
+        <button type="button" class="btn btn-ghost" id="retry" style="display:none">Пройти заново</button>
+      </div>
+
+      <div class="result" id="result" role="status" aria-live="polite">
+        <div class="score"><span id="score-num">0</span><span class="u"> / 6</span></div>
+        <div class="msg" id="result-msg"></div>
+        <a class="next" id="next-link" href="academy.html" style="display:none">Ядро пройдено — дальше выбери трек: Телемаркетинг или Отдел продаж →</a>
+      </div>
+    </form>
+  </section>
+
+  <!-- ============ КАЗАХСКАЯ ПРАКТИКА ============ -->
+  <section class="lsec" id="kz" aria-labelledby="h-kz">
+    <div class="snum"><span class="step">+</span> Двуязычная практика</div>
+    <h2 id="h-kz">Қазақша диалог — для тренировки</h2>
+    <p class="lead">Тот же разговор с Арманом по-казахски (микс, код-свитчинг) — потренируй отработку на втором языке.</p>
+
+    <details class="kzblock">
+      <summary><span class="kztag">KZ</span> Қазақша диалог — практика (ашу үшін басыңыз)</summary>
+      <div class="kzbody">
+        <p class="note">Двуязычный слой: казахская версия (микс) для тренировки. В озвучку не идёт; вычитка носителем — отдельно.</p>
+        <div class="turn mgr"><span class="who">Менеджер</span><span class="txt">Арман, двор мен планировка бойынша бәрі сіздің задачаңызға сай келіп тұр. Көрсетілімді бекітіп қояйық — ертең бе, әлде сенбіде ме?</span></div>
+        <div class="turn cli"><span class="who">Клиент</span><span class="txt">Ну, шынымды айтсам, дороговато болып тұр ғой.</span></div>
+        <div class="turn mgr"><span class="who">Менеджер</span><span class="txt">Иә, түсінемін, мұндай шешімде баға — маңызды нәрсе. Айтыңызшы, жалпы бюджет бойынша қымбат па, әлде өзіңіз қараған бір нақты вариантпен салыстырғанда қымбат па?</span></div>
+        <div class="turn cli"><span class="who">Клиент</span><span class="txt">Ну, басқаларда дешевле сияқты көрдім. Әрі бастапқы жарна да немаленький екен.</span></div>
+        <div class="turn mgr"><span class="who">Менеджер</span><span class="txt">Түсіндім сізді. Қараңыз: егер біз төлем мен бастапқы жарна бойынша сізге ыңғайлы сомаға келсек, қалғанының бәрі бойынша пәтер сізге сай келе ме, көруге барамыз ба?</span></div>
+        <div class="turn cli"><span class="who">Клиент</span><span class="txt">Егер ақша жағынан реті келсе — иә, онда интересно.</span></div>
+        <div class="turn mgr"><span class="who">Менеджер</span><span class="txt">Отлично. Онда былай істейік. Бастапқы жарна бойынша әртүрлі схемалар бар — нақты шарттарды артық ештеңе айтып қалмас үшін руководительден нақтылап аламын. Ал кездесуде ай сайынғы расчётты дәл сіздің бюджетіңізге сай жасап беремін, сонда жалпы баға емес, реальный төлемді көресіз. Келісесіз ғой — сайттағы цифра бір басқа, дәл өзіңізге есептелген нақты төлем бір басқа?</span></div>
+        <div class="turn cli"><span class="who">Клиент</span><span class="txt">Бұл рас, согласен.</span></div>
+        <div class="turn mgr"><span class="who">Менеджер</span><span class="txt">Онда бекітіп қояйық: ертең күннің бірінші жартысында ма, әлде сенбіде түске жақын ба — қалай ыңғайлы?</span></div>
+        <div class="turn cli"><span class="who">Клиент</span><span class="txt">Ну жарайды. А может, маған бәрін просто Ватсапқа тастай саласыз ба, өзім қарап шығам?</span></div>
+        <div class="turn mgr"><span class="who">Менеджер</span><span class="txt">Тастай аламын, әрине. Және бірден шынымды айтайын: фото бойынша планировка мен дворды толық бағалай алмайсыз — бұл пәтерді картинкаға қарап таңдаған сияқты болады. Жарты сағат орнында болғанымыз дұрыс шығар: сізге арнап варианттар дайындаймын, бәрін көрсетемін, ал кездесуден кейін адресті де, подборканы да, расчётты да жіберемін. Сонымен — ертең бе, сенбіде ме?</span></div>
+        <div class="turn cli"><span class="who">Клиент</span><span class="txt">Ладно, сенбіде болсын.</span></div>
+        <div class="turn mgr"><span class="who">Менеджер</span><span class="txt">Отлично, сенбі. Уақыт пен офистің адресін жазып қоямын, кездесуге бір-екі сағат қалғанда қоңырау шалып, растап аламын. Келістік пе?</span></div>
+      </div>
+    </details>
+  </section>
+
+  <!-- ============ НАВИГАЦИЯ ============ -->
+  <nav class="lnav" aria-label="Навигация по урокам">
+    <a href="lesson_U2.html">← Урок U2 · Клиент и его задача</a>
+    <a class="next-lesson" href="academy.html">Дальше — выбор трека →</a>
+  </nav>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="wm">ATAMŪRA</div>
+    <p>Академия продаж · «Мы создаём наследие». Сначала короткое видео — потом разбор текстом, чтобы можно было вернуться к любой фразе.</p>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var PASS = 80;
+  var quiz = document.getElementById('quiz');
+  var questions = Array.prototype.slice.call(quiz.querySelectorAll('.q'));
+  (function(){var L=['А','Б','В','Г','Д','Е'];questions.forEach(function(q){var why=q.querySelector('.why');var o=Array.prototype.slice.call(q.querySelectorAll('.opt'));for(var i=o.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var t=o[i];o[i]=o[j];o[j]=t;}o.forEach(function(e,k){q.insertBefore(e,why);var l=e.querySelector('.ltr');if(l)l.textContent=L[k]+'.';});});})();
+  var total = questions.length;
+  var checkBtn = document.getElementById('check');
+  var retryBtn = document.getElementById('retry');
+  var result = document.getElementById('result');
+  var scoreNum = document.getElementById('score-num');
+  var resultMsg = document.getElementById('result-msg');
+  var nextLink = document.getElementById('next-link');
+
+  function check(){
+    var correct = 0, unanswered = 0;
+    questions.forEach(function(q){
+      var ans = q.getAttribute('data-answer');
+      var picked = q.querySelector('input:checked');
+      q.classList.add('checked');
+      var correctOpt = q.querySelector('input[value="'+ans+'"]').closest('.opt');
+      correctOpt.classList.add('correct');
+      correctOpt.querySelector('.mark').textContent = 'верно';
+      if(!picked){ unanswered++; return; }
+      if(picked.value === ans){ correct++; }
+      else { var w = picked.closest('.opt'); w.classList.add('wrong'); w.querySelector('.mark').textContent = 'ваш ответ'; }
+    });
+    var pct = Math.round((correct/total)*100);
+    scoreNum.textContent = correct;
+    result.classList.add('show');
+    checkBtn.style.display = 'none';
+    retryBtn.style.display = 'inline-block';
+    if(pct >= PASS){
+      result.classList.remove('fail'); result.classList.add('pass');
+      resultMsg.innerHTML = 'Отлично — <b>'+pct+'%</b>. Порог 80% пройден, урок засчитан.';
+      nextLink.style.display = 'inline-block';
+    } else {
+      result.classList.remove('pass'); result.classList.add('fail');
+      var need = Math.ceil(total*PASS/100);
+      var miss = unanswered ? ' ('+unanswered+' без ответа)' : '';
+      resultMsg.innerHTML = '<b>'+pct+'%</b> — порог 80% пока не пройден. Нужно минимум '+need+' из '+total+miss+'. Посмотри подсветку и разбор «Почему», вернись к тексту и пройди заново.';
+      nextLink.style.display = 'none';
+    }
+    result.scrollIntoView({behavior:'smooth', block:'nearest'});
+  }
+  function reset(){
+    questions.forEach(function(q){
+      q.classList.remove('checked');
+      q.querySelectorAll('.opt').forEach(function(o){ o.classList.remove('correct','wrong'); var m=o.querySelector('.mark'); if(m) m.textContent=''; });
+      q.querySelectorAll('input').forEach(function(i){ i.checked = false; });
+    });
+    result.classList.remove('show','pass','fail');
+    nextLink.style.display = 'none';
+    checkBtn.style.display = 'inline-block';
+    retryBtn.style.display = 'none';
+    quiz.scrollIntoView({behavior:'smooth', block:'start'});
+  }
+  checkBtn.addEventListener('click', check);
+  retryBtn.addEventListener('click', reset);
+})();
+</script>
+
+<script src="academy.js"></script>
+<script>
+(function(){
+  var LESSON='U3';
+  function chrome(){ if(!window.Academy) return; var s=Academy.snapshot(); var el=document.getElementById('lpts'); if(el) el.textContent='🪙 '+s.coins+' · '+s.rank.current.name; }
+  var cb=document.getElementById('check'); if(cb) cb.addEventListener('click',function(){ if(window.Academy) Academy.markAttempt(LESSON); });
+  var res=document.getElementById('result'); var done=false;
+  if(res && window.MutationObserver){
+    new MutationObserver(function(){
+      if(done) return;
+      if(res.classList.contains('pass')){
+        done=true;
+        var sn=document.getElementById('score-num'); var sc=sn?(parseInt(sn.textContent,10)||0):0;
+        var tot=document.querySelectorAll('#quiz .q').length||6;
+        if(window.Academy){ var r=Academy.completeLesson(LESSON,{score:sc,total:tot});
+          if(r&&r.coinsAwarded){ try{ sessionStorage.setItem('academy_award','Урок засчитан: +'+r.coinsAwarded+' коинов'+(r.leveledUp?' · новый грейд!':'')); }catch(e){} }
+          chrome();
+        }
+      }
+    }).observe(res,{attributes:true,attributeFilter:['class']});
+  }
+  chrome();
+})();
+</script>
+</body>
+</html>

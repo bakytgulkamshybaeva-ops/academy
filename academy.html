@@ -179,7 +179,7 @@ function render(){
   renderMap(st, role);
   var totalLessons=Academy.lessonsForRole(role.id).length;
   var doneLessons=Academy.lessonsForRole(role.id).filter(function(l){return st.done[l.id];}).length;
-  document.getElementById('courseMeta').textContent=doneLessons+' из '+totalLessons+' уроков по роли «'+role.short+'» · ~7,5 ч';
+  document.getElementById('courseMeta').textContent=doneLessons+' из '+totalLessons+' уроков по роли «'+role.short+'» · ~5 ч';
 
   /* значки */
   var earned=0;
@@ -229,26 +229,15 @@ function lessonCoins(l){ return Academy.COIN.lessonDone + (l.ready?Academy.COIN.
 function renderMap(st, role){
   var html='';
   Academy.BLOCKS.forEach(function(b){
-    var ls=Academy.COURSE.filter(function(l){
-      if(l.block!==b.id) return false;
-      if(b.id==='sales' && l.track && l.track!=='core' && l.track!==role.id) return false;
-      return true;
-    });
+    if(b.id==='tm' && role.id!=='tm') return;
+    if(b.id==='op' && role.id!=='op') return;
+    var ls=Academy.COURSE.filter(function(l){return l.block===b.id;});
     if(!ls.length) return;
     var bp=Academy.blockProgress(b.id);
     html+='<div class="block"><div class="bhead"><span class="bic">'+b.icon+'</span>'+
       '<div><div class="bt">'+b.title+'</div><div class="bs">'+b.sub+'</div></div>'+
       '<div class="bp'+(bp.pct===100?' done':'')+'"><span>'+bp.done+'/'+bp.total+'</span><div class="bbar"><i style="width:'+bp.pct+'%"></i></div></div></div>';
-
-    if(b.id==='sales'){
-      html+=trackGroup('🧩 Общее ядро (для обеих ролей)', ls.filter(function(l){return l.track==='core';}), st);
-      var trk = role.id==='tm'
-        ? trackGroup('📞 Телемаркетинг · телефон → показ', ls.filter(function(l){return l.track==='tm';}), st)
-        : trackGroup('🤝 Отдел продаж · встреча → сделка', ls.filter(function(l){return l.track==='op';}), st);
-      html+=trk;
-    } else {
-      html+='<div class="lessons">'+ls.map(function(l,i){return lessonCard(l,i+1,st);}).join('')+'</div>';
-    }
+    html+='<div class="lessons">'+ls.map(function(l,i){return lessonCard(l,i+1,st);}).join('')+'</div>';
     html+='</div>';
   });
   document.getElementById('map').innerHTML=html;
