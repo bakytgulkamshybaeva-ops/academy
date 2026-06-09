@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Академия · Напарник продавца</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="academy.css">
+</head>
+<body>
+
+<!-- ====== ВЕРХНЯЯ ПАНЕЛЬ ====== -->
+<header class="top">
+  <div class="logo">A</div>
+  <div class="brand">Напарник продавца<small>Академия продаж · ATAMŪRA</small></div>
+  <div class="period">🎓 Онбординг и рост</div>
+  <div class="coinpill">🪙 <span id="topCoins">0</span> коинов</div>
+  <div class="me">
+    <div class="av" id="meAv">А</div>
+    <div class="nm" id="meNm">Айдана<small id="meRole">Стажёр · Телемаркетинг</small></div>
+  </div>
+</header>
+
+<!-- ====== БОКОВАЯ НАВИГАЦИЯ (как в кокпите) ====== -->
+<aside class="side">
+  <a class="nav" href="workspace.html#day" style="text-decoration:none"><span class="ic">📋</span>Мой день</a>
+  <a class="nav" href="workspace.html#calls" style="text-decoration:none"><span class="ic">🎧</span>Звонки</a>
+  <a class="nav" href="workspace.html#train" style="text-decoration:none"><span class="ic">🎯</span>Тренажёр</a>
+  <button class="nav on"><span class="ic">🎓</span>Академия<span class="pill" id="navNew">•</span></button>
+  <a class="nav" href="workspace.html#money" style="text-decoration:none"><span class="ic">💰</span>Деньги</a>
+  <a class="nav" href="workspace.html#kpi" style="text-decoration:none"><span class="ic">📊</span>KPI и бонус</a>
+  <a class="nav" href="workspace.html#team" style="text-decoration:none"><span class="ic">🤝</span>Команда</a>
+  <a class="nav" href="workspace.html#progress" style="text-decoration:none"><span class="ic">🎮</span>Прогресс</a>
+  <div class="spacer"></div>
+  <div class="gradecard" id="gradeCard"></div>
+</aside>
+
+<!-- ====== ОСНОВНОЙ ЭКРАН ====== -->
+<main class="main">
+  <div class="h1">Академия продаж</div>
+  <div class="sub">Цель академии — <b>вывести тебя на конверсию, которую ждёт компания</b>. Не «пройти курс», а научиться доводить клиента до результата.</div>
+
+  <!-- СЕВЕР-СТАР: цель по конверсии + готовность -->
+  <section class="nshero">
+    <div class="ring" id="ring" style="--p:0">
+      <i><div><div class="rv" id="ringV">0%</div><div class="rl">готовность</div></div></i>
+    </div>
+    <div class="nsmeta">
+      <span class="tag" id="nsTag">📞 Твоя роль: Телемаркетинг</span>
+      <h2 id="nsTitle">Твоя цель — выйти на конверсию <b>встречи ÷ лиды</b></h2>
+      <div class="nsd" id="nsDesc"></div>
+      <div class="nstarget" id="nsTarget"></div>
+    </div>
+  </section>
+
+  <!-- ПУТЬ К ПОКАЗАТЕЛЮ -->
+  <section class="path" id="path"></section>
+
+  <!-- ПРОФИЛЬ -->
+  <section class="pgrid" id="pgrid"></section>
+
+  <!-- КАРТА КУРСА -->
+  <div class="ct" style="font-size:16px;margin:6px 2px 2px">🗺️ Карта курса <small id="courseMeta"></small></div>
+  <section id="map"></section>
+
+  <!-- ЗНАЧКИ -->
+  <div class="ct" style="font-size:16px;margin:26px 2px 12px">🏅 Достижения <small id="badgeMeta"></small></div>
+  <section class="badges" id="badges"></section>
+
+  <!-- РЕЙТИНГ + СЕРТИФИКАЦИЯ -->
+  <div style="display:grid;grid-template-columns:1fr 1.1fr;gap:16px;margin-top:26px" id="lbcert">
+    <div class="card">
+      <div class="ct">🏆 Рейтинг недели <small>ориентир, не главное</small></div>
+      <div style="font-size:12px;color:var(--mut);font-weight:600;margin:-6px 0 10px;line-height:1.45">Растём от своей прошлой планки — рейтинг по никам, без сумм и без последствий.</div>
+      <div class="lb" id="lb"></div>
+    </div>
+    <div class="card">
+      <div class="ct">🎓 Сертификация <small>двойной замок</small></div>
+      <div style="font-size:12px;color:var(--mut);font-weight:600;margin:-6px 0 12px;line-height:1.45">Сертификат — это не «прошёл курс», а «готов к реальному клиенту». Два замка:</div>
+      <div class="cert" id="cert"></div>
+      <div class="note" style="margin-top:14px">Сертификат <b>не</b> влечёт денежных/HR-последствий и не тянет данные из CRM. Это сигнал готовности: знания сданы и РОП подтвердил реальный звонок по чек-листу КЭВ.</div>
+      <a class="btn ghost" href="academy_rop.html" style="margin-top:12px;display:inline-flex">🎧 РОП-вид: проверка звонка по КЭВ →</a>
+    </div>
+  </div>
+
+  <!-- ДЕМО-ПАНЕЛЬ -->
+  <section class="demo">
+    <span>🧪 Демо:</span>
+    <span>роль</span>
+    <span class="seg" id="roleSeg">
+      <button data-role="tm">📞 Телемаркетинг</button>
+      <button data-role="op">🤝 Отдел продаж</button>
+    </span>
+    <span class="sp"></span>
+    <button class="seg" style="display:inline-flex"><span></span></button>
+    <button id="ropBtn" class="btn ghost" style="min-height:36px">✅ Симулировать РОП-чек звонка</button>
+    <button id="resetBtn" class="btn ghost" style="min-height:36px">↺ Сбросить прогресс</button>
+  </section>
+
+  <div class="note">🔌 <b>Интеграция:</b> Академия встраивается в рабочее пространство «Напарник продавца» как экран <b>🎓 Академия</b> рядом с «Мой день», «Звонки», «Тренажёр». Коины, грейд и серия — общие с кокпитом: учёба и работа кормят один прогресс. Прогресс хранится локально в браузере (демо).</div>
+</main>
+
+<div class="toast" id="toast"><span class="tk">✓</span><span id="toastMsg">Готово</span></div>
+
+<script src="academy.js"></script>
+<script>
+/* ====== утилиты ====== */
+var tT;
+function toast(m){ document.getElementById('toastMsg').textContent=m; var t=document.getElementById('toast'); t.classList.add('on'); clearTimeout(tT); tT=setTimeout(function(){t.classList.remove('on');},3000); }
+function cockpit(name){ toast('В кабинете это экран «'+name+'». Здесь открыт модуль 🎓 Академия.'); }
+function go(page){ if(page) window.location.href=page; }
+
+/* ====== данные команды для рейтинга (демо, по никам) ====== */
+var TEAM=[
+  {nick:'Алмаз_К', base:540},{nick:'Дина_Т', base:430},{nick:'Ербол', base:610},
+  {nick:'Сауле', base:300},{nick:'Нурлан_П', base:175},{nick:'Жанна', base:90}
+];
+
+/* ====== РЕНДЕР ====== */
+function render(){
+  var s=Academy.snapshot();
+  var st=s.state, role=s.role;
+
+  /* топ */
+  document.getElementById('topCoins').textContent=s.coins;
+  document.getElementById('meNm').firstChild.textContent=st.name;
+  document.getElementById('meAv').textContent=(st.name||'A').charAt(0);
+  document.getElementById('meRole').textContent=s.rank.current.name+' · '+role.name;
+
+  /* грейд-карта */
+  var rk=s.rank, gc=document.getElementById('gradeCard');
+  var grHtml='<div class="g">Грейд: '+rk.current.name+'</div>';
+  if(rk.next){
+    grHtml+='<div class="gbar"><i style="width:'+rk.pct+'%"></i></div>';
+    if(rk.ropBlocked) grHtml+='До грейда <b>'+rk.next.name+'</b> — нужен РОП-чек звонка.';
+    else grHtml+='До грейда <b>'+rk.next.name+'</b> ещё <b>'+rk.toNext+'</b> коинов.';
+  } else { grHtml+='Высший грейд достигнут. <b>Наставник</b> 👑'; }
+  gc.innerHTML=grHtml;
+
+  /* север-стар */
+  var rd=s.readiness;
+  document.getElementById('ring').style.setProperty('--p', rd.pct);
+  document.getElementById('ringV').textContent=rd.pct+'%';
+  document.getElementById('nsTag').textContent=role.icon+' Твоя роль: '+role.name;
+  document.getElementById('nsTitle').innerHTML='Твоя цель — выйти на конверсию <b>'+role.metric.replace('Конверсия: ','')+'</b>';
+  document.getElementById('nsDesc').innerHTML='Главный рычаг — <b style="color:#fff">'+role.lever+'</b>. Каждый пройденный урок и подтверждённый навык поднимают твою готовность выдавать этот показатель. Это учебная готовность, не выгрузка из CRM.';
+  document.getElementById('nsTarget').innerHTML=
+    '<div class="t">Сейчас по команде<b>'+role.baseline+'<span class="u">'+role.unit+'</span></b></div>'+
+    '<div class="t">Целевой уровень<b style="color:var(--gold)">'+role.target+'<span class="u">'+role.unit+'</span></b></div>'+
+    '<div class="t">Твоя готовность<b>'+rd.pct+'<span class="u">%</span></b></div>';
+
+  /* путь к показателю */
+  document.getElementById('path').innerHTML=
+    pstep('📚','Знания', rd.knowledge+'%','Уроки курса пройдены ('+rd.doneCnt+' из '+rd.total+' по роли)')+
+    pstep('🎯','Навык', rd.skill+'%','Тесты и дриллы сданы с первой попытки')+
+    pstep('✅','Подтверждение', rd.confirm+'%','РОП проверил реальный звонок по чек-листу КЭВ');
+
+  /* профиль */
+  var dots=''; for(var i=0;i<14;i++){ dots+='<i class="'+(i<s.streak?'':'off')+'"></i>'; }
+  var next=s.next;
+  var contInner = next
+    ? '<div class="pl">▶ Продолжить</div><div class="ctitle">'+next.title+'</div>'+
+      '<div class="cmeta">'+blockName(next.block)+' · ~'+next.min+' мин · +'+lessonCoins(next)+' 🪙</div>'+
+      '<button class="btn" onclick="go(\''+(next.page||'')+'\')">Продолжить урок →</button>'
+    : '<div class="pl">🎉 Готово</div><div class="ctitle">Все доступные уроки пройдены</div><div class="cmeta">Новые откроются по мере выхода видео</div>';
+  document.getElementById('pgrid').innerHTML=
+    '<div class="pcard coins"><div class="pl">🪙 Коины</div><div class="pn">'+s.coins+'</div>'+
+      '<div class="pf">Сегодня <b>'+s.todayCoins+'/'+s.dailyGoal+'</b> · урок +15 · тест +25 · с 1-й попытки +10 · блок +50</div></div>'+
+    '<div class="pcard grade"><div class="pl">⭐ Грейд</div><div class="pn">'+rk.current.name+'</div>'+
+      (rk.next?'<div class="gbar2"><i style="width:'+rk.pct+'%"></i></div><div class="pf">'+(rk.ropBlocked?'Нужен РОП-чек для <b>'+rk.next.name+'</b>':'до <b>'+rk.next.name+'</b> — '+rk.toNext+' 🪙')+'</div>':'<div class="pf">высший грейд 👑</div>')+'</div>'+
+    '<div class="pcard streak"><div class="pl">🔥 Серия</div><div class="pn">'+s.streak+' дн.</div>'+
+      '<div class="dotrow">'+dots+'</div><div class="pf">Дневная цель — '+s.dailyGoal+' коинов</div></div>'+
+    '<div class="pcard cont">'+contInner+'</div>';
+
+  /* карта курса */
+  renderMap(st, role);
+  var totalLessons=Academy.lessonsForRole(role.id).length;
+  var doneLessons=Academy.lessonsForRole(role.id).filter(function(l){return st.done[l.id];}).length;
+  document.getElementById('courseMeta').textContent=doneLessons+' из '+totalLessons+' уроков по роли «'+role.short+'» · ~7,5 ч';
+
+  /* значки */
+  var earned=0;
+  document.getElementById('badges').innerHTML=Academy.BADGES.map(function(b){
+    var has=!!st.badges[b.id]; if(has) earned++;
+    return '<div class="badge'+(has?' earned':'')+'"><div class="bi">'+b.icon+'</div><div class="bn">'+b.name+'</div><div class="bd">'+b.desc+'</div></div>';
+  }).join('');
+  document.getElementById('badgeMeta').textContent=earned+' из '+Academy.BADGES.length+' открыто';
+
+  /* рейтинг */
+  var rows=TEAM.map(function(t){return {nick:t.nick, coins:t.base, me:false};});
+  rows.push({nick:st.name+' (ты)', coins:s.coins, me:true});
+  rows.sort(function(a,b){return b.coins-a.coins;});
+  document.getElementById('lb').innerHTML=rows.map(function(r,i){
+    return '<div class="lbrow'+(r.me?' me':'')+'"><div class="rk">'+(i+1)+'</div>'+
+      '<div class="av">'+r.nick.charAt(0)+'</div>'+
+      '<div class="nm">'+r.nick+(r.me?'<small>растём от своей планки</small>':'')+'</div>'+
+      '<div class="cn">'+r.coins+' 🪙</div></div>';
+  }).join('');
+
+  /* сертификация */
+  var roleLessons=Academy.lessonsForRole(role.id);
+  var allDone=roleLessons.length && roleLessons.every(function(l){return st.done[l.id];});
+  var lock1ok=allDone;
+  var lock2ok=s.ropOk;
+  document.getElementById('cert').innerHTML=
+    lock('📝','Замок 1 · Финальный тест трека', 'Пройти все уроки роли и сдать финальный тест на ≥80%.', lock1ok, lock1ok?'Сдано':'В процессе')+
+    lock('🎯','Замок 2 · Проверка звонка с РОП', 'РОП слушает реальный звонок и сверяет по чек-листу КЭВ (да+дата+время+адрес).', lock2ok, lock2ok?'Подтверждено':'Ожидает РОП');
+
+  /* демо-сегмент роли */
+  document.querySelectorAll('#roleSeg button').forEach(function(b){
+    b.classList.toggle('on', b.getAttribute('data-role')===role.id);
+  });
+  document.getElementById('ropBtn').textContent = s.ropOk ? '↺ Снять РОП-чек' : '✅ Симулировать РОП-чек звонка';
+}
+
+function pstep(ic,label,val,desc){
+  return '<div class="pstep"><div class="pi">'+ic+' '+label+'</div><div class="pv">'+val+'</div><div class="pd">'+desc+'</div><div class="arrow">→</div></div>';
+}
+function lock(ic,h,p,ok,v){
+  return '<div class="lock'+(ok?' ok':'')+'"><div class="lk">'+(ok?'✓':ic)+'</div><div><div class="lh">'+h+'</div><div class="lp">'+p+'</div><div class="lv">'+v+'</div></div></div>';
+}
+function blockName(id){ var b=Academy.BLOCKS.filter(function(x){return x.id===id;})[0]; return b?b.title:id; }
+function lessonCoins(l){ return Academy.COIN.lessonDone + (l.ready?Academy.COIN.quizPass+Academy.COIN.firstTry:0); }
+
+/* карта курса по блокам (+ треки внутри «Продажи») */
+function renderMap(st, role){
+  var html='';
+  Academy.BLOCKS.forEach(function(b){
+    var ls=Academy.COURSE.filter(function(l){
+      if(l.block!==b.id) return false;
+      if(b.id==='sales' && l.track && l.track!=='core' && l.track!==role.id) return false;
+      return true;
+    });
+    if(!ls.length) return;
+    var bp=Academy.blockProgress(b.id);
+    html+='<div class="block"><div class="bhead"><span class="bic">'+b.icon+'</span>'+
+      '<div><div class="bt">'+b.title+'</div><div class="bs">'+b.sub+'</div></div>'+
+      '<div class="bp'+(bp.pct===100?' done':'')+'"><span>'+bp.done+'/'+bp.total+'</span><div class="bbar"><i style="width:'+bp.pct+'%"></i></div></div></div>';
+
+    if(b.id==='sales'){
+      html+=trackGroup('🧩 Общее ядро (для обеих ролей)', ls.filter(function(l){return l.track==='core';}), st);
+      var trk = role.id==='tm'
+        ? trackGroup('📞 Телемаркетинг · телефон → показ', ls.filter(function(l){return l.track==='tm';}), st)
+        : trackGroup('🤝 Отдел продаж · встреча → сделка', ls.filter(function(l){return l.track==='op';}), st);
+      html+=trk;
+    } else {
+      html+='<div class="lessons">'+ls.map(function(l,i){return lessonCard(l,i+1,st);}).join('')+'</div>';
+    }
+    html+='</div>';
+  });
+  document.getElementById('map').innerHTML=html;
+}
+function trackGroup(label, ls, st){
+  if(!ls.length) return '';
+  return '<div class="tracklabel">'+label+'</div><div class="lessons">'+ls.map(function(l,i){return lessonCard(l,i+1,st);}).join('')+'</div>';
+}
+function lessonCard(l, num, st){
+  var done=!!st.done[l.id];
+  var next=Academy.nextLesson();
+  var isNext=next && next.id===l.id;
+  var cls='lcard', stat='▶', onclick='';
+  if(done){ cls+=' done'; stat='✓'; }
+  else if(isNext){ cls+=' active'; stat='▶'; }
+  else if(!l.ready){ cls+=' locked'; stat='🔒'; }
+  if(l.ready && l.page){ onclick='go(\''+l.page+'\')'; }
+  else if(!l.ready){ onclick='toast(\'Урок готовится в видео-сессии — откроется, когда выйдет видео\')'; }
+  else { onclick='toast(\'Страница урока готовится\')'; }
+
+  var meta='~'+l.min+' мин';
+  if(l.ready) meta+=' · <span class="vid">'+(l.video?'▶ видео':'📖 текст')+'</span> · <span class="coin">+'+lessonCoins(l)+' 🪙</span>';
+  else meta+=' · <span style="color:var(--mut)">готовится</span>';
+  return '<button class="'+cls+'" onclick="'+onclick+'"><div class="lnum">'+num+'</div>'+
+    '<div class="li"><div class="lt">'+l.title+'</div><div class="lm">'+meta+'</div></div>'+
+    '<div class="lstat">'+stat+'</div></button>';
+}
+
+/* ====== демо-контролы ====== */
+document.getElementById('roleSeg').addEventListener('click', function(e){
+  var b=e.target.closest('button[data-role]'); if(!b) return;
+  Academy.setRole(b.getAttribute('data-role')); render();
+  toast('Роль переключена — цель и трек обновлены');
+});
+document.getElementById('ropBtn').addEventListener('click', function(){
+  var s=Academy.snapshot();
+  Academy.setRop(s.role.id, !s.ropOk); render();
+  toast(Academy.snapshot().ropOk?'РОП подтвердил звонок ✅ замок 2 открыт':'РОП-чек снят');
+});
+document.getElementById('resetBtn').addEventListener('click', function(){
+  Academy.reset(); render(); toast('Прогресс сброшен');
+});
+
+/* показать тост о вернувшемся с урока (награды), если есть */
+(function(){
+  try{
+    var r=sessionStorage.getItem('academy_award');
+    if(r){ sessionStorage.removeItem('academy_award'); setTimeout(function(){toast(r);}, 400); }
+  }catch(e){}
+})();
+
+render();
+</script>
+</body>
+</html>

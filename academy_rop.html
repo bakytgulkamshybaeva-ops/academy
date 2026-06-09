@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Напарник РОПа · Академия — контроль готовности</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="academy.css">
+<style>
+/* РОП-специфика поверх чрома кокпита */
+.rnote{background:var(--blue-bg);border:1px solid #d3e2f3;border-radius:13px;padding:13px 16px;font-size:12.5px;color:#274a72;line-height:1.55;margin-bottom:18px}
+.rnote b{color:#1c3a5e}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:13px;margin-bottom:20px}
+.stat{background:#fff;border:1px solid var(--line);border-radius:14px;padding:15px 17px;box-shadow:var(--shadow)}
+.stat .n{font-size:28px;font-weight:900;letter-spacing:-.02em;line-height:1}
+.stat .l{font-size:12px;color:var(--mut);font-weight:700;margin-top:6px;line-height:1.3}
+.stat.good .n{color:var(--green)} .stat.warm .n{color:var(--amber)} .stat.teal .n{color:var(--teal-d)}
+table{border-collapse:collapse;width:100%;font-size:13px;margin-top:4px}
+th,td{border-bottom:1px solid var(--line);padding:11px 12px;text-align:left;vertical-align:middle}
+th{font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.03em;color:var(--mut)}
+tr.me-row{background:#eef7f7}
+td .mgr{font-weight:800;font-size:13.5px}
+td .mgr small{display:block;color:var(--mut);font-weight:600;font-size:11px}
+.tag{font-size:11px;font-weight:800;border-radius:7px;padding:3px 9px;display:inline-block}
+.tag.ok{background:var(--green-bg);color:var(--green)} .tag.wait{background:var(--amber-bg);color:var(--amber)} .tag.no{background:var(--slate-bg);color:#5f6e7c}
+.lk{font-size:15px} .lk.y{color:var(--green)} .lk.n{color:#aeb8c2}
+.rbar{height:7px;width:80px;border-radius:5px;background:#eef0e9;overflow:hidden;display:inline-block;vertical-align:middle;margin-right:8px}
+.rbar i{display:block;height:100%;border-radius:5px;background:linear-gradient(90deg,var(--teal),#26a0ad)}
+.btn.sm{min-height:34px;padding:0 13px;font-size:12.5px}
+/* модал проверки */
+.ov{position:fixed;inset:0;background:rgba(16,38,58,.55);display:none;align-items:center;justify-content:center;z-index:50;padding:20px}
+.ov.on{display:flex}
+.modal{background:#fff;border-radius:18px;box-shadow:0 30px 70px -20px rgba(0,0,0,.5);max-width:620px;width:100%;max-height:90vh;overflow:auto}
+.modal .mh{position:sticky;top:0;background:linear-gradient(120deg,var(--navy),#1b2e3d);color:#fff;padding:18px 22px;border-radius:18px 18px 0 0}
+.modal .mh h3{font-size:18px;font-weight:800;margin:0}
+.modal .mh p{font-size:12.5px;color:#bcd0e0;margin:5px 0 0;font-weight:600}
+.modal .mb{padding:20px 22px}
+.chk{display:flex;gap:12px;align-items:flex-start;padding:11px 13px;border:1px solid var(--line);border-radius:12px;margin-bottom:9px;cursor:pointer;transition:.12s}
+.chk:hover{border-color:var(--teal);background:#f4faf9}
+.chk.kev{border-color:var(--gold);background:#fdf8ec}
+.chk input{margin-top:2px;width:19px;height:19px;accent-color:var(--teal);flex:none;cursor:pointer}
+.chk .ct2{font-size:13.5px;font-weight:700;line-height:1.35}
+.chk .ct2 small{display:block;color:var(--mut);font-weight:600;font-size:11.5px;margin-top:2px}
+.chk .kbadge{font-size:10px;font-weight:900;color:#3a2a08;background:var(--gold);border-radius:6px;padding:2px 7px;margin-left:auto;flex:none}
+.cmt{width:100%;border:1.5px solid var(--line);border-radius:11px;padding:11px 13px;font-family:inherit;font-size:13.5px;resize:vertical;min-height:64px;margin-top:6px}
+.cmt:focus{outline:none;border-color:var(--teal)}
+.scoreline{display:flex;align-items:center;gap:10px;margin:14px 0;font-size:13px;font-weight:700;color:var(--mut)}
+.scoreline b{font-size:20px;font-weight:900;color:var(--navy)}
+.verdict{border-radius:12px;padding:12px 15px;font-size:13.5px;font-weight:700;margin-top:6px;display:none}
+.verdict.pass{display:block;background:var(--green-bg);color:#176b3c}
+.verdict.fail{display:block;background:var(--amber-bg);color:#8a5a14}
+.mfoot{display:flex;gap:11px;flex-wrap:wrap;padding:0 22px 20px}
+@media(max-width:1000px){.stats{grid-template-columns:repeat(2,1fr)}}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="logo">A</div>
+  <div class="brand">Напарник РОПа<small>Академия · контроль готовности к показателю</small></div>
+  <div class="period">📅 Июнь 2026</div>
+  <div class="me" style="margin-left:auto"><div class="av">Р</div><div class="nm">Руслан · РОП<small>группа 2 · телемаркетинг</small></div></div>
+</header>
+
+<aside class="side">
+  <button class="nav on"><span class="ic">🎓</span>Готовность</button>
+  <a class="nav" href="#checks" style="text-decoration:none"><span class="ic">🎧</span>Проверки КЭВ</a>
+  <a class="nav" href="workspace.html" style="text-decoration:none"><span class="ic">💻</span>Кабинет менеджера</a>
+  <div class="spacer"></div>
+  <div class="gradecard"><div class="g">Роль: РОП</div>Контроль <b>учебной готовности</b>, не премирование. Решение по звонку — за РОП/ОКК.</div>
+</aside>
+
+<main class="main">
+  <div class="h1">Готовность команды к показателю</div>
+  <div class="sub">Видно, кто <b>готов выдавать конверсию</b>, а кого дотянуть. Сертификат = два замка: тест трека + <b>твоя проверка реального звонка по КЭВ</b>.</div>
+
+  <div class="rnote">📡 <b>Это контроль готовности, не начисление.</b> Без данных клиентов (учим техникам, не храним телефоны/имена/записи). Конверсия по людям — прокси-готовность из обучения, не выгрузка из Bitrix. Решение «зачтено / на доработку» — за РОП и контролем качества, не за менеджером (анти-ангажированность).</div>
+
+  <div class="stats" id="stats"></div>
+
+  <div class="card" id="checks">
+    <div class="ct">👥 Команда · готовность и сертификация <small>сортировка: кто ближе к замку 2</small></div>
+    <table>
+      <thead><tr><th>Менеджер</th><th>Грейд</th><th>Коины</th><th>Готовность</th><th>Замок 1<br>тест трека</th><th>Замок 2<br>КЭВ-звонок</th><th>Сертификат</th><th></th></tr></thead>
+      <tbody id="teamBody"></tbody>
+    </table>
+    <div style="font-size:11.5px;color:var(--mut);font-weight:600;margin-top:12px;line-height:1.5">«Готовность» = знания (уроки) + навык (тесты с 1-й попытки) + подтверждение (этот КЭВ-чек). Замок 2 открывается только твоей проверкой реального звонка — поэтому грейд <b>Эксперт</b> нельзя «накликать».</div>
+  </div>
+
+  <div class="rnote" style="margin-top:18px;background:var(--slate-bg);border-color:var(--line);color:#41515f">🎧 <b>Как проверять:</b> возьми один свежий реальный звонок менеджера (запись в Bitrix), пройди по 8 пунктам каркаса. <b>Обязательный пункт — КЭВ</b>: явное «да» + дата + время + адрес. Без него встреча не назначена — это просто разговор.</div>
+</main>
+
+<!-- модал проверки звонка -->
+<div class="ov" id="ov">
+  <div class="modal">
+    <div class="mh">
+      <h3 id="mTitle">Проверка звонка по КЭВ</h3>
+      <p id="mSub">Отметь, что менеджер реально сделал в звонке. Без данных клиента.</p>
+    </div>
+    <div class="mb">
+      <div id="checklist"></div>
+      <div class="scoreline">Выполнено: <b id="scoreV">0</b> / 8 <span id="kevWarn" style="color:var(--bad)"></span></div>
+      <label style="font-size:12.5px;font-weight:800;color:var(--mut)">Комментарий о технике (точка роста, без данных клиента)</label>
+      <textarea class="cmt" id="cmt" placeholder="Напр.: хорошо взял инициативу, но не зафиксировал адрес вслух — на доработку закрытие на КЭВ."></textarea>
+      <div class="verdict" id="verdict"></div>
+    </div>
+    <div class="mfoot">
+      <button class="btn" id="passBtn">✅ Зачесть КЭВ — замок 2</button>
+      <button class="btn ghost" id="failBtn">↩ На доработку</button>
+      <button class="btn ghost" id="closeBtn" style="margin-left:auto">Отмена</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"><span class="tk">✓</span><span id="toastMsg">Готово</span></div>
+
+<script src="academy.js"></script>
+<script>
+var tT;
+function toast(m){ document.getElementById('toastMsg').textContent=m; var t=document.getElementById('toast'); t.classList.add('on'); clearTimeout(tT); tT=setTimeout(function(){t.classList.remove('on');},3200); }
+
+/* 8 пунктов каркаса звонка; п.7 — обязательный КЭВ */
+var CHECK=[
+  {t:'Контакт и представление', s:'Компания, имя, по делу — за первые 15 секунд'},
+  {t:'Инициатива и рамка', s:'«Давайте поступим так: задам пару вопросов…»'},
+  {t:'Понял задачу клиента', s:'Для себя / семья / инвестиция — зачем покупает'},
+  {t:'Квалификация (ABC)', s:'Бюджет, сроки, способ оплаты — без допроса'},
+  {t:'Презентация под задачу', s:'Подобрал под задачу, не «зачитал прайс»'},
+  {t:'Отработка возражения', s:'Принял → уточнил → ответил → вернул к встрече'},
+  {t:'КЭВ: закрытие на показ', s:'Явное «да» + дата + время + адрес — проговорено', kev:true},
+  {t:'Фиксация и follow-up', s:'Повторил договорённость вслух, предупредил, что наберёт'}
+];
+
+/* мок-команда (ники анонимны) + строка текущего менеджера из academy.js */
+var TEAM=[
+  {id:'m4', nick:'Менеджер 4', tag:'Айбек', coins:720, ready:78, lock1:true,  lock2:true,  grade:'Эксперт'},
+  {id:'m2', nick:'Менеджер 2', tag:'Дана',  coins:680, ready:66, lock1:true,  lock2:false, grade:'Старший менеджер'},
+  {id:'m1', nick:'Менеджер 1', tag:'Ержан', coins:320, ready:44, lock1:false, lock2:false, grade:'Менеджер'},
+  {id:'m5', nick:'Менеджер 5', tag:'Сауле', coins:180, ready:28, lock1:false, lock2:false, grade:'Стажёр'}
+];
+
+function meRow(){
+  var s; try{ s=Academy.snapshot(); }catch(e){ return null; }
+  var roleLessons=Academy.lessonsForRole(s.role.id);
+  var lock1=roleLessons.length && roleLessons.every(function(l){return Academy.isDone(l.id);});
+  return {id:'me', nick:'Динара К. (ты)', tag:'текущий менеджер', coins:s.coins, ready:s.readiness.pct, lock1:lock1, lock2:s.ropOk, grade:s.rank.current.name, real:true, role:s.role.id};
+}
+
+function rows(){ var m=meRow(); var arr=TEAM.slice(); if(m) arr.push(m); arr.sort(function(a,b){ return (b.lock1?1:0)-(a.lock1?1:0) || b.ready-a.ready; }); return arr; }
+
+function render(){
+  var data=rows();
+  var certified=data.filter(function(r){return r.lock1&&r.lock2;}).length;
+  var waiting=data.filter(function(r){return r.lock1&&!r.lock2;}).length;
+  var avg=Math.round(data.reduce(function(a,r){return a+r.ready;},0)/data.length);
+  document.getElementById('stats').innerHTML=
+    stat(data.length,'менеджеров в группе','')+
+    stat(avg+'%','средняя готовность','teal')+
+    stat(certified,'сертифицировано (оба замка)','good')+
+    stat(waiting,'ждут проверки КЭВ','warm');
+
+  document.getElementById('teamBody').innerHTML=data.map(function(r){
+    var cert = (r.lock1&&r.lock2) ? '<span class="tag ok">Сертифицирован</span>'
+             : (r.lock1&&!r.lock2) ? '<span class="tag wait">Ждёт КЭВ</span>'
+             : '<span class="tag no">Учится</span>';
+    var btn = r.lock2 ? '<span class="tag ok">✓ КЭВ зачтён</span>'
+            : '<button class="btn sm" onclick="openCheck(\''+r.id+'\')">🎧 Проверить звонок</button>';
+    return '<tr'+(r.real?' class="me-row"':'')+'>'+
+      '<td><div class="mgr">'+r.nick+'<small>'+r.tag+'</small></div></td>'+
+      '<td>'+r.grade+'</td>'+
+      '<td>'+r.coins+' 🪙</td>'+
+      '<td><span class="rbar"><i style="width:'+r.ready+'%"></i></span>'+r.ready+'%</td>'+
+      '<td><span class="lk '+(r.lock1?'y':'n')+'">'+(r.lock1?'✓':'🔒')+'</span></td>'+
+      '<td><span class="lk '+(r.lock2?'y':'n')+'">'+(r.lock2?'✓':'🔒')+'</span></td>'+
+      '<td>'+cert+'</td>'+
+      '<td>'+btn+'</td></tr>';
+  }).join('');
+}
+function stat(n,l,cls){ return '<div class="stat '+cls+'"><div class="n">'+n+'</div><div class="l">'+l+'</div></div>'; }
+
+/* модал */
+var curId=null;
+function openCheck(id){
+  curId=id;
+  var r=rows().filter(function(x){return x.id===id;})[0];
+  document.getElementById('mTitle').textContent='Проверка звонка · '+(r?r.nick:'');
+  document.getElementById('checklist').innerHTML=CHECK.map(function(c,i){
+    return '<label class="chk'+(c.kev?' kev':'')+'"><input type="checkbox" data-i="'+i+'" '+(c.kev?'data-kev="1"':'')+'><span class="ct2">'+c.t+'<small>'+c.s+'</small></span>'+(c.kev?'<span class="kbadge">КЭВ · обязательно</span>':'')+'</label>';
+  }).join('');
+  document.getElementById('cmt').value='';
+  document.getElementById('verdict').className='verdict';
+  document.getElementById('verdict').textContent='';
+  recalc();
+  document.getElementById('ov').classList.add('on');
+}
+function recalc(){
+  var boxes=document.querySelectorAll('#checklist input');
+  var done=0, kev=false;
+  boxes.forEach(function(b){ if(b.checked){ done++; if(b.getAttribute('data-kev')) kev=true; } });
+  document.getElementById('scoreV').textContent=done;
+  document.getElementById('kevWarn').textContent = kev ? '' : ' · КЭВ не отмечен';
+  return {done:done, kev:kev};
+}
+document.getElementById('checklist')&&document.addEventListener('change',function(e){ if(e.target.closest&&e.target.closest('#checklist')) recalc(); });
+
+function close(){ document.getElementById('ov').classList.remove('on'); }
+document.getElementById('closeBtn').addEventListener('click', close);
+document.getElementById('ov').addEventListener('click', function(e){ if(e.target.id==='ov') close(); });
+
+document.getElementById('passBtn').addEventListener('click', function(){
+  var st=recalc();
+  if(!st.kev){ var v=document.getElementById('verdict'); v.className='verdict fail'; v.textContent='Нельзя зачесть без пункта КЭВ: явное «да» + дата + время + адрес. Это и есть назначенный показ — главный рычаг конверсии.'; return; }
+  if(st.done<6){ var v2=document.getElementById('verdict'); v2.className='verdict fail'; v2.textContent='Выполнено меньше 6 из 8. Зачти как «на доработку» и дай одну точку роста на тренировку.'; return; }
+  // зачтено
+  var r=rows().filter(function(x){return x.id===curId;})[0];
+  if(r&&r.real&&window.Academy){ Academy.setRop(r.role,true); }
+  else { var t=TEAM.filter(function(x){return x.id===curId;})[0]; if(t){ t.lock2=true; if(t.coins>=650) t.grade='Эксперт'; } }
+  close(); render();
+  toast('✅ КЭВ зачтён — замок 2 открыт у «'+(r?r.nick:'')+'»');
+});
+document.getElementById('failBtn').addEventListener('click', function(){
+  var v=document.getElementById('verdict'); v.className='verdict fail';
+  v.textContent='Отмечено «на доработку». Менеджеру — тренировка по слабому пункту, перепроверка на следующем звонке. Замок 2 пока закрыт.';
+  setTimeout(close, 1400);
+});
+
+render();
+/* награда РОПу не нужна; но если вернулись после правок — обновим */
+window.addEventListener('focus', render);
+</script>
+</body>
+</html>

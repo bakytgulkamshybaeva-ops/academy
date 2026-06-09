@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex,nofollow">
+<title>ATAMŪRA · Академия продаж</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant:wght@600;700&family=Archivo:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root{--navy:#284157;--navy2:#1b2e3d;--teal:#007484;--teal-d:#005763;--gold:#cfb372;--bg:#f3f1ea;--card:#fff;--ink:#16263a;--mut:#6b8095;--line:#e6ecf2;--shadow:0 10px 30px -16px rgba(14,42,64,.4)}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Archivo',-apple-system,'Segoe UI',sans-serif;background:var(--bg);color:var(--ink);-webkit-font-smoothing:antialiased;line-height:1.5}
+a{text-decoration:none;color:inherit}
+.hero{background:linear-gradient(120deg,var(--navy),var(--navy2));color:#fff;padding:48px 22px 40px;text-align:center}
+.hero .logo{width:52px;height:52px;border-radius:14px;background:linear-gradient(135deg,var(--teal),var(--teal-d));display:inline-flex;align-items:center;justify-content:center;font-weight:900;font-size:24px;box-shadow:0 8px 20px -6px rgba(19,163,163,.7);margin-bottom:16px}
+.hero h1{font-family:'Cormorant',serif;font-size:clamp(30px,6vw,46px);font-weight:700;letter-spacing:.02em}
+.hero .sub{font-size:14px;color:#aec0d2;font-weight:600;margin-top:8px;max-width:60ch;margin-inline:auto}
+.hero .tag{display:inline-block;margin-top:16px;font-size:12px;font-weight:800;letter-spacing:.04em;text-transform:uppercase;color:#0f2a3c;background:var(--gold);border-radius:8px;padding:6px 13px}
+.wrap{max-width:920px;margin:0 auto;padding:32px 22px 60px}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:18px;box-shadow:var(--shadow);padding:24px;display:flex;flex-direction:column;transition:transform .14s,box-shadow .14s}
+.card:hover{transform:translateY(-3px);box-shadow:0 18px 44px -18px rgba(14,42,64,.55)}
+.card .ic{font-size:32px}
+.card h2{font-size:19px;font-weight:800;margin:12px 0 6px;letter-spacing:-.01em}
+.card p{font-size:13.5px;color:var(--mut);font-weight:600;flex:1}
+.card .go{margin-top:16px;align-self:flex-start;background:var(--teal);color:#fff;font-weight:800;font-size:13.5px;border-radius:11px;padding:11px 18px;display:inline-flex;align-items:center;gap:8px;box-shadow:0 6px 14px -7px rgba(19,163,163,.9)}
+.card.primary{border-color:var(--gold);background:linear-gradient(135deg,#fff,#fdf8ec)}
+.card.primary .go{background:linear-gradient(135deg,var(--gold),#bd9b56);color:#3a2a08}
+.rec{font-size:10.5px;font-weight:900;text-transform:uppercase;letter-spacing:.05em;color:#3a2a08;background:var(--gold);border-radius:6px;padding:3px 8px;align-self:flex-start;margin-bottom:10px}
+.note{margin-top:26px;background:#eef1f4;border-radius:14px;padding:16px 18px;font-size:12.5px;color:#41515f;font-weight:600;line-height:1.6}
+.note b{color:var(--navy)}
+.foot{text-align:center;font-size:12px;color:var(--mut);font-weight:600;margin-top:24px}
+.foot a{color:var(--teal-d);font-weight:800}
+</style>
+</head>
+<body>
+<header class="hero">
+  <div class="logo">A</div>
+  <h1>ATAMŪRA · Академия продаж</h1>
+  <div class="sub">Учим новичка доводить клиента до показа и выходить на нужную конверсию. Геймификация, баллы, ранги — внутри рабочего пространства «Напарник продавца».</div>
+  <span class="tag">Демо · пилот</span>
+</header>
+
+<main class="wrap">
+  <div class="cards">
+    <a class="card primary" href="academy.html">
+      <span class="rec">Начать здесь</span>
+      <div class="ic">🎓</div>
+      <h2>Академия</h2>
+      <p>Дашборд учащегося: цель по конверсии, карта курса (5 блоков / 62 урока), баллы, грейды, серия, значки, сертификация.</p>
+      <span class="go">Открыть Академию →</span>
+    </a>
+    <a class="card" href="workspace.html">
+      <div class="ic">🏠</div>
+      <h2>Рабочее пространство</h2>
+      <p>Кокпит «Напарник продавца» со встроенной вкладкой Академии. Учёба и работа кормят один кошелёк коинов.</p>
+      <span class="go">Открыть кокпит →</span>
+    </a>
+    <a class="card" href="academy_rop.html">
+      <div class="ic">🎧</div>
+      <h2>РОП-вид</h2>
+      <p>Доска руководителя: готовность команды к показателю и проверка реального звонка по чек-листу КЭВ (замок 2 сертификата).</p>
+      <span class="go">Открыть РОП-вид →</span>
+    </a>
+  </div>
+
+  <div class="note">
+    🧪 <b>Это демо-пилот.</b> Прогресс (коины, грейды, пройденные уроки) хранится локально в браузере — у каждого свой, ничего на сервере. Данные клиентов не используются. <b>Живых уроков сейчас 8</b> (вступление + общее ядро продаж); остальные показаны в карте как «готовятся» — <b>видео-уроки и тексты дополняются по мере готовности</b>.
+  </div>
+  <div class="foot">ATAMŪRA · «Мы создаём наследие» · <a href="academy.html">в Академию →</a></div>
+</main>
+</body>
+</html>

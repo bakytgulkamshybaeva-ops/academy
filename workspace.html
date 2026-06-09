@@ -1,0 +1,1019 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Напарник продавца · веб-кабинет (Bitrix24)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:#284157; --navy2:#355169; --teal:#007484; --teal-d:#005a67; --gold:#cfb372;
+  --bg:#f3f1ea; --card:#fff; --ink:#16263a; --mut:#6b8095; --line:#e6ecf2;
+  --green:#1f9d57; --green-bg:#e7f6ee; --amber:#e0922f; --amber-bg:#fdf2e1;
+  --red:#d6453d; --red-bg:#fcebe9; --blue:#3f6fb0; --blue-bg:#eaf1fa; --slate:#8595a5; --slate-bg:#eef1f4;
+  --shadow:0 6px 22px -12px rgba(14,42,64,.30);
+  --sidebar:236px; --topbar:60px;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{color-scheme:light}
+body{font-family:'Archivo',-apple-system,'Segoe UI',sans-serif;background:var(--bg);color:var(--ink);-webkit-font-smoothing:antialiased;line-height:1.45}
+button{font-family:inherit;cursor:pointer;border:none;background:none}
+:focus-visible{outline:3px solid var(--gold);outline-offset:2px;border-radius:8px}
+a{color:inherit}
+
+/* top bar */
+.top{position:fixed;top:0;left:0;right:0;height:var(--topbar);background:linear-gradient(120deg,var(--navy),#1b2e3d);color:#fff;display:flex;align-items:center;gap:14px;padding:0 22px;z-index:30}
+.top .logo{width:34px;height:34px;border-radius:10px;background:linear-gradient(135deg,var(--teal),var(--teal-d));display:flex;align-items:center;justify-content:center;font-weight:900;font-size:17px;flex:none;box-shadow:0 4px 12px -3px rgba(19,163,163,.7)}
+.top .brand{font-weight:800;font-size:16px;letter-spacing:-.01em}
+.top .brand small{font-weight:500;font-size:11px;color:#86a4bb;display:block;line-height:1}
+.top .period{margin-left:24px;background:rgba(255,255,255,.1);border-radius:9px;padding:7px 13px;font-size:13px;font-weight:700;display:flex;align-items:center;gap:8px}
+.top .b24{margin-left:auto;font-size:12px;font-weight:700;color:#bfe6cf;background:rgba(31,157,87,.18);border:1px solid rgba(31,157,87,.4);border-radius:8px;padding:5px 11px;display:flex;align-items:center;gap:7px}
+.top .b24 .d{width:8px;height:8px;border-radius:50%;background:#39d98a;box-shadow:0 0 8px #39d98a}
+.top .me{display:flex;align-items:center;gap:9px;margin-left:18px}
+.top .me .av{width:34px;height:34px;border-radius:50%;background:linear-gradient(135deg,var(--gold),#b9975a);color:#3a2a08;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:14px}
+.top .me .nm{font-size:13px;font-weight:700;line-height:1.1}
+.top .me .nm small{display:block;font-weight:500;color:#9fbace;font-size:11px}
+
+/* sidebar */
+.side{position:fixed;top:var(--topbar);bottom:0;left:0;width:var(--sidebar);background:#fff;border-right:1px solid var(--line);padding:16px 12px;display:flex;flex-direction:column;gap:4px;z-index:20}
+.nav{display:flex;align-items:center;gap:12px;padding:11px 13px;border-radius:11px;font-size:14px;font-weight:700;color:var(--mut);width:100%;text-align:left;position:relative}
+.nav .ic{font-size:18px;width:22px;text-align:center}
+.nav:hover{background:#f3f7fa;color:var(--ink)}
+.nav.on{background:var(--navy);color:#fff}
+.nav .pill{margin-left:auto;background:var(--red);color:#fff;font-size:11px;font-weight:800;border-radius:9px;padding:0 7px;line-height:18px}
+.nav.on .pill{background:var(--gold)}
+.side .spacer{flex:1}
+.gradecard{background:var(--navy);color:#dce7f0;border-radius:13px;padding:13px;font-size:12px;line-height:1.5}
+.gradecard b{color:var(--gold)}
+.gradecard .g{font-size:13px;font-weight:800;color:#fff;margin-bottom:3px}
+
+/* main */
+.main{margin-left:var(--sidebar);margin-top:var(--topbar);padding:24px 26px 60px;min-height:calc(100vh - var(--topbar))}
+.screen{display:none}.screen.on{display:block;animation:fade .25s ease both}
+@keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+.h1{font-size:22px;font-weight:800;letter-spacing:-.01em;margin-bottom:3px}
+.sub{font-size:13px;color:var(--mut);font-weight:600;margin-bottom:20px}
+.sub b{color:var(--ink)}
+
+.grid2{display:grid;grid-template-columns:1fr 340px;gap:20px;align-items:start}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow);padding:18px 20px}
+.card.tight{padding:15px 16px}
+.ct{font-size:14px;font-weight:800;display:flex;align-items:center;gap:8px;margin-bottom:13px}
+.ct small{font-weight:600;font-size:11.5px;color:var(--mut);margin-left:auto}
+
+/* stats */
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:13px;margin-bottom:20px}
+.stat{background:#fff;border:1px solid var(--line);border-radius:14px;padding:14px 16px;box-shadow:var(--shadow)}
+.stat .n{font-size:26px;font-weight:900;letter-spacing:-.02em;line-height:1}
+.stat .l{font-size:12px;color:var(--mut);font-weight:700;margin-top:5px}
+.stat.hot .n{color:var(--red)} .stat.warm .n{color:var(--amber)} .stat.cool .n{color:var(--teal-d)}
+
+/* client rows */
+.cli{display:flex;align-items:center;gap:14px;padding:14px 4px;border-bottom:1px solid var(--line)}
+.cli:last-child{border-bottom:none}
+.cli .heat{width:38px;height:38px;border-radius:11px;display:flex;align-items:center;justify-content:center;font-size:18px;flex:none}
+.cli.hot .heat{background:var(--red-bg)} .cli.warm .heat{background:var(--amber-bg)} .cli.cool .heat{background:var(--green-bg)}
+.cli .info{flex:1;min-width:0}
+.cli .nm{font-size:14.5px;font-weight:800}
+.cli .nm .jk{font-size:11.5px;color:var(--mut);font-weight:700;background:#f0f4f8;border-radius:6px;padding:1px 7px;margin-left:7px}
+.cli .why{font-size:12.5px;color:var(--mut);font-weight:600;margin-top:3px}
+.cli .why b{color:var(--teal-d)}
+.cli .act{flex:none;display:flex;gap:8px}
+.btn{min-height:40px;border-radius:10px;background:var(--teal);color:#fff;font-size:13px;font-weight:800;padding:0 16px;display:inline-flex;align-items:center;gap:7px;box-shadow:0 5px 13px -7px rgba(19,163,163,.85)}
+.btn:hover{background:var(--teal-d)}
+.btn.ghost{background:#fff;color:var(--navy);border:1.5px solid var(--line);box-shadow:none}
+.btn.ghost:hover{background:#f3f7fa}
+
+/* right rail */
+.rail .money{display:flex;flex-direction:column;gap:11px}
+.mrow{display:flex;align-items:center;justify-content:space-between;font-size:13px;font-weight:600;color:var(--mut)}
+.mrow b{font-size:16px;font-weight:900;letter-spacing:-.01em;color:var(--ink)}
+.mrow b.a{color:var(--green)} .mrow b.c{color:var(--teal-d)}
+.gate{display:flex;align-items:center;gap:9px;font-size:13px;font-weight:700;padding:9px 0;border-bottom:1px solid var(--line)}
+.gate:last-child{border-bottom:none}
+.gate .gi{width:22px;height:22px;border-radius:50%;background:var(--green);color:#fff;display:flex;align-items:center;justify-content:center;font-size:12px;flex:none}
+.gate .gv{margin-left:auto;font-weight:800;color:var(--green);font-size:12.5px}
+.minibar{height:9px;border-radius:6px;background:#f3f1ea;overflow:hidden;position:relative;margin:6px 0}
+.minibar i{position:absolute;inset:0;border-radius:6px;background:linear-gradient(90deg,var(--amber),#eaa64a)}
+
+/* calls master-detail */
+.calls{display:grid;grid-template-columns:330px 1fr;gap:18px;align-items:start}
+.calllist{background:#fff;border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow);overflow:hidden}
+.callrow{display:flex;align-items:center;gap:12px;padding:13px 15px;border-bottom:1px solid var(--line);width:100%;text-align:left}
+.callrow:last-child{border-bottom:none}
+.callrow:hover{background:#f7fafc}
+.callrow.on{background:#eef7f7;box-shadow:inset 4px 0 0 var(--teal)}
+.callrow .sc{width:40px;height:40px;border-radius:11px;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:14px;flex:none}
+.callrow .sc.g{background:var(--green-bg);color:var(--green)} .callrow .sc.a{background:var(--amber-bg);color:var(--amber)} .callrow .sc.k{background:var(--slate-bg);color:#5f6e7c;font-size:17px}
+.callrow .ci{flex:1;min-width:0}
+.callrow .cn{font-size:14px;font-weight:800}
+.callrow .cm{font-size:11.5px;color:var(--mut);font-weight:600;margin-top:2px}
+.detail .sm{font-size:14.5px;line-height:1.55;background:#f5f8fa;border-radius:12px;padding:14px 15px;margin-bottom:15px}
+.fb{border-radius:12px;padding:13px 15px;margin-bottom:10px;font-size:14px;line-height:1.5}
+.fb.good{background:var(--green-bg);color:#176b3c} .fb.miss{background:var(--amber-bg);color:#8a5a14} .fb.next{background:var(--blue-bg);color:#274a72}
+.fb b{display:block;margin-bottom:2px}
+.lbl{font-size:11.5px;font-weight:800;text-transform:uppercase;letter-spacing:.04em;color:var(--mut);margin:14px 2px 8px}
+.checks{display:flex;flex-wrap:wrap;gap:8px}
+.chk{font-size:12.5px;font-weight:700;border-radius:9px;padding:6px 11px;display:inline-flex;align-items:center;gap:5px}
+.chk.y{background:var(--green-bg);color:var(--green)} .chk.n{background:var(--red-bg);color:var(--red)}
+.metrics{display:flex;gap:12px;margin-top:14px}
+.metrics .m{flex:1;background:#f5f8fa;border-radius:12px;padding:12px;text-align:center}
+.metrics .m .mv{font-size:20px;font-weight:900;color:var(--navy)}
+.metrics .m .ml{font-size:11px;color:var(--mut);font-weight:700;margin-top:3px}
+.kkbox{background:var(--slate-bg);border-radius:12px;padding:16px;font-size:14px;line-height:1.6;color:#41515f}
+.kkbox b{color:var(--navy)}
+.qweek{margin-bottom:18px}
+.qweek .qgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.qweek .qm{background:#f5f8fa;border:1px solid var(--line);border-radius:12px;padding:12px 13px}
+.qweek .qm .ql{font-size:11px;color:var(--mut);font-weight:700;line-height:1.3}
+.qweek .qm .qv{font-size:22px;font-weight:900;color:var(--navy);margin-top:5px;display:flex;align-items:baseline;gap:6px}
+.qweek .qm .qv .tr{font-size:13px;font-weight:800}
+.qweek .qm .qv .tr.up{color:var(--green)} .qweek .qm .qv .tr.down{color:var(--green)} .qweek .qm .qv .tr.bad{color:var(--red)}
+.qweek .qm .qd{font-size:11px;color:var(--mut);font-weight:600;margin-top:4px}
+.qweek .qfocus{display:flex;align-items:center;gap:8px;background:var(--navy);color:#dce7f0;border-radius:12px;padding:11px 14px;font-size:13px;font-weight:600;margin-top:12px}
+.qweek .qfocus b{color:var(--gold)}
+
+/* money / whatif */
+.whatif .wlab{font-size:13px;font-weight:700;display:flex;justify-content:space-between;margin-top:15px}
+.whatif .wlab b{color:var(--teal-d);font-size:15px}
+input[type=range]{width:100%;height:36px;accent-color:var(--teal);background:transparent}
+.toggle{display:flex;gap:9px;margin-top:9px}
+.toggle button{flex:1;min-height:42px;border:1.5px solid var(--line);border-radius:11px;background:#fff;font-weight:700;font-size:13px;color:var(--navy)}
+.toggle button.on{background:var(--teal);color:#fff;border-color:var(--teal)}
+.tiernote{font-size:13px;font-weight:700;color:var(--teal-d);margin-top:7px}
+.bonusbox{background:linear-gradient(135deg,var(--navy),#1b2e3d);border-radius:14px;padding:18px;margin-top:18px;text-align:center;color:#fff}
+.bonusbox .bl{font-size:12px;color:#9fbace;font-weight:700;text-transform:uppercase;letter-spacing:.04em}
+.bonusbox .bv{font-size:36px;font-weight:900;letter-spacing:-.02em;color:var(--gold);margin:5px 0 3px}
+.bonusbox .bf{font-size:12px;color:#b9cad9;font-weight:600}
+.obsbar{background:var(--slate-bg);border-radius:11px;padding:12px 14px;margin-top:14px;font-size:12.5px;color:#41515f;font-weight:600;line-height:1.55}
+.obsbar b{color:var(--navy)}
+
+/* tables */
+table{border-collapse:collapse;width:100%;font-size:13px;margin-top:6px}
+th,td{border:1px solid var(--line);padding:8px 11px;text-align:left}
+th{background:#eef3f2;color:var(--navy);font-weight:800}
+tr.hl td{background:var(--amber-bg);font-weight:800}
+.kpihero{display:flex;align-items:center;gap:22px;background:linear-gradient(120deg,#fff,#f6faf9);border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow);padding:20px 24px;margin-bottom:16px}
+.kpihero .big{font-size:54px;font-weight:900;letter-spacing:-.03em;color:var(--amber);line-height:.9}
+.kpihero .big span{font-size:24px}
+.kpihero .txt{font-size:14px;font-weight:600}
+.kpihero .txt b{color:var(--amber)}
+.kpirow{display:flex;align-items:center;gap:14px;padding:13px 0;border-bottom:1px solid var(--line)}
+.kpirow:last-child{border-bottom:none}
+.kpirow .kn{font-size:14px;font-weight:700;flex:1}
+.kpirow .kn small{display:block;color:var(--mut);font-weight:600;font-size:11.5px}
+.kpirow .kv{font-size:18px;font-weight:900}
+.kpirow .tag{font-size:10px;font-weight:800;border-radius:7px;padding:3px 8px}
+.tag.ok{background:var(--green-bg);color:var(--green)} .tag.nt{background:var(--slate-bg);color:#5f6e7c}
+.srcbadge{font-size:11px;font-weight:800;border-radius:8px;padding:3px 9px;vertical-align:middle;margin-left:8px;background:var(--slate-bg);color:#5f6e7c;letter-spacing:.01em}
+.srcbadge.live{background:rgba(19,163,163,.14);color:var(--teal-d)}
+
+.b24note{margin-top:22px;background:var(--blue-bg);border:1px solid #d3e2f3;border-radius:13px;padding:14px 16px;font-size:12.5px;color:#274a72;line-height:1.55}
+.b24note b{color:#1b3a5e}
+.demo{text-align:center;font-size:11px;color:var(--mut);margin-top:20px}
+
+.toast{position:fixed;right:26px;bottom:26px;background:var(--navy);color:#fff;border-radius:13px;padding:13px 17px;font-size:13.5px;font-weight:600;display:flex;align-items:center;gap:10px;z-index:60;opacity:0;visibility:hidden;transform:translateY(14px);transition:opacity .25s,transform .3s,visibility .25s;box-shadow:var(--shadow)}
+.toast.on{opacity:1;visibility:visible;transform:none}
+.toast .tk{width:24px;height:24px;border-radius:50%;background:var(--green);display:flex;align-items:center;justify-content:center;font-size:13px;flex:none}
+
+/* progress / геймификация */
+.streak{display:flex;align-items:center;gap:12px;background:linear-gradient(135deg,#fff,#fff7ea);border:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow);padding:13px 16px;margin-bottom:18px}
+.streak .fire{font-size:26px;flex:none}
+.streak b{color:var(--amber)}
+.streak .dots{margin-left:auto;display:flex;gap:4px;flex-wrap:wrap;max-width:160px;justify-content:flex-end}
+.streak .dots i{width:9px;height:9px;border-radius:50%;background:var(--amber)}
+.streak .dots i.off{background:#e6ecf2}
+.prow{display:flex;align-items:center;gap:12px;padding:12px 0;border-bottom:1px solid var(--line)}
+.prow:last-child{border-bottom:none}
+.prow .pn{font-size:13.5px;font-weight:700;flex:1}
+.prow .pn small{display:block;color:var(--mut);font-weight:600;font-size:11.5px}
+.prow .pv{font-size:18px;font-weight:900;letter-spacing:-.01em}
+.delta{font-size:11.5px;font-weight:800;border-radius:7px;padding:3px 8px;white-space:nowrap}
+.delta.up{background:var(--green-bg);color:var(--green)} .delta.dn{background:var(--red-bg);color:var(--red)} .delta.fl{background:var(--slate-bg);color:#5f6e7c}
+.coinhead{display:flex;align-items:baseline;gap:8px}
+.coinhead .cc{font-size:30px;font-weight:900;color:var(--gold);letter-spacing:-.02em;line-height:1}
+.coinways{display:flex;flex-wrap:wrap;gap:7px;margin:12px 0 4px}
+.coinways .cw{font-size:12px;font-weight:700;background:var(--amber-bg);color:#8a5a14;border-radius:9px;padding:5px 10px}
+.celebrate{background:linear-gradient(135deg,var(--navy),#1b2e3d);border-radius:14px;padding:18px;text-align:center;color:#fff}
+.celebrate .ce{font-size:30px;line-height:1}
+.celebrate .cv{font-size:16px;font-weight:800;color:var(--gold);margin:7px 0 2px;line-height:1.3}
+.celebrate .cf{font-size:12.5px;color:#b9cad9;font-weight:600}
+.skillcard{border-left:5px solid var(--gold)}
+.skillcard .sg{font-size:15px;font-weight:800;color:var(--navy);margin:2px 0 7px}
+.skillcard .sx{font-size:13.5px;color:var(--ink);line-height:1.55}
+.skillcard .sx b{color:var(--teal-d)}
+
+/* speed-to-lead banner (Мой день) */
+.speedbar{display:flex;align-items:center;gap:16px;background:linear-gradient(120deg,var(--navy),#1b2e3d);color:#fff;border-radius:16px;padding:16px 20px;margin-bottom:18px;box-shadow:var(--shadow)}
+.speedbar .sb-ic{width:46px;height:46px;border-radius:13px;background:linear-gradient(135deg,var(--gold),#b9975a);display:flex;align-items:center;justify-content:center;font-size:24px;flex:none}
+.speedbar .sb-main{flex:1;min-width:0}
+.speedbar .sb-t{font-size:14px;font-weight:700;color:#dce7f0}
+.speedbar .sb-t b{font-size:21px;font-weight:900;color:#fff;margin:0 5px}
+.speedbar .sb-tg{font-size:11px;font-weight:800;border-radius:8px;padding:3px 9px;margin-left:2px}
+.speedbar .sb-tg.ok{background:rgba(57,217,138,.2);color:#7ef0b3} .speedbar .sb-tg.bad{background:rgba(231,111,90,.25);color:#ffb4a6}
+.speedbar .sb-d{font-size:12.5px;color:#9fbace;font-weight:600;margin-top:4px;line-height:1.5}
+.speedbar .sb-d b{color:var(--gold)}
+.speedbar .sb-meter{height:8px;border-radius:6px;background:rgba(255,255,255,.14);overflow:hidden;position:relative;margin-top:9px;max-width:380px}
+.speedbar .sb-meter i{position:absolute;left:0;top:0;bottom:0;border-radius:6px;background:linear-gradient(90deg,var(--teal),#39d98a)}
+.speedbar .sb-cta{flex:none}
+.cli .rk{width:26px;height:26px;border-radius:8px;background:var(--navy);color:#fff;font-weight:900;font-size:13px;display:flex;align-items:center;justify-content:center;flex:none}
+.cli .prio{font-size:10px;font-weight:800;border-radius:6px;padding:2px 7px;margin-left:7px;vertical-align:middle}
+.cli .prio.now{background:var(--red-bg);color:var(--red)} .cli .prio.soon{background:var(--amber-bg);color:var(--amber)} .cli .prio.plan{background:var(--green-bg);color:var(--green)}
+
+/* тренажёр возражений */
+.train4{display:flex;gap:10px;flex-wrap:wrap;margin-top:4px}
+.train4 .t4{flex:1;min-width:120px;background:#f5f8fa;border-radius:11px;padding:11px 13px;font-size:12.5px;font-weight:700;color:var(--navy);line-height:1.4}
+.train4 .t4 b{display:block;font-size:11px;color:var(--teal-d);font-weight:800;margin-bottom:3px}
+.trainwrap{display:grid;grid-template-columns:290px 1fr;gap:18px;align-items:start;margin-top:16px}
+.objlist{display:flex;flex-direction:column;gap:8px}
+.objchip{display:flex;align-items:center;gap:11px;text-align:left;width:100%;background:#fff;border:1.5px solid var(--line);border-radius:12px;padding:12px 14px;font-size:13.5px;font-weight:700;color:var(--navy);box-shadow:var(--shadow)}
+.objchip:hover{border-color:var(--teal);background:#f7fafc}
+.objchip.on{background:var(--navy);color:#fff;border-color:var(--navy)}
+.objchip .oq{font-size:18px;flex:none}
+.objchip .of{margin-left:auto;font-size:16px;color:var(--mut)} .objchip.on .of{color:#9fbace}
+.step{display:flex;gap:12px;padding:12px 0;border-bottom:1px solid var(--line)}
+.step:last-child{border-bottom:none}
+.step .sn{width:28px;height:28px;border-radius:9px;background:var(--teal);color:#fff;font-weight:900;font-size:14px;display:flex;align-items:center;justify-content:center;flex:none}
+.step .stxt{font-size:13.5px;line-height:1.5}
+.step .stxt b{color:var(--navy)}
+.step .stxt .say{display:block;margin-top:5px;font-size:13.5px;color:var(--teal-d);font-weight:700}
+.whybox{background:var(--green-bg);color:#176b3c;border-radius:12px;padding:12px 15px;font-size:13px;font-weight:600;line-height:1.5;margin-top:14px}
+.whybox b{color:#0f5a30}
+.bench{width:100%}
+.bench .br{display:flex;align-items:center;gap:12px;padding:12px 0;border-bottom:1px solid var(--line)}
+.bench .br:last-child{border-bottom:none}
+.bench .bm{flex:1;font-size:13.5px;font-weight:700}
+.bench .bcell{text-align:center;min-width:74px}
+.bench .bcell .bv{font-size:17px;font-weight:900;letter-spacing:-.01em}
+.bench .bcell .bl{font-size:10px;color:var(--mut);font-weight:700;text-transform:uppercase;letter-spacing:.03em}
+.bench .bcell.top .bv{color:var(--teal-d)} .bench .bcell.team .bv{color:var(--slate)}
+.bench .gap{font-size:11px;font-weight:800;border-radius:7px;padding:3px 8px;white-space:nowrap}
+.bench .gap.good{background:var(--green-bg);color:var(--green)}
+/* теплокарта времени звонка */
+.heat{display:grid;grid-template-columns:64px repeat(7,1fr);gap:5px;font-size:11px}
+.heat .hh{font-weight:800;color:var(--mut);text-align:center;align-self:center;padding-bottom:2px}
+.heat .hr{font-weight:800;color:var(--ink);align-self:center;font-size:11px}
+.heat .hc{height:32px;border-radius:7px;display:flex;align-items:center;justify-content:center;font-weight:800}
+.heat .l0{background:#eef1f4;color:#aab6c0} .heat .l1{background:#cfe8ec;color:#0d6b73} .heat .l2{background:#7fc4cb;color:#073f45} .heat .l3{background:var(--teal);color:#fff} .heat .l4{background:var(--teal-d);color:#fff}
+.heatwin{display:flex;align-items:center;gap:8px;background:var(--navy);color:#dce7f0;border-radius:11px;padding:10px 13px;font-size:13px;font-weight:600;margin-top:12px}
+.heatwin b{color:var(--gold)}
+/* каденции follow-up */
+.cad{display:flex;flex-direction:column}
+.cadi{display:flex;gap:13px;position:relative;padding:0 0 15px 0}
+.cadi:last-child{padding-bottom:0}
+.cadi .cdot{width:30px;height:30px;border-radius:50%;background:var(--teal);color:#fff;font-weight:900;font-size:12px;display:flex;align-items:center;justify-content:center;flex:none;z-index:1}
+.cadi:not(:last-child):before{content:"";position:absolute;left:14px;top:30px;bottom:0;width:2px;background:var(--line)}
+.cadi .ctxt{font-size:13px;line-height:1.45;padding-top:4px}
+.cadi .ctxt b{color:var(--navy)}
+.cadi .ctxt .cwhen{display:block;font-size:11px;font-weight:800;color:var(--teal-d);text-transform:uppercase;letter-spacing:.03em;margin-bottom:1px}
+@media(max-width:1080px){.grid2{grid-template-columns:1fr}.calls{grid-template-columns:1fr}.rail{order:-1}.trainwrap{grid-template-columns:1fr}.speedbar{flex-wrap:wrap}.heat{font-size:9px;grid-template-columns:48px repeat(7,1fr)}}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="logo">⚡</div>
+  <div class="brand">Напарник продавца<small>веб-кабинет · отдел телемаркетинга</small></div>
+  <div class="period">📅 Июнь 2026</div>
+  <div class="b24"><span class="d"></span>Bitrix24 подключён</div>
+  <div id="walletPill" style="display:flex;align-items:center;gap:7px;margin-left:14px;background:rgba(207,179,114,.18);border:1px solid rgba(207,179,114,.45);color:#f4e6c2;border-radius:9px;padding:6px 12px;font-size:13px;font-weight:800">🪙 <span id="walletCoins">0</span></div>
+  <div class="me"><div class="av">Д</div><div class="nm">Динара К.<small>Менеджер · группа 2</small></div></div>
+</header>
+
+<aside class="side">
+  <button class="nav on" id="n-day" onclick="go('day')"><span class="ic">📋</span>Мой день</button>
+  <button class="nav" id="n-calls" onclick="go('calls')"><span class="ic">🎧</span>Звонки<span class="pill">1</span></button>
+  <button class="nav" id="n-train" onclick="go('train')"><span class="ic">🎯</span>Тренажёр</button>
+  <a class="nav" id="n-academy" href="academy.html" style="text-decoration:none"><span class="ic">🎓</span>Академия<span class="pill" id="acadPill" style="background:var(--gold);color:#3a2a08">+0</span></a>
+  <button class="nav" id="n-money" onclick="go('money')"><span class="ic">💰</span>Деньги</button>
+  <button class="nav" id="n-kpi" onclick="go('kpi')"><span class="ic">📊</span>KPI и бонус</button>
+  <button class="nav" id="n-team" onclick="go('team')"><span class="ic">🤝</span>Команда</button>
+  <button class="nav" id="n-progress" onclick="go('progress')"><span class="ic">🎮</span>Прогресс</button>
+  <div class="spacer"></div>
+  <div class="gradecard"><div class="g">Грейд: Менеджер</div>Оклад <b>гарантирован</b>. Бонус — сверху, по конверсии. Источник данных — Bitrix24.</div>
+</aside>
+
+<main class="main">
+
+  <!-- ===== МОЙ ДЕНЬ ===== -->
+  <section class="screen on" id="s-day">
+    <div class="h1">Мой день</div>
+    <div class="sub">Вторник, 5 июня · <b>фокус недели: дожать 3 встречи</b> · список собран из Bitrix24 по сигналам</div>
+
+    <div class="speedbar" id="speedBar">
+      <div class="sb-ic">⚡</div>
+      <div class="sb-main">
+        <div class="sb-t">Скорость до 1-го звонка: <b id="sbVal">22 мин</b><span class="sb-tg bad" id="sbTag">цель ≤15 мин</span></div>
+        <div class="sb-d">Чем быстрее дозвон по свежему лиду — тем выше конверсия (5 минут против часа = в разы больше встреч). <b id="sbFresh">2 свежих лида</b> ждут звонка прямо сейчас.</div>
+        <div class="sb-meter"><i id="sbMeter" style="width:68%"></i></div>
+      </div>
+      <button class="btn sb-cta" onclick="act('Позвонить свежему лиду','новый лид')">📞 Звонить свежему</button>
+    </div>
+
+    <div class="stats">
+      <div class="stat cool"><div class="n">2</div><div class="l">встречи сегодня</div></div>
+      <div class="stat warm"><div class="n">4</div><div class="l">недозвона</div></div>
+      <div class="stat hot"><div class="n" id="dayCooling">3</div><div class="l">остывают без касания</div></div>
+    </div>
+
+    <div class="card" style="margin-bottom:18px;border-left:5px solid var(--gold);display:flex;align-items:center;gap:14px;padding:14px 18px">
+      <span style="font-size:26px;flex:none">🎯</span>
+      <div style="flex:1;min-width:0">
+        <div style="font-size:14px;font-weight:800">Бронь встреч: <span id="bkMe" style="color:var(--teal-d)">23%</span> <span style="font-weight:600;color:var(--mut);font-size:12.5px">· команда <b id="bkTeam">18%</b> · главный рычаг конверсии</span></div>
+        <div style="font-size:12.5px;color:var(--mut);font-weight:600;margin-top:3px">Из обработанных лидов до записи на встречу доходит меньшинство — отсюда растёт всё остальное.</div>
+      </div>
+      <button class="btn ghost" onclick="go('train')" style="flex:none">🎯 Прокачать бронь</button>
+    </div>
+
+    <div class="grid2">
+      <div class="card">
+        <div class="ct">🔥 Сейчас займись <small>скоринг 0–100 · по приоритету</small></div>
+        <div id="cliList"></div>
+      </div>
+      <div class="rail">
+        <div class="card tight" style="margin-bottom:14px">
+          <div class="ct">💰 Деньги месяца</div>
+          <div class="money">
+            <div class="mrow">Бонус начислен <b class="a">68 000 ₸</b></div>
+            <div class="mrow">Ждёт верификации СВ <b>12 000 ₸</b></div>
+            <div class="mrow">Прогноз к концу мес. <b class="c">≈95 000 ₸</b></div>
+          </div>
+          <div class="minibar" style="margin-top:13px"><i style="width:76%"></i></div>
+          <div class="mrow" style="font-size:11.5px"><span>план встреч 34/45</span><span>76%</span></div>
+        </div>
+        <div class="card tight">
+          <div class="ct">🛡️ Гейты бонуса</div>
+          <div class="gate"><span class="gi">✓</span>План по встречам ≥60%<span class="gv">76%</span></div>
+          <div class="gate"><span class="gi">✓</span>CRM-дисциплина ≥90%<span class="gv">92%</span></div>
+          <div class="gate"><span class="gi">✓</span>Успешные звонки ≥30/д<span class="gv">34</span></div>
+          <div style="font-size:11.5px;color:var(--mut);font-weight:600;margin-top:10px;line-height:1.5">Любой невыполненный гейт обнуляет бонус за месяц. Оклад не трогается.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== ЗВОНКИ ===== -->
+  <section class="screen" id="s-calls">
+    <div class="h1">Звонки · авто-разбор</div>
+    <div class="sub">После каждого звонка — <b>разбор за 90 секунд</b> по записи из Bitrix24. Без переслушивания.</div>
+    <div class="card qweek">
+      <div class="ct">📈 Качество звонков · неделя<small>тренд неделя-к-неделе · демо-данные</small></div>
+      <div class="qgrid">
+        <div class="qm">
+          <div class="ql">Средняя ОКК</div>
+          <div class="qv">4,3<span class="tr up">▲</span></div>
+          <div class="qd">пр. неделя 4,0</div>
+        </div>
+        <div class="qm">
+          <div class="ql">Доля речи (норма ≤55%)</div>
+          <div class="qv">58%<span class="tr down">▼</span></div>
+          <div class="qd">было 63% · меньше — лучше</div>
+        </div>
+        <div class="qm">
+          <div class="ql">Вопросов / звонок</div>
+          <div class="qv">5<span class="tr up">▲</span></div>
+          <div class="qd">было 4</div>
+        </div>
+        <div class="qm">
+          <div class="ql">Чек-лист пройден</div>
+          <div class="qv">72%<span class="tr up">▲</span></div>
+          <div class="qd">было 64%</div>
+        </div>
+      </div>
+      <div class="qfocus">🎯 Фокус недели: <b>Закрытие на дату показа (КЭВ)</b> — та же точка роста, что в разделе «Прогресс».</div>
+    </div>
+    <div class="card">
+      <div class="ct">⏰ Лучшее время для звонка <small id="heatSrc">по дозвонам и согласиям · демо</small></div>
+      <div class="heat" id="heatGrid"></div>
+      <div class="heatwin">🏆 <span>Лучшее окно: <b>будни 18:00–21:00</b> и около <b>11:00–13:00</b> — дозвон и согласие на показ выше. Планируй горячие звонки сюда.</span></div>
+    </div>
+    <div class="calls">
+      <div class="calllist" id="callList"></div>
+      <div class="card detail" id="callDetail"></div>
+    </div>
+
+    <div class="card" style="margin-top:18px">
+      <div class="ct">🎓 Методика звонка · ключевой этап = КЭВ <small>скрипт-карта · ABC · возражения</small></div>
+      <div style="font-size:13px;font-weight:700;color:var(--navy);background:#f5f8fa;border-radius:10px;padding:10px 12px;line-height:1.7">
+        Контакт → Рамка → 3 вопроса ABC → Боль → Презентация под боль → <b style="color:var(--teal-d)">Закрытие на КЭВ</b>
+      </div>
+      <div class="grid2" style="margin-top:14px">
+        <div>
+          <div class="lbl" style="margin:0 2px 8px">3 вопроса ABC (квалификация)</div>
+          <ul style="margin:0;padding-left:18px;font-size:13px;line-height:1.65;color:var(--ink)">
+            <li>Для кого выбираете и какую задачу решает покупка?</li>
+            <li>Когда планируете решение / переезд?</li>
+            <li>Комфортный платёж — наличные, ипотека, рассрочка?</li>
+          </ul>
+          <div class="lbl" style="margin:14px 2px 8px">Оффер на показ (не «приходите посмотреть»)</div>
+          <div style="font-size:13px;line-height:1.55;color:var(--ink)">«Подготовлю <b>2–3 варианта</b> под вашу задачу, <b>расчёт условий</b> и покажу маршрут по объекту, как он работает в жизни».</div>
+        </div>
+        <div class="rail">
+          <div class="card tight" style="box-shadow:none;border:1px solid var(--line)">
+            <div class="ct">Возражение — 4 шага</div>
+            <div style="font-size:13px;line-height:1.75;color:var(--ink)">1. Согласиться / принять<br>2. Уточнить, что за этим<br>3. Локализовать: это единственный барьер?<br>4. Вернуть к следующему шагу</div>
+            <div style="font-size:11.5px;color:var(--mut);font-weight:600;margin-top:8px;line-height:1.5">Ведём к уверенному следующему шагу — без давления.</div>
+          </div>
+        </div>
+      </div>
+      <div style="font-size:11px;color:var(--mut);margin-top:10px">Методика: Гребенюк / Аномалия → адаптация ATAMŪRA (уважительный тон, недвижимость)</div>
+    </div>
+  </section>
+
+  <!-- ===== ТРЕНАЖЁР ВОЗРАЖЕНИЙ ===== -->
+  <section class="screen" id="s-train">
+    <div class="h1">Тренажёр возражений</div>
+    <div class="sub">Бронь встречи рождается в разговоре. Отрабатываем по <b>4 шагам</b> — уважительно, без давления, всегда возвращаемся к следующему шагу (показ/расчёт).</div>
+
+    <div class="card">
+      <div class="ct">🧩 Каркас ответа на любое возражение <small>сначала согласие — в конце следующий шаг</small></div>
+      <div class="train4">
+        <div class="t4"><b>1 · Принять</b>Согласиться, снять напряжение</div>
+        <div class="t4"><b>2 · Уточнить</b>Что стоит за возражением?</div>
+        <div class="t4"><b>3 · Локализовать</b>Это единственный барьер?</div>
+        <div class="t4"><b>4 · Вернуть к шагу</b>Предложить визит / расчёт</div>
+      </div>
+    </div>
+
+    <div class="trainwrap">
+      <div>
+        <div class="lbl" style="margin:0 2px 8px">Частые возражения · нажми</div>
+        <div class="objlist" id="objList"></div>
+        <div class="card tight" style="margin-top:12px;border-left:5px solid var(--gold)">
+          <div class="ct">🏋️ Тренировка дня</div>
+          <div style="font-size:13px;color:var(--ink);line-height:1.55">Проговори <b>«Я подумаю»</b> вслух 3 раза по каркасу — закрепляется в речи.</div>
+          <button class="btn" style="width:100%;margin-top:11px;justify-content:center" onclick="toast('🏋️ Тренировка засчитана — +15 коинов')">Отметить тренировку · +15 🪙</button>
+        </div>
+      </div>
+      <div class="card" id="objDetail"></div>
+    </div>
+
+    <div class="grid2" style="margin-top:16px">
+      <div class="card">
+        <div class="ct">🔤 Быстрая квалификация ABC <small>кого дожимать в первую очередь</small></div>
+        <table>
+          <thead><tr><th>Класс</th><th>Признак</th><th>Действие</th></tr></thead>
+          <tbody>
+            <tr class="hl"><td><b>A</b></td><td>Потребность + деньги/ипотека + решает скоро</td><td>Максимум приоритета: показ, расчёт, закрыть на визит</td></tr>
+            <tr><td><b>B</b></td><td>Потребность есть, срок позже / решение зреет</td><td>Прогрев, фиксация условий, follow-up по дате</td></tr>
+            <tr><td><b>C</b></td><td>Нет потребности / бюджета / срока</td><td>Лёгкое касание или вежливо закрыть, без переработки</td></tr>
+          </tbody>
+        </table>
+        <div style="font-size:12px;color:var(--mut);font-weight:600;margin-top:10px;line-height:1.5">3 вопроса на класс: <b>для кого</b> выбираете · <b>когда</b> планируете решение · <b>комфортный платёж</b> (наличные / ипотека / рассрочка)?</div>
+      </div>
+      <div class="rail">
+        <div class="card tight">
+          <div class="ct">🎁 Оффер на показ</div>
+          <div style="font-size:13.5px;line-height:1.6;color:var(--ink)">Не «приходите посмотреть», а ценность времени:<br><br>«Подготовлю <b>2–3 варианта</b> под вашу задачу, <b>рассчитаю условия и платёж</b>, сравним сценарии и покажу маршрут по объекту, как он работает в жизни».</div>
+          <div class="lbl" style="margin:13px 2px 7px">Под сегмент</div>
+          <div style="font-size:12.5px;line-height:1.7;color:var(--ink)">👨‍👩‍👧 Семья — школа / двор / планировка<br>📈 Инвестор — доходность, ликвидность, вход<br>🏙 Премиум — приватность, статус, соседи<br>🔑 Первая квартира — платёж, простота, сроки</div>
+        </div>
+      </div>
+    </div>
+    <div class="card" style="margin-top:16px">
+      <div class="ct">🔁 Каденции follow-up <small>чтобы лид не терялся · по Гребенюку</small></div>
+      <div class="grid2">
+        <div>
+          <div class="lbl" style="margin:0 2px 9px">После показа</div>
+          <div class="cad">
+            <div class="cadi"><div class="cdot">1</div><div class="ctxt"><span class="cwhen">в тот же день</span><b>Резюме + ответы.</b> Спасибо за визит, краткое «что подошло», закрыть открытые вопросы.</div></div>
+            <div class="cadi"><div class="cdot">2</div><div class="ctxt"><span class="cwhen">+1–2 дня</span><b>Расчёт под клиента.</b> 2–3 варианта + расчёт платежа/рассрочки, предложить созвон.</div></div>
+            <div class="cadi"><div class="cdot">3</div><div class="ctxt"><span class="cwhen">+5–7 дней</span><b>Инфоповод.</b> Цена/остаток, новая планировка, акция — повод вернуться без «ну что решили».</div></div>
+            <div class="cadi"><div class="cdot">4</div><div class="ctxt"><span class="cwhen">+14 дней</span><b>Полезное касание.</b> Контент по выбору/ипотеке; держим тёплым до готовности.</div></div>
+          </div>
+        </div>
+        <div class="rail">
+          <div class="card tight" style="box-shadow:none;border:1px solid var(--line)">
+            <div class="ct">После недозвона</div>
+            <div style="font-size:13px;line-height:1.7;color:var(--ink)">1. Перезвон в <b>другое окно дня</b> (см. «Звонки» → лучшее время)<br>2. Короткое сообщение: кто я + ценность встречи<br>3. Ещё попытка звонка через день<br>4. После 3 недозвонов → в долгий прогрев, не в LOSE</div>
+            <div style="font-size:11.5px;color:var(--mut);font-weight:600;margin-top:9px;line-height:1.5">Правило: у каждого активного лида всегда есть <b>следующий шаг с датой</b> в CRM.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card" style="margin-top:16px">
+      <div class="ct">🎓 Онбординг и тренировки <small>ввод новичка + недельный цикл</small></div>
+      <div class="grid2">
+        <div>
+          <div class="lbl" style="margin:0 2px 9px">Недельный цикл тренировок</div>
+          <div style="display:flex;flex-direction:column">
+            <div style="display:flex;gap:10px;align-items:center;padding:9px 0;border-bottom:1px solid var(--line)"><span style="width:34px;height:26px;border-radius:7px;background:var(--navy);color:#fff;font-weight:800;font-size:11px;display:flex;align-items:center;justify-content:center;flex:none">Пн</span><span style="font-size:13px">Вера в продукт + новые факты по ЖК</span></div>
+            <div style="display:flex;gap:10px;align-items:center;padding:9px 0;border-bottom:1px solid var(--line)"><span style="width:34px;height:26px;border-radius:7px;background:var(--navy);color:#fff;font-weight:800;font-size:11px;display:flex;align-items:center;justify-content:center;flex:none">Вт</span><span style="font-size:13px">Презентация под боль клиента</span></div>
+            <div style="display:flex;gap:10px;align-items:center;padding:9px 0;border-bottom:1px solid var(--line)"><span style="width:34px;height:26px;border-radius:7px;background:var(--navy);color:#fff;font-weight:800;font-size:11px;display:flex;align-items:center;justify-content:center;flex:none">Ср</span><span style="font-size:13px">Мягкие возражения и сомнения</span></div>
+            <div style="display:flex;gap:10px;align-items:center;padding:9px 0;border-bottom:1px solid var(--line)"><span style="width:34px;height:26px;border-radius:7px;background:var(--navy);color:#fff;font-weight:800;font-size:11px;display:flex;align-items:center;justify-content:center;flex:none">Чт</span><span style="font-size:13px">Истинные/ложные возражения из реальных звонков</span></div>
+            <div style="display:flex;gap:10px;align-items:center;padding:9px 0"><span style="width:34px;height:26px;border-radius:7px;background:var(--navy);color:#fff;font-weight:800;font-size:11px;display:flex;align-items:center;justify-content:center;flex:none">Пт</span><span style="font-size:13px">Закрытие на следующий шаг + follow-up</span></div>
+          </div>
+        </div>
+        <div class="rail">
+          <div class="card tight" style="box-shadow:none;border:1px solid var(--line)">
+            <div class="ct">Экзамен новичка · допуск к лидам</div>
+            <div class="checks">
+              <span class="chk y">✓ Знает продукт / ЖК</span>
+              <span class="chk y">✓ Проводит ABC-квалификацию</span>
+              <span class="chk y">✓ Отрабатывает топ-3 возражения</span>
+              <span class="chk y">✓ Закрывает на КЭВ (дата показа)</span>
+              <span class="chk y">✓ Ведёт CRM + follow-up</span>
+            </div>
+            <div style="font-size:11.5px;color:var(--mut);font-weight:600;margin-top:10px;line-height:1.5">Допуск к «боевым» лидам — после экзамена. Так новичок не жжёт лиды, пока учится.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div style="font-size:11px;color:var(--mut);margin-top:10px">Методика: Гребенюк / «Аномалия» → адаптация ATAMŪRA (уважительный тон, недвижимость)</div>
+  </section>
+
+  <!-- ===== ДЕНЬГИ ===== -->
+  <section class="screen" id="s-money">
+    <div class="h1">Деньги</div>
+    <div class="sub">По Положению о премировании ТМ · бонус = ставка за встречу (по конверсии) × число встреч</div>
+    <div class="grid2">
+      <div class="card whatif">
+        <div class="ct">🧮 Прикинь свой бонус</div>
+        <div class="wlab"><span>Моя конверсия (встречи ÷ лиды)</span><b id="wConvL">22%</b></div>
+        <input type="range" id="wConv" min="0" max="60" value="22" step="1">
+        <div class="tiernote" id="tierL">—</div>
+        <div class="wlab"><span>Проведено встреч за месяц</span><b id="wVisL">30</b></div>
+        <input type="range" id="wVis" min="0" max="60" value="30" step="1">
+        <div class="wlab"><span>Продажи (акселератор за класс)</span></div>
+        <div class="toggle" id="wClass">
+          <button class="on" data-v="5000" onclick="pick(this,'wClass')">Комфорт +5к</button>
+          <button data-v="10000" onclick="pick(this,'wClass')">Бизнес +10к</button>
+        </div>
+        <input type="range" id="wSales" min="0" max="6" value="2" step="1" style="margin-top:8px">
+        <div style="font-size:12px;color:var(--mut);font-weight:600" id="salesL">—</div>
+        <div class="bonusbox">
+          <div class="bl">Твой бонус за месяц</div>
+          <div class="bv" id="bonusV">≈ 60 000 ₸</div>
+          <div class="bf" id="bonusF">—</div>
+        </div>
+        <div class="obsbar">🛡️ <b>Гейт:</b> бонус не платится при плане &lt;60% или CRM &lt;90%. <b>Качество ОКК</b>: ≥4,8 +50к · 3,5–3,99 −20% · &lt;3,5 −30%. Оклад от бонуса не зависит.</div>
+      </div>
+      <div class="rail">
+        <div class="card tight">
+          <div class="ct">📋 Шкала ставки (из Положения)</div>
+          <table>
+            <thead><tr><th>Конверсия</th><th>₸/встреча</th></tr></thead>
+            <tbody>
+              <tr><td>&gt;50%</td><td>5 000</td></tr>
+              <tr><td>40–49%</td><td>4 000</td></tr>
+              <tr><td>25–39%</td><td>3 500</td></tr>
+              <tr class="hl" id="tierRow"><td>15–24%</td><td>2 000</td></tr>
+              <tr><td>11–14%</td><td>1 500</td></tr>
+              <tr><td>5–10%</td><td>1 000</td></tr>
+              <tr><td>&lt;5%</td><td>0</td></tr>
+            </tbody>
+          </table>
+          <div style="font-size:11.5px;color:var(--mut);font-weight:600;margin-top:10px;line-height:1.5">Твой тариф подсвечен. Переход в следующий диапазон поднимает ставку на ВСЕ встречи.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== KPI ===== -->
+  <section class="screen" id="s-kpi">
+    <div class="h1">KPI и бонус <span class="srcbadge" id="srcBadge">данные: демо</span></div>
+    <div class="card" id="liveDept" style="margin-bottom:16px;display:none">
+      <div class="ct">📡 Live · департамент (наблюдение) <small id="ldPeriod">—</small></div>
+      <div class="grid3">
+        <div class="stat"><div class="n" id="ldWorked">—</div><div class="l">обработано лидов</div></div>
+        <div class="stat"><div class="n" id="ldVisits">—</div><div class="l">визиты (cat2, все источники)</div></div>
+        <div class="stat"><div class="n" id="ldCalls">—</div><div class="l">звонков с разговором</div></div>
+      </div>
+      <div style="font-size:11.5px;color:var(--mut);font-weight:600;margin-top:10px;line-height:1.55">Реальные данные Bitrix (read-only). Per-manager конверсия и премия — <b style="color:var(--red)">data-blocked</b> (миграция сделок + смена владельца, нужен фикс данных). Это наблюдательные агрегаты, не для начисления.</div>
+    </div>
+    <div class="sub">Метрики по Положению · считаются из Bitrix24, визиты верифицирует супервайзер</div>
+    <div class="kpihero">
+      <div class="big"><span id="kpiConv">16</span><span>%</span></div>
+      <div class="txt">Моя конверсия (встречи ÷ лиды) → тариф <b>2 000 ₸</b>/встреча.<br>До тарифа 3 500 ₸ — поднять конверсию до <b>25%</b>.</div>
+    </div>
+    <div class="grid2">
+      <div class="card">
+        <div class="ct">Показатели и гейты</div>
+        <div class="kpirow"><div class="kn">План по встречам<small>гейт ≥60% · иначе бонус 0</small></div><div class="kv" id="kpiPlan" style="color:var(--green)">76%</div><span class="tag ok">✓ пройден</span></div>
+        <div class="kpirow"><div class="kn">CRM-дисциплина<small>гейт ≥90% · иначе бонус 0</small></div><div class="kv" id="kpiCrm" style="color:var(--green)">92%</div><span class="tag ok">✓ пройден</span></div>
+        <div class="kpirow"><div class="kn">Успешные звонки / день<small>норма ≥30</small></div><div class="kv" style="color:var(--green)">34</div><span class="tag ok">✓</span></div>
+        <div class="kpirow"><div class="kn">Дозваниваемость<small>реальных разговоров (≥10с) на 100 звонков</small></div><div class="kv" id="kpiConnect" style="color:var(--teal-d)">70%</div><span class="tag nt">сигнал</span></div>
+        <div class="kpirow"><div class="kn">Время на линии<small>норма ≥2 часа</small></div><div class="kv" style="color:var(--green)">2:40</div><span class="tag ok">✓</span></div>
+        <div class="kpirow"><div class="kn">Качество ОКК (1–5)<small>≥4,8 +50к · &lt;3,5 −30% бонуса</small></div><div class="kv" style="color:var(--amber)">4,3</div><span class="tag nt">нейтрально</span></div>
+      </div>
+      <div class="rail">
+        <div class="card tight">
+          <div class="ct">🎯 Что поднимет бонус</div>
+          <div style="font-size:13.5px;line-height:1.6">Ты на <b><span id="kpiConv2">16</span>%</b> конверсии (тариф 2 000 ₸). Подними до <b>25%</b> — тариф станет <b>3 500 ₸</b>, и при тех же <span id="kpiVis"><b>34</b></span> встречах бонус вырастет <b>с 68 000 до 119 000 ₸</b>.<br><br>Рычаг: доводи квалифицированных клиентов до реального визита (подтверждай дату за день).<br><br><span style="color:var(--mut);font-weight:600">Успешных звонков за месяц: <b id="kpiCalls" style="color:var(--teal-d)">132</b> · тариф-диапазон <b id="kpiTier" style="color:var(--teal-d)">15–24%</b></span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== КОМАНДА ===== -->
+  <section class="screen" id="s-team">
+    <div class="h1">Команда</div>
+    <div class="sub">Командная премия: пары по 2 человека, топ-3 по итогам месяца (≥100 встреч на двоих)</div>
+    <div class="grid2">
+      <div class="card">
+        <div class="ct">🏆 Рейтинг пар · июнь</div>
+        <table>
+          <thead><tr><th>#</th><th>Пара</th><th>Встреч на двоих</th><th>Премия / чел</th></tr></thead>
+          <tbody>
+            <tr class="hl"><td>1</td><td>Динара К. + Айгуль Т.</td><td>118</td><td>35 000 ₸</td></tr>
+            <tr><td>2</td><td>Руслан М. + Санжар Б.</td><td>106</td><td>30 000 ₸</td></tr>
+            <tr><td>3</td><td>Мадина С. + Ерлан К.</td><td>101</td><td>25 000 ₸</td></tr>
+            <tr><td>—</td><td>Прочие пары</td><td>&lt;100</td><td>вне рейтинга</td></tr>
+          </tbody>
+        </table>
+        <div style="font-size:12px;color:var(--mut);font-weight:600;margin-top:12px;line-height:1.5">Учитываются только подтверждённые визиты. Доп-смысл — подтверждать встречи коллеги в его выходной.</div>
+      </div>
+      <div class="rail">
+        <div class="card tight">
+          <div class="ct">Твоя пара</div>
+          <div style="font-size:14px;font-weight:800;margin-bottom:4px">Динара + Айгуль — 1 место 🥇</div>
+          <div style="font-size:13px;color:var(--mut);font-weight:600;line-height:1.55">118 встреч на двоих. Премия <b style="color:var(--gold)">35 000 ₸</b> каждой сверх индивидуального бонуса.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card" style="margin-top:16px">
+      <div class="ct">🏆 Что делают топы <small id="benchSrc">привычки лучших vs команда · демо</small></div>
+      <div class="bench" id="benchRows"></div>
+      <div style="font-size:12px;color:var(--mut);font-weight:600;margin-top:12px;line-height:1.5">Топы — это не «талант», а привычки: быстрее перезванивают, не дают лидам остыть, делают больше успешных звонков. <b style="color:var(--teal-d)">Скопируй одну привычку</b> на этой неделе — и догонишь по результату.</div>
+    </div>
+  </section>
+
+  <!-- ===== ПРОГРЕСС / ИГРА ===== -->
+  <section class="screen" id="s-progress">
+    <div class="h1">Прогресс</div>
+    <div class="sub">Главное — <b>ты vs ты прошлого месяца</b>. Рейтинг вторичен, растём от своей прошлой планки.</div>
+
+    <div class="streak">
+      <span class="fire">🔥</span>
+      <div>
+        <div style="font-size:14.5px;font-weight:800">В темпе плана <b>12 дней подряд</b></div>
+        <div style="font-size:12px;color:var(--mut);font-weight:600">Не разрывай серию — сегодня осталось 2 показа</div>
+      </div>
+      <div class="dots" id="streakDots"></div>
+    </div>
+
+    <div class="grid2">
+      <div class="card">
+        <div class="ct">📈 Ты vs прошлый месяц <small>боевые метрики</small></div>
+        <div id="progRows"></div>
+      </div>
+      <div class="rail">
+        <div class="card tight" style="margin-bottom:14px">
+          <div class="ct">🪙 Коины</div>
+          <div class="coinhead"><span class="cc">480</span><span style="font-size:13px;color:var(--mut);font-weight:700">/ 600 до приза</span></div>
+          <div class="minibar" style="margin-top:10px"><i style="width:80%"></i></div>
+          <div style="font-size:12px;color:var(--mut);font-weight:600;margin-top:8px">До награды «доп. выходной» — <b style="color:var(--ink)">120 коинов</b></div>
+          <div class="coinways"><span class="cw">Показ +20</span><span class="cw">КЭВ +15</span><span class="cw">Дожатый клиент +50</span></div>
+          <div style="font-size:11.5px;color:var(--mut);font-weight:600;margin-top:8px;line-height:1.5">Коины — за результат (показы, дожим), не за число звонков.</div>
+        </div>
+        <div class="card tight">
+          <div class="ct">🎉 Празднуем</div>
+          <div class="celebrate">
+            <div class="ce">🎊</div>
+            <div class="cv">Сделка закрыта — ЖК Аура, 2-комн.</div>
+            <div class="cf">Третья сделка за месяц. Так держать!</div>
+          </div>
+          <button class="btn" style="width:100%;margin-top:12px;justify-content:center" onclick="celebrate()">🎈 Отметить закрытие</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="card skillcard" style="margin-top:16px">
+      <div class="ct">🎯 Точка роста недели <small>из авто-разбора твоих звонков</small></div>
+      <div class="sg">Закрытие на конкретную дату показа (КЭВ)</div>
+      <div class="sx">В <b>2 из 3</b> разобранных звонков не зафиксирована точная дата визита — а это твой главный рычаг конверсии. <b>Микро-действие:</b> в конце разговора называй день и время («давайте в четверг в 16:00»), а не «приходите посмотреть».</div>
+      <button class="btn ghost" style="margin-top:12px" onclick="toast('▶️ Урок 2 мин: как закрывать на конкретную дату показа')">▶️ Урок 2 минуты</button>
+    </div>
+  </section>
+
+  <div class="b24note">🔌 <b>Интеграция:</b> кабинет встраивается в Bitrix24 как приложение (REST API) — менеджер видит напарника, не выходя из CRM. Данные (лиды, встречи, конверсия, дисциплина, записи звонков) — из Bitrix24; оценка звонков — речевая аналитика поверх записей. <b>«Пока на Bitrix24»</b> — позже движок данных можно вынести, UX останется.</div>
+  <div class="demo">Демо · данные условные, имена вымышленные · механика — по Положению о премировании ТМ от 01.08.2025</div>
+</main>
+
+<div class="toast" id="toast"><span class="tk">✓</span><span id="toastMsg">Готово</span></div>
+
+<script src="academy.js"></script>
+<script>
+function go(t){
+  document.querySelectorAll('.screen').forEach(function(s){s.classList.remove('on');});
+  document.getElementById('s-'+t).classList.add('on');
+  document.querySelectorAll('.nav').forEach(function(n){n.classList.remove('on');});
+  document.getElementById('n-'+t).classList.add('on');
+  window.scrollTo(0,0);
+}
+
+/* ДЕНЬ — ранжированный список «сделай эти 5 действий сейчас» (скоринг 0–100 = приоритет) */
+var clients=[
+  {nm:'Руслан М.', jk:'Керуен', heat:'hot', ic:'🔥', prio:'now', pl:'СЕЙЧАС', score:92, why:'Заходил на сайт ЖК <b>3 раза за вчера</b> — горячий, лови пока думает', a:'Позвонить'},
+  {nm:'Ержан К.', jk:'Атмосфера', heat:'cool', ic:'🟢', prio:'now', pl:'ВИЗИТ СЕГОДНЯ', score:88, why:'<b>Визит сегодня 16:00</b> — подтверди за 2 часа, чтобы не сорвался', a:'Подтвердить визит'},
+  {nm:'Айгерим С.', jk:'Аура', heat:'hot', ic:'🔥', prio:'soon', pl:'ОСТЫВАЕТ', score:76, why:'Была на визите <b>5 дней назад</b> — тишина, дожать до брони', a:'Позвонить'},
+  {nm:'Данияр Т.', jk:'Аура', heat:'warm', ic:'🟠', prio:'soon', pl:'ОБЕЩАНИЕ', score:64, why:'Обещан <b>расчёт рассрочки</b> — не отправлен, держишь слово', a:'Отправить расчёт'},
+  {nm:'Гульнара А.', jk:'Атмосфера', heat:'warm', ic:'🟠', prio:'plan', pl:'ПЕРЕЗВОН', score:53, why:'<b>Недозвон ×2</b> утром — попробуй вечером, когда дома', a:'Позвонить'}
+];
+function renderCli(){
+  document.getElementById('cliList').innerHTML=clients.map(function(c,i){
+    var scc = c.score>=80?'var(--green-bg);color:var(--green)' : c.score>=60?'var(--amber-bg);color:var(--amber)' : 'var(--slate-bg);color:#5f6e7c';
+    return '<div class="cli '+c.heat+'"><div class="rk">'+(i+1)+'</div><div class="heat">'+c.ic+'</div>'+
+      '<div class="info"><div class="nm">'+c.nm+'<span class="jk">ЖК '+c.jk+'</span><span class="prio '+c.prio+'">'+c.pl+'</span>'+
+      '<span title="скоринг приоритета" style="font-size:10px;font-weight:800;border-radius:6px;padding:2px 7px;margin-left:7px;background:'+scc+'">★ '+c.score+'</span></div>'+
+      '<div class="why">'+c.why+'</div></div>'+
+      '<div class="act"><button class="btn" onclick="act(\''+c.a+'\',\''+c.nm+'\')">📞 '+c.a+'</button>'+
+      '<button class="btn ghost" onclick="act(\'Отложить\',\''+c.nm+'\')">⏰</button></div></div>';
+  }).join('');
+}
+function act(a,nm){ toast(a==='Отложить'?('Отложил «'+nm+'» на вечер'):('«'+a+'» по клиенту '+nm+' — пошло')); }
+
+/* ЗВОНКИ */
+var calls=[
+ {id:'c1', nm:'Айгерим С.', jk:'Аура', dur:'7:12', time:'11:40', lang:'ru', score:'4,3', sc:'a',
+  summary:'Выбирает 2-комнатную в Ауре <b>до 28 млн</b>, важны срок сдачи и школа во дворе. Согласилась на визит — но точную дату не зафиксировали.',
+  good:'Хорошо выявил бюджет и состав семьи, презентовал под «школа рядом».',
+  miss:'Не назвал точный срок сдачи; не закрыл на конкретную дату визита.',
+  next:'Перезвони сегодня, предложи визит в чт/пт и назови срок сдачи (4 кв 2026).',
+  checks:[['Приветствие',1],['Квалификация',1],['Выявление потребности',1],['Работа с возражением',0],['Завершение / визит',0]],
+  talk:64, q:6, mono:'1:40'},
+ {id:'c2', nm:'Руслан М.', jk:'Керуен', dur:'4:30', time:'10:15', lang:'ru', score:'4,6', sc:'g',
+  summary:'Инвестор, смотрит студии в Керуене под сдачу. Интересует рассрочка и ликвидность. Тёплый, но сравнивает с конкурентом.',
+  good:'Быстро вышел на задачу (инвестиция), назвал доходность аренды.',
+  miss:'Не отработал сравнение с конкурентом; следующий шаг размытый.',
+  next:'Отправь расчёт рассрочки + сравнение по цене за м², закрой на визит.',
+  checks:[['Приветствие',1],['Квалификация',1],['Выявление потребности',1],['Работа с возражением',0],['Завершение / визит',1]],
+  talk:58, q:4, mono:'1:05'},
+ {id:'c3', nm:'Ержан К.', jk:'Атмосфера', dur:'5:50', time:'09:30', lang:'kk'}
+];
+function renderCalls(){
+  document.getElementById('callList').innerHTML=calls.map(function(c){
+    if(c.lang==='kk'){
+      return '<button class="callrow" onclick="openCall(\''+c.id+'\')"><div class="sc k">🗣️</div>'+
+        '<div class="ci"><div class="cn">'+c.nm+'</div><div class="cm">ЖК '+c.jk+' · '+c.dur+' · казахский</div></div></button>';
+    }
+    return '<button class="callrow" id="row-'+c.id+'" onclick="openCall(\''+c.id+'\')"><div class="sc '+c.sc+'">'+c.score+'</div>'+
+      '<div class="ci"><div class="cn">'+c.nm+'</div><div class="cm">ЖК '+c.jk+' · '+c.dur+' · '+c.time+'</div></div></button>';
+  }).join('');
+}
+function openCall(id){
+  document.querySelectorAll('.callrow').forEach(function(r){r.classList.remove('on');});
+  var row=document.getElementById('row-'+id); if(row) row.classList.add('on');
+  var c=calls.find(function(x){return x.id===id;});
+  var d=document.getElementById('callDetail');
+  if(c.lang==='kk'){
+    d.innerHTML='<div class="ct">🗣️ '+c.nm+' · звонок на казахском</div>'+
+      '<div class="kkbox">Распознавание казахской (и смешанной рус/каз) речи пока ненадёжное. Показывать оценку на битой расшифровке — враньё.<br><br><b>Этот звонок слушает супервайзер вручную</b> и даёт обратную связь лично. Авто-разбор по казахским звонкам подключим, когда распознавание дозреет.</div>';
+    return;
+  }
+  d.innerHTML='<div class="ct">🎧 '+c.nm+' · '+c.dur+' <small>оценка ОКК '+c.score+' / 5</small></div>'+
+    '<div class="sm"><b>О чём говорили:</b> '+c.summary+'</div>'+
+    '<div class="fb good"><b>✅ Что получилось</b>'+c.good+'</div>'+
+    '<div class="fb miss"><b>⚠️ Что упустил</b>'+c.miss+'</div>'+
+    '<div class="fb next"><b>→ Что сделать дальше</b>'+c.next+'</div>'+
+    '<div class="lbl">Чек-лист ОКК (5 критериев)</div>'+
+    '<div class="checks">'+c.checks.map(function(k){return '<span class="chk '+(k[1]?'y':'n')+'">'+(k[1]?'✓':'✗')+' '+k[0]+'</span>';}).join('')+'</div>'+
+    '<div class="metrics"><div class="m"><div class="mv">'+c.talk+'%</div><div class="ml">доля речи (норма ≤55%)</div></div>'+
+    '<div class="m"><div class="mv">'+c.q+'</div><div class="ml">вопросов задал</div></div>'+
+    '<div class="m"><div class="mv">'+c.mono+'</div><div class="ml">длиннейший монолог</div></div></div>';
+}
+
+/* ДЕНЬГИ — реальная шкала Положения (Раздел 4) */
+function pick(btn,group){ document.querySelectorAll('#'+group+' button').forEach(function(b){b.classList.remove('on');}); btn.classList.add('on'); calcBonus(); }
+function fmt(n){ return Math.round(n).toLocaleString('ru-RU').replace(/,/g,' '); }
+function rate(c){ if(c>=51)return 5000; if(c>=40)return 4000; if(c>=25)return 3500; if(c>=15)return 2000; if(c>=11)return 1500; if(c>=5)return 1000; return 0; }
+function tierLabel(c){ if(c>=51)return '>50%'; if(c>=40)return '40–49%'; if(c>=25)return '25–39%'; if(c>=15)return '15–24%'; if(c>=11)return '11–14%'; if(c>=5)return '5–10%'; return '<5%'; }
+function tierIndex(c){ if(c>=51)return 0; if(c>=40)return 1; if(c>=25)return 2; if(c>=15)return 3; if(c>=11)return 4; if(c>=5)return 5; return 6; }
+function calcBonus(){
+  var conv=+document.getElementById('wConv').value, vis=+document.getElementById('wVis').value, sales=+document.getElementById('wSales').value;
+  var cls=+document.querySelector('#wClass button.on').dataset.v;
+  document.getElementById('wConvL').textContent=conv+'%';
+  document.getElementById('wVisL').textContent=vis;
+  var r=rate(conv);
+  document.getElementById('tierL').textContent = r>0 ? ('Ставка: '+fmt(r)+' ₸ за встречу (тариф '+tierLabel(conv)+')') : ('Конверсия <5% — бонус за встречи не начисляется');
+  var acc = (cls===10000) ? sales*10000 : (sales>=3 ? sales*5000 : 0);
+  var total=r*vis+acc;
+  document.getElementById('bonusV').textContent='≈ '+fmt(total)+' ₸';
+  document.getElementById('bonusF').textContent = fmt(r)+' ₸ × '+vis+' встреч'+(acc>0?(' + '+fmt(acc)+' за продажи'):'');
+  document.getElementById('salesL').textContent = (cls===10000) ? ('Продаж: '+sales+' · бизнес +10к за каждую') : ('Продаж: '+sales+' · комфорт +5к — с 3-й продажи'+(sales>=3?' (активно)':' (пока неактивно)'));
+  // highlight tier row in the scale table
+  var rows=document.querySelectorAll('#s-money tbody tr'); rows.forEach(function(tr){tr.classList.remove('hl');});
+  if(rows[tierIndex(conv)]) rows[tierIndex(conv)].classList.add('hl');
+}
+['wConv','wVis','wSales'].forEach(function(id){ document.getElementById(id).addEventListener('input',calcBonus); });
+
+var tT;
+function toast(m){ document.getElementById('toastMsg').textContent=m; var t=document.getElementById('toast'); t.classList.add('on'); clearTimeout(tT); tT=setTimeout(function(){t.classList.remove('on');},3000); }
+
+/* ПРОГРЕСС / ИГРА */
+var progress=[
+  {n:'Конверсия (встречи ÷ лиды)', sub:'твой тариф бонуса', now:'16%', d:'+3 п.п.', dir:'up'},
+  {n:'Проведено встреч', sub:'за месяц', now:'34', d:'+6', dir:'up'},
+  {n:'Содержательные разговоры', sub:'дозвон + квалификация', now:'64%', d:'+6 п.п.', dir:'up'},
+  {n:'Качество звонков (ОКК)', sub:'средняя по записям', now:'4,3', d:'+0,3', dir:'up'}
+];
+function renderProgress(){
+  document.getElementById('progRows').innerHTML=progress.map(function(p){
+    var cls=p.dir==='up'?'up':(p.dir==='dn'?'dn':'fl');
+    var arr=p.dir==='up'?'▲':(p.dir==='dn'?'▼':'■');
+    return '<div class="prow"><div class="pn">'+p.n+'<small>'+p.sub+'</small></div>'+
+      '<div class="pv">'+p.now+'</div><span class="delta '+cls+'">'+arr+' '+p.d+'</span></div>';
+  }).join('');
+  var dots=''; for(var i=0;i<14;i++){ dots+='<i class="'+(i<12?'':'off')+'"></i>'; }
+  document.getElementById('streakDots').innerHTML=dots;
+}
+function celebrate(){ toast('🎉 Закрытие отмечено — +50 коинов!'); }
+
+/* ТРЕНАЖЁР ВОЗРАЖЕНИЙ — банк по 4 шагам (Гребенюк → ATAMŪRA, уважительный тон) */
+var objections=[
+ {id:'price', ic:'💸', q:'«Дорого»', steps:[
+   {t:'Принять', say:'«Понимаю, бюджет — это важно. Давайте по-честному.»'},
+   {t:'Уточнить', say:'«Дорого по сравнению с чем — с другим ЖК или с вашим ориентиром по платежу?»'},
+   {t:'Локализовать', say:'«Если по цене и условиям договоримся — в остальном объект подходит?»'},
+   {t:'Вернуть к шагу', say:'«На встрече подберу 2–3 варианта под ваш платёж и рассчитаю рассрочку/ипотеку — увидите реальные цифры. Удобно в четверг в 16:00?»'}],
+   why:'«Цена» редко настоящий барьер — за ней прячется сравнение или неуверенность в платеже. Локализация отделяет реальное возражение от отговорки.'},
+ {id:'think', ic:'🤔', q:'«Я подумаю»', steps:[
+   {t:'Принять', say:'«Конечно, такое решение не принимают на бегу.»'},
+   {t:'Уточнить', say:'«Подскажите, какой именно вопрос хочется обдумать — цена, сроки или сам объект?»'},
+   {t:'Локализовать', say:'«Кроме этого, что-то ещё смущает?»'},
+   {t:'Вернуть к шагу', say:'«Давайте обдумаем вместе на показе — подготовлю расчёт и варианты, решение будет на фактах, а не на сомнениях. Получится в пятницу?»'}],
+   why:'«Подумаю» — это спрятанный конкретный вопрос. Вытащив его, вы возвращаете разговор к следующему шагу вместо тупика.'},
+ {id:'wa', ic:'📲', q:'«Пришлите на WhatsApp»', steps:[
+   {t:'Принять', say:'«Да, обязательно пришлю — чтобы было под рукой.»'},
+   {t:'Уточнить', say:'«Чтобы прислать именно нужное — что сейчас в приоритете: планировки, цена или условия рассрочки?»'},
+   {t:'Локализовать', say:'«Пришлю подборку. А чтобы не утонуть в файлах — давайте коротко покажу вживую то, что подойдёт?»'},
+   {t:'Вернуть к шагу', say:'«Зарезервирую вам время на показ и подготовлю расчёт — 30 минут и вся картина сразу. Завтра в 12:00 ок?»'}],
+   why:'Сброс «в WhatsApp» — вежливый уход. Соглашаемся, но не отдаём инициативу: материалы + конкретный следующий шаг, а не информационная свалка.'},
+ {id:'look', ic:'👀', q:'«Просто смотрю»', steps:[
+   {t:'Принять', say:'«Отлично, на старте выбора так и нужно — без спешки.»'},
+   {t:'Уточнить', say:'«Для себя выбираете или как инвестицию? И когда примерно хотели бы заехать?»'},
+   {t:'Локализовать', say:'«Понял. А если найдём идеальный вариант — рассматривали бы в этом году?»'},
+   {t:'Вернуть к шагу', say:'«Тогда не буду грузить — на показе сориентирую по рынку и покажу 2–3 варианта, чтобы было с чем сравнивать. Суббота удобна?»'}],
+   why:'«Просто смотрю» — обычно класс B/C по ABC. Квалифицируем мягко: узнаём срок и задачу, предлагаем необязывающий, но конкретный шаг.'},
+ {id:'consult', ic:'👫', q:'«Надо посоветоваться»', steps:[
+   {t:'Принять', say:'«Правильно — такое решение принимают вместе.»'},
+   {t:'Уточнить', say:'«С кем будете советоваться — и что для него/неё будет главным в выборе?»'},
+   {t:'Локализовать', say:'«А лично вам объект откликается?»'},
+   {t:'Вернуть к шагу', say:'«Давайте придёте на показ вдвоём — отвечу на вопросы сразу обоим, не придётся пересказывать. Когда удобно вам обоим?»'}],
+   why:'Перекладывание на третье лицо. Подключаем ЛПР к показу напрямую, чтобы смысл не терялся в пересказе.'},
+ {id:'compet', ic:'⚖️', q:'«У конкурента дешевле»', steps:[
+   {t:'Принять', say:'«Хорошо, что сравниваете — так и надо.»'},
+   {t:'Уточнить', say:'«С каким объектом сравниваете и что там по срокам сдачи и стадии стройки?»'},
+   {t:'Локализовать', say:'«Если по цене за м² и условиям выйдем сопоставимо — наш объект интереснее?»'},
+   {t:'Вернуть к шагу', say:'«На встрече разложу цену за м², сроки и что входит — часто «дешевле» оказывается про разное. Покажу честное сравнение. Чт в 17:00?»'}],
+   why:'Сравнение с конкурентом — сигнал интереса, не отказ. Переводим в честное сравнение ценности на показе, где у вас преимущество.'}
+];
+function renderObj(){
+  document.getElementById('objList').innerHTML=objections.map(function(o){
+    return '<button class="objchip" id="obj-'+o.id+'" onclick="openObj(\''+o.id+'\')"><span class="oq">'+o.ic+'</span>'+o.q+'<span class="of">→</span></button>';
+  }).join('');
+}
+function openObj(id){
+  document.querySelectorAll('.objchip').forEach(function(b){b.classList.remove('on');});
+  var b=document.getElementById('obj-'+id); if(b) b.classList.add('on');
+  var o=objections.find(function(x){return x.id===id;}); if(!o) return;
+  document.getElementById('objDetail').innerHTML=
+    '<div class="ct">'+o.ic+' Ответ на '+o.q+' <small>4 шага · уважительно</small></div>'+
+    o.steps.map(function(s,i){return '<div class="step"><div class="sn">'+(i+1)+'</div><div class="stxt"><b>'+s.t+'</b><span class="say">'+s.say+'</span></div></div>';}).join('')+
+    '<div class="whybox">💡 <b>Почему работает:</b> '+o.why+'</div>';
+}
+
+/* ЧТО ДЕЛАЮТ ТОПЫ — демо (перекрывается top_behaviors из коннектора) */
+var benchDemo={top_n:2, team_n:6, rows:[
+  {metric:'Успешные звонки', top:155, team:136, better:'higher', unit:''},
+  {metric:'Реальных разговоров (≥10с)', top:118, team:92, better:'higher', unit:''},
+  {metric:'Разговоров на 100 звонков', top:14, team:11, better:'higher', unit:'%'},
+  {metric:'Минут / реальный разговор', top:1.8, team:1.5, better:'higher', unit:' мин'},
+  {metric:'Скорость до 1-го звонка', top:11.5, team:20.5, better:'lower', unit:' мин'},
+  {metric:'Остывающих лидов', top:3.5, team:7.5, better:'lower', unit:''},
+  {metric:'Обработано лидов', top:196.5, team:192, better:'higher', unit:''}
+]};
+function fmtNum(n){ return (typeof n==='number') ? (Math.round(n*10)/10).toLocaleString('ru-RU') : '—'; }
+function renderBench(b){
+  if(!b||!Array.isArray(b.rows)) b=benchDemo;
+  document.getElementById('benchRows').innerHTML=b.rows.map(function(r){
+    var good = (typeof r.top==='number'&&typeof r.team==='number') ? ((r.better==='higher') ? (r.top>r.team) : (r.top<r.team)) : false;
+    var gapTxt='—';
+    if(good){ var diff = r.better==='higher' ? (r.top-r.team) : (r.team-r.top); gapTxt='лучше на '+fmtNum(diff)+(r.unit||''); }
+    return '<div class="br"><div class="bm">'+r.metric+'</div>'+
+      '<div class="bcell top"><div class="bv">'+fmtNum(r.top)+(r.unit||'')+'</div><div class="bl">топы</div></div>'+
+      '<div class="bcell team"><div class="bv">'+fmtNum(r.team)+(r.unit||'')+'</div><div class="bl">команда</div></div>'+
+      '<span class="gap'+(good?' good':'')+'">'+gapTxt+'</span></div>';
+  }).join('');
+}
+
+/* ВРЕМЯ ЗВОНКА — теплокарта (демо; интенсивность 0–4 = дозвон+согласие) */
+var heatDays=['Пн','Вт','Ср','Чт','Пт','Сб','Вс'];
+var heatRows=[['9–12',[2,3,3,3,3,1,0]],['12–15',[3,3,2,3,3,2,1]],['15–18',[2,2,2,3,3,2,1]],['18–21',[4,4,3,4,4,3,2]]];
+function renderHeat(){
+  var h='<div class="hh"></div>'+heatDays.map(function(d){return '<div class="hh">'+d+'</div>';}).join('');
+  heatRows.forEach(function(r){
+    h+='<div class="hr">'+r[0]+'</div>'+r[1].map(function(v){return '<div class="hc l'+v+'">'+(v>=4?'★':'')+'</div>';}).join('');
+  });
+  document.getElementById('heatGrid').innerHTML=h;
+}
+
+renderCli(); renderCalls(); openCall('c1'); calcBonus(); renderProgress(); renderObj(); openObj('price'); renderBench(benchDemo); renderHeat();
+
+/* ===== DATA-LAYER (additive, fallback-safe) =====
+   Тянет реальные метрики из коннектора companion_metrics.py (companion_metrics.json).
+   Любая ошибка / file:// / нет файла / плохой парс → демо-значения остаются КАК ЕСТЬ.
+   Персона мокапа = manager_id "M-01". Поля, которых нет в JSON, не трогаем. */
+var METRICS_URLS = ['companion_metrics.json','../integration/companion_metrics.json'];
+
+function setTxt(id, val){
+  try{ var el=document.getElementById(id); if(el && val!=null && val!=='') el.textContent=val; }catch(e){}
+}
+function applyMetrics(data){
+  try{
+    if(!data || !Array.isArray(data.managers)) return;
+    var live=false, fmt=function(n){ return (typeof n==='number') ? n.toLocaleString('ru-RU').replace(/,/g,' ') : '—'; };
+    // персона мокапа = manager_id "M-01" (если есть в данных — напр. в демо-JSON)
+    var m=data.managers.find(function(x){return x && x.manager_id==='M-01';});
+    if(m){
+      if(typeof m.conversion_pct==='number'){ var c=Math.round(m.conversion_pct); setTxt('kpiConv', c); setTxt('kpiConv2', c); }
+      if(typeof m.plan_pct==='number') setTxt('kpiPlan', m.plan_pct+'%');
+      if(typeof m.crm_discipline_pct==='number') setTxt('kpiCrm', m.crm_discipline_pct+'%');
+      if(typeof m.meetings_held==='number') setTxt('kpiVis', m.meetings_held);
+      if(typeof m.answered_calls==='number') setTxt('kpiCalls', m.answered_calls);
+      if(typeof m.conversation_rate==='number') setTxt('kpiConnect', m.conversation_rate+'%');
+      // speed-to-lead (Мой день): значение + цвет цели + заполнение шкалы (полнее = быстрее = лучше)
+      if(typeof m.speed_to_lead_min==='number'){
+        setTxt('sbVal', m.speed_to_lead_min+' мин');
+        var tgt=(data.speed_to_lead&&data.speed_to_lead.target_min)||15;
+        try{ var tag=document.getElementById('sbTag'); if(tag){ var ok=m.speed_to_lead_min<=tgt; tag.textContent=(ok?'в цели ≤':'цель ≤')+tgt+' мин'; tag.className='sb-tg '+(ok?'ok':'bad'); } }catch(e){}
+        try{ var mtr=document.getElementById('sbMeter'); if(mtr){ mtr.style.width=Math.max(8,Math.min(100,Math.round(tgt/m.speed_to_lead_min*100)))+'%'; } }catch(e){}
+      }
+      if(typeof m.cooling_leads==='number') setTxt('dayCooling', m.cooling_leads);
+      if(m.tier_band){ setTxt('kpiTier', m.tier_band);
+        try{ var tr=document.getElementById('tierRow'); if(tr){ var td=tr.querySelector('td'); if(td) td.textContent=m.tier_band; } }catch(e){} }
+      live=true;
+    }
+    // Live · департамент (наблюдение) — реальные агрегаты, без per-manager денег
+    if(data.department){
+      var dp=data.department;
+      setTxt('ldWorked', fmt(dp.processed_leads_worked));
+      setTxt('ldVisits', fmt(dp.visits_conducted_cat2_all_sources));
+      var calls=0; data.managers.forEach(function(x){ if(typeof x.answered_calls==='number') calls+=x.answered_calls; });
+      setTxt('ldCalls', fmt(calls));
+      if(data.period) setTxt('ldPeriod', (data.period.from||'') + ' .. ' + (data.period.to||''));
+      try{ document.getElementById('liveDept').style.display='block'; }catch(e){}
+      live=true;
+    }
+    // «Что делают топы» — реальный бенчмарк из коннектора (перекрывает демо)
+    if(data.top_behaviors && Array.isArray(data.top_behaviors.rows)){
+      try{ renderBench(data.top_behaviors); var bs=document.getElementById('benchSrc'); if(bs) bs.textContent='привычки лучших vs команда · live'; }catch(e){}
+      live=true;
+    }
+    // booking-rate команды из живой воронки (Взято→Записан)
+    if(data.funnel && data.funnel.rates && typeof data.funnel.rates.worked_to_booked==='number'){
+      setTxt('bkTeam', data.funnel.rates.worked_to_booked+'%'); live=true;
+    }
+    if(live){ try{ var b=document.getElementById('srcBadge'); if(b){ b.textContent='данные: live'; b.classList.add('live'); } }catch(e){} }
+  }catch(e){ /* фолбэк: ничего не меняем */ }
+}
+function loadMetrics(i){
+  i = i || 0;
+  if(i>=METRICS_URLS.length) return; // все источники недоступны → демо как есть
+  try{
+    fetch(METRICS_URLS[i], {cache:'no-store'})
+      .then(function(r){ if(!r || !r.ok) throw new Error('http'); return r.json(); })
+      .then(function(json){ applyMetrics(json); })
+      .catch(function(){ loadMetrics(i+1); });
+  }catch(e){ loadMetrics(i+1); }
+}
+try{ loadMetrics(0); }catch(e){}
+</script>
+<script>
+/* ===== Интеграция Академии: общий кошелёк коинов + deep-link ===== */
+(function(){
+  if(!window.Academy) return;
+  var WORK_BASE = 480;   // рабочие коины кокпита (демо: показы/дожим)
+  var GOAL = 600;        // порог до приза
+  function refresh(){
+    var s; try{ s = Academy.snapshot(); }catch(e){ return; }
+    var total = WORK_BASE + s.coins;
+    var w = document.getElementById('walletCoins'); if(w) w.textContent = total;
+    var p = document.getElementById('acadPill'); if(p) p.textContent = '+' + s.coins;
+    var cc = document.querySelector('#s-progress .coinhead .cc'); if(cc) cc.textContent = total;
+    var bar = document.querySelector('#s-progress .minibar i'); if(bar) bar.style.width = Math.min(100, Math.round(total/GOAL*100)) + '%';
+    var rem = document.querySelector('#s-progress .card.tight .minibar + div b'); if(rem) rem.textContent = Math.max(0, GOAL-total) + ' коинов';
+    var card = document.querySelector('#s-progress .coinhead');
+    if(card && !document.getElementById('acadLine')){
+      var d = document.createElement('div'); d.id = 'acadLine';
+      d.style.cssText = 'font-size:12px;color:var(--mut);font-weight:700;margin-top:10px;line-height:1.5;border-top:1px solid var(--line);padding-top:10px';
+      card.parentNode.appendChild(d);
+    }
+    var al = document.getElementById('acadLine');
+    if(al) al.innerHTML = '🎓 Из них Академия: <b style="color:var(--navy)">+' + s.coins + ' 🪙</b> · грейд ' + s.rank.current.name + ' · готовность ' + s.readiness.pct + '% · <a href="academy.html" style="color:var(--teal-d);font-weight:800">открыть →</a>';
+  }
+  // награда, если вернулись с урока
+  try{ var r = sessionStorage.getItem('academy_award'); if(r){ sessionStorage.removeItem('academy_award'); if(window.toast) setTimeout(function(){ toast(r); }, 500); } }catch(e){}
+  // deep-link: workspace.html#calls → открыть экран
+  try{ var h = (location.hash||'').replace('#',''); if(h && document.getElementById('s-'+h) && window.go){ go(h); } }catch(e){}
+  refresh();
+  window.addEventListener('focus', refresh);
+})();
+</script>
+</body>
+</html>
